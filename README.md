@@ -30,7 +30,20 @@ add_ace group.admin tigoanticheat.commands allow
 Console is always allowed to execute `/anticheat` command.
 Use `/anticheat` or `/anticheat help` to show all available commands.
 
-### 
+### Bypass
+If you have players like Admin's who should never be banned, you should add the following to their group
+```cfg
+add_ace group.admin tigoanticheat.bypass allow
+```
+
+### Server.cfg
+A number of variables must be added in your `server.cfg`
+| Code | Values | Type |
+|------|--------|------|
+| `set tigoanticheat.godmode true` | `true` Check and ban players if godmode has been detected | `boolean` |
+| `set tigoanticheat.updateidentifiers true` | `true` If a player is banned and joined with new identifiers, those identifiers will banned immediately. | `boolean` |
+| `set tigoanticheat.bypassenabled false` | `true` All players with `tigoanticheat.bypass` will not be checked or banned. | `boolean` |
+| `set tigoanticheat.webhook "https://discordapp.com/api/webhooks/.../..."` | Webhook url from discord to log bans there | `string` |
 
 ### License
 MIT

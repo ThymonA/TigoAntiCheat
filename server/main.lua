@@ -71,19 +71,19 @@ end
 TAC.PlayerConnecting = function(playerId, setKickReason)
     if (not TAC.BanListLoaded) then
         setKickReason(_('banlist_not_loaded_kick_player'))
-
         CancelEvent()
         return
     end
 
     local identifiers = GetPlayerIdentifiers(playerId)
 
-    for _, playerBan in pairs(TAC.PlayerBans) do
+    for __, playerBan in pairs(TAC.PlayerBans) do
         if (TAC.TableContainsItem(identifiers, playerBan.identifiers, true)) then
             TAC.CheckForNewIdentifiers(playerId, identifiers, playerBan.name, playerBan.reason)
 
-            setKickReason(_('user_ban_reason', playerBan.name))
+            print(playerBan.name)
 
+            setKickReason(_('user_ban_reason', playerBan.name))
             CancelEvent()
             return
         end

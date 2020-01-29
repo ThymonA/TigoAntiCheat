@@ -1,6 +1,6 @@
 Locales['en'] = {
     -- Name
-    ['name'] = 'TigoAntiCheat',
+    ['name'] = '𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁',
 
     -- General
     ['unkown'] = 'Unkown',
@@ -10,12 +10,12 @@ Locales['en'] = {
     ['callback_not_found'] = '[%s] has not been found',
 
     -- Ban strings
-    ['user_ban_reason'] = '[TigoAntiCheat] You\'ve been caught by our anticheat ( Username: %s )',
+    ['user_ban_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | You have been banned from this server ( 𝗨𝘀𝗲𝗿𝗻𝗮𝗺𝗲: %s )',
     ['banlist_ban_reason'] = 'Player has tried to trigger \'%s\' event',
-    ['banlist_not_loaded_kick_player'] = '[TigoAntiCheat] Our bans hasn\'t loaded, you\'ll have to wait a couple of seconds. Try again later!',
+    ['banlist_not_loaded_kick_player'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Our bans hasn\'t loaded, you\'ll have to wait a couple of seconds. Try again later!',
     ['new_identifiers_found'] = '%s, new identifier(s) found - original ban %s',
-    ['failed_to_load_banlist'] = '[TigoAntiCheat] Failed to load Banlist!',
-    ['failed_to_load_check'] = '[TigoAntiCheat] Please check this error soon, Bans *will not* work!',
+    ['failed_to_load_banlist'] = '[𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁] Failed to load Banlist!',
+    ['failed_to_load_check'] = '[𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁] Please check this error soon, Bans *will not* work!',
 
     -- Commands
     ['command'] = 'Command',

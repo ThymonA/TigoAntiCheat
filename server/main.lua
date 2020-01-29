@@ -81,8 +81,6 @@ TAC.PlayerConnecting = function(playerId, setKickReason)
         if (TAC.TableContainsItem(identifiers, playerBan.identifiers, true)) then
             TAC.CheckForNewIdentifiers(playerId, identifiers, playerBan.name, playerBan.reason)
 
-            print(playerBan.name)
-
             setKickReason(_('user_ban_reason', playerBan.name))
             CancelEvent()
             return

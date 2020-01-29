@@ -22,7 +22,13 @@ Change e.g. `esx_drugs` to `tac_drugs` (only `EventHandlers`, `ClientEvents` and
 
 [![Edit ESX](https://i.imgur.com/JwMIDdN.png)](https://i.imgur.com/JwMIDdN.png)
 
-
+### Enable `/anticheat` for players
+If you want `/anticheat` command available for example your Admin's than you can add this line to your `server.cfg`
+```cfg
+add_ace group.admin anticheat.commands allow
+```
+Console is always allowed to execute `/anticheat` command.
+Use `/anticheat` or `/anticheat help` to show all available commands.
 
 ### 
 

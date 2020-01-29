@@ -120,7 +120,7 @@ end
 
 Citizen.CreateThread(function()
     while not TAC.BanListLoaded do
-        TAC.BanListLoaded()
+        TAC.LoadBanList()
 
         Citizen.Wait(10)
     end

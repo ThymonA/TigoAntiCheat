@@ -30,3 +30,11 @@ TAC.TableContainsItem = function (items, table, ignoreCase)
 
     return false
 end
+
+TAC.PrintToUser = function(message)
+    print(Ansicolors(message))
+end
+
+TAC.PrintToConsole = function(message)
+    print(AnsiConsole(message))
+end

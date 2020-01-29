@@ -18,6 +18,7 @@ server_scripts {
     'server/functions.lua',
 
     'shared/functions.lua',
+    'shared/ansicolors.lua',
 
     'server/main.lua',
 
@@ -37,6 +38,7 @@ client_scripts {
     'client/functions.lua',
 
     'shared/functions.lua',
+    'shared/ansicolors.lua',
 }
 
 exports {

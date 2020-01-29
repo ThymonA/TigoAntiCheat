@@ -25,6 +25,14 @@ TAC.LoadBanList = function()
     TAC.BanListLoaded = true
 end
 
+TAC.LoadConfig = function()
+    TAC.Config = {
+        GodMode = TAC.GetConfigVariable('tigoanticheat.godmode', 'boolean')
+    }
+
+    TAC.ConfigLoaded = true
+end
+
 TAC.AddBlacklist = function(data)
     local banlistContent = LoadResourceFile(GetCurrentResourceName(), 'data/banlist.json')
 
@@ -59,6 +67,36 @@ TAC.BanPlayerByEvent = function(playerId, event)
         local playerBan = {
             name = GetPlayerName(playerId) or _('unkown'),
             reason = _('banlist_ban_reason', event),
+            identifiers = bannedIdentifiers
+        }
+
+        TAC.AddBlacklist(playerBan)
+
+        DropPlayer(playerId, _('user_ban_reason', playerBan.name))
+    end
+end
+
+TAC.BanPlayerWithNoReason = function(playerId)
+    if (playerId ~= nil and playerId > 0) then
+        local bannedIdentifiers = GetPlayerIdentifiers(playerId)
+        local playerBan = {
+            name = GetPlayerName(playerId) or _('unkown'),
+            reason = '',
+            identifiers = bannedIdentifiers
+        }
+
+        TAC.AddBlacklist(playerBan)
+
+        DropPlayer(playerId, _('user_ban_reason', playerBan.name))
+    end
+end
+
+TAC.BanPlayerWithReason = function(playerId, reason)
+    if (playerId ~= nil and playerId > 0) then
+        local bannedIdentifiers = GetPlayerIdentifiers(playerId)
+        local playerBan = {
+            name = GetPlayerName(playerId) or _('unkown'),
+            reason = reason,
             identifiers = bannedIdentifiers
         }
 
@@ -121,5 +159,31 @@ Citizen.CreateThread(function()
         TAC.LoadBanList()
 
         Citizen.Wait(10)
+    end
+
+    while not TAC.ConfigLoaded do
+        TAC.LoadConfig()
+
+        Citizen.Wait(10)
+    end
+end)
+
+TAC.RegisterServerCallback('tigoanticheat:getServerConfig', function(source, cb)
+    while not TAC.ConfigLoaded do
+        Citizen.Wait(10)
+    end
+
+    cb(TAC.Config)
+end)
+
+TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type)
+    local _type = type or 'default'
+
+    _type = string.lower(_type)
+
+    if (_type == 'default') then
+        TAC.BanPlayerWithNoReason(source)
+    elseif (_type == 'godmode') then
+        TAC.BanPlayerWithReason(source, _U('ban_type_godmode'))
     end
 end)

@@ -74,7 +74,7 @@ TAC.PlayerAllowed = function(playerId)
         return isConsole
     end
 
-    if (IsPlayerAceAllowed(playerId, 'anticheat.commands')) then
+    if (IsPlayerAceAllowed(playerId, 'tigoanticheat.commands')) then
         return true
     end
 

@@ -25,7 +25,7 @@ Change e.g. `esx_drugs` to `tac_drugs` (only `EventHandlers`, `ClientEvents` and
 ### Enable `/anticheat` for players
 If you want `/anticheat` command available for example your Admin's than you can add this line to your `server.cfg`
 ```cfg
-add_ace group.admin anticheat.commands allow
+add_ace group.admin tigoanticheat.commands allow
 ```
 Console is always allowed to execute `/anticheat` command.
 Use `/anticheat` or `/anticheat help` to show all available commands.

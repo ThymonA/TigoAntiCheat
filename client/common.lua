@@ -1,4 +1,4 @@
-AddEventHandler('tac:getSharedObject', function(cb)
+AddEventHandler('tigoanticheat:getSharedObject', function(cb)
     cb(TAC)
 end)
 

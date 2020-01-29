@@ -39,7 +39,7 @@ add_ace group.admin tigoanticheat.bypass allow
 ### Server.cfg
 A number of variables must be added in your `server.cfg`
 | Code | Values | Type |
-|------|--------|------|
+|:---|:---|:---:|
 | `set tigoanticheat.godmode true` | `true` Check and ban players if godmode has been detected | `boolean` |
 | `set tigoanticheat.updateidentifiers true` | `true` If a player is banned and joined with new identifiers, those identifiers will banned immediately. | `boolean` |
 | `set tigoanticheat.bypassenabled false` | `true` All players with `tigoanticheat.bypass` will not be checked or banned. | `boolean` |

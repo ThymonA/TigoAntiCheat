@@ -80,3 +80,21 @@ TAC.PlayerAllowed = function(playerId)
 
     return false
 end
+
+TAC.IgnorePlayer = function(playerId)
+    local isConsole = TAC.IsConsole(playerId)
+
+    if (isConsole) then
+        return isConsole
+    end
+
+    if (not TAC.Config.BypassEnabled) then
+        return false
+    end
+
+    if (IsPlayerAceAllowed(playerId, 'tigoanticheat.bypass')) then
+        return true
+    end
+
+    return false
+end

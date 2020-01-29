@@ -6,6 +6,7 @@ TAC.PlayerBans          = {}
 TAC.BanListLoaded       = false
 TAC.Config              = {}
 TAC.ConfigLoaded        = false
+TAC.Version             = '0.0.0'
 
 AddEventHandler('tigoanticheat:getSharedObject', function(cb)
     cb(TAC)
@@ -36,7 +37,7 @@ end)
 TAC.GetConfigVariable = function(name, _type)
     _type = _type or 'string'
 
-    local value = GetConvar(name) or ''
+    local value = GetConvar(name, '') or ''
 
     if (string.lower(_type) == 'string') then
         return tostring(value)

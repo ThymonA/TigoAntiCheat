@@ -19,6 +19,12 @@ TAC.TriggerServerEvent = function(name, ...)
     TriggerServerEvent('tigoanticheat:triggerServerEvent', name, ...)
 end
 
+TAC.ShowNotification = function(msg)
+    AddTextEntry('tacNotification', msg)
+	SetNotificationTextEntry('tacNotification')
+	DrawNotification(false, true)
+end
+
 RegisterNetEvent('tigoanticheat:serverCallback')
 AddEventHandler('tigoanticheat:serverCallback', function(requestId, ...)
 	if (TAC.ServerCallbacks ~= nil and TAC.ServerCallbacks[requestId] ~= nil) then
@@ -26,9 +32,3 @@ AddEventHandler('tigoanticheat:serverCallback', function(requestId, ...)
         TAC.ServerCallbacks[requestId] = nil
 	end
 end)
-
-TAC.ShowNotification = function(msg)
-    AddTextEntry('tacNotification', msg)
-	SetNotificationTextEntry('tacNotification')
-	DrawNotification(false, true)
-end

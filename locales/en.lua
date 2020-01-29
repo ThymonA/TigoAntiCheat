@@ -28,5 +28,9 @@ Locales['en'] = {
     ['total_bans'] = 'We currently have %s ban(s) in our list',
     ['command_not_found'] = 'does not exist',
     ['banlist_reloaded'] = 'All bans in anticheat has been reloaded from banlist.json',
-    ['not_allowed'] = 'You don\'t have permission to execute %s'
+    ['not_allowed'] = 'You don\'t have permission to execute %s',
+
+    -- Discord
+    ['discord_title'] = '[TigoAntiCheat] Has banned a player',
+    ['discord_description'] = '**Name:** %s\n **Reason:** %s\n **Identifiers:**\n %s'
 }

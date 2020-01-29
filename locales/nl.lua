@@ -28,5 +28,9 @@ Locales['nl'] = {
     ['total_bans'] = 'We hebben momenteel %s ban(s) in onze lijst staan',
     ['command_not_found'] = 'bestaat niet',
     ['banlist_reloaded'] = 'Alle bans in anticheat is herladen van banlist.json.',
-    ['not_allowed'] = 'Je hebt geen toestemming om %s uit te voeren.'
+    ['not_allowed'] = 'Je hebt geen toestemming om %s uit te voeren.',
+
+    -- Discord
+    ['discord_title'] = '[TigoAntiCheat] Heeft een speler verbannen',
+    ['discord_description'] = '**Naam:** %s\n **Reden:** %s\n **Identifiers:**\n %s'
 }

@@ -26,11 +26,26 @@ TAC.LoadBanList = function()
 end
 
 TAC.LoadConfig = function()
+    TAC.LoadVersion()
+
     TAC.Config = {
-        GodMode = TAC.GetConfigVariable('tigoanticheat.godmode', 'boolean')
+        UpdateIdentifiers   = TAC.GetConfigVariable('tigoanticheat.updateidentifiers', 'boolean'),
+        GodMode             = TAC.GetConfigVariable('tigoanticheat.godmode', 'boolean'),
+        Webhook             = TAC.GetConfigVariable('tigoanticheat.webhook', 'string'),
+        BypassEnabled       = TAC.GetConfigVariable('tigoanticheat.bypassenabled', 'boolean'),
     }
 
     TAC.ConfigLoaded = true
+end
+
+TAC.LoadVersion = function()
+    local currentVersion = LoadResourceFile(GetCurrentResourceName(), 'version')
+
+    if (not currentVersion) then
+        TAC.Version = '0.0.0'
+    else
+        TAC.Version = currentVersion
+    end
 end
 
 TAC.AddBlacklist = function(data)
@@ -58,11 +73,13 @@ TAC.AddBlacklist = function(data)
 
     TAC.PlayerBans = banlist
 
+    TAC.LogBanToDiscord(data)
+
     SaveResourceFile(GetCurrentResourceName(), 'data/banlist.json', json.encode(banlist, { indent = true }), -1)
 end
 
 TAC.BanPlayerByEvent = function(playerId, event)
-    if (playerId ~= nil and playerId > 0) then
+    if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
         local playerBan = {
             name = GetPlayerName(playerId) or _('unkown'),
@@ -77,7 +94,7 @@ TAC.BanPlayerByEvent = function(playerId, event)
 end
 
 TAC.BanPlayerWithNoReason = function(playerId)
-    if (playerId ~= nil and playerId > 0) then
+    if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
         local playerBan = {
             name = GetPlayerName(playerId) or _('unkown'),
@@ -92,7 +109,7 @@ TAC.BanPlayerWithNoReason = function(playerId)
 end
 
 TAC.BanPlayerWithReason = function(playerId, reason)
-    if (playerId ~= nil and playerId > 0) then
+    if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
         local playerBan = {
             name = GetPlayerName(playerId) or _('unkown'),
@@ -113,11 +130,17 @@ TAC.PlayerConnecting = function(playerId, setKickReason)
         return
     end
 
+    if (TAC.IgnorePlayer(playerId)) then
+        return
+    end
+
     local identifiers = GetPlayerIdentifiers(playerId)
 
     for __, playerBan in pairs(TAC.PlayerBans) do
         if (TAC.TableContainsItem(identifiers, playerBan.identifiers, true)) then
-            TAC.CheckForNewIdentifiers(playerId, identifiers, playerBan.name, playerBan.reason)
+            if (TAC.Config.UpdateIdentifiers) then
+                TAC.CheckForNewIdentifiers(playerId, identifiers, playerBan.name, playerBan.reason)
+            end
 
             setKickReason(_('user_ban_reason', playerBan.name))
             CancelEvent()
@@ -154,6 +177,35 @@ TAC.CheckForNewIdentifiers = function(playerId, identifiers, name, reason)
     end
 end
 
+TAC.LogBanToDiscord = function (data)
+    if (TAC.Config.Webhook == nil or
+        TAC.Config.Webhook == '') then
+        return
+    end
+
+    local identifierString = ''
+
+    for _, identifier in pairs(data.identifiers or {}) do
+        identifierString = identifierString .. identifier
+
+        if (_ ~= #data.identifiers) then
+            identifierString = identifierString .. '\n '
+        end
+    end
+
+    local discordInfo = {
+        ["color"] = "15158332",
+        ["type"] = "rich",
+        ["title"] = _('discord_title'),
+        ["description"] = _('discord_description', data.name, data.reason, identifierString),
+        ["footer"] = {
+            ["text"] = 'TigoAntiCheat | ' .. TAC.Version
+        }
+    }
+
+    PerformHttpRequest(TAC.Config.Webhook, function(err, text, headers) end, 'POST', json.encode({ username = 'TigoAntiCheat', embeds = { discordInfo } }), { ['Content-Type'] = 'application/json' })
+end
+
 Citizen.CreateThread(function()
     while not TAC.BanListLoaded do
         TAC.LoadBanList()
@@ -171,6 +223,10 @@ end)
 TAC.RegisterServerCallback('tigoanticheat:getServerConfig', function(source, cb)
     while not TAC.ConfigLoaded do
         Citizen.Wait(10)
+    end
+
+    if ((TAC.Config.GodMode or false) and TAC.IgnorePlayer(source)) then
+        TAC.Config.GodMode = false
     end
 
     cb(TAC.Config)

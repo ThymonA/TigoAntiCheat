@@ -1,0 +1,18 @@
+{
+    "Lua.diagnostics.globals": [
+        "AddEventHandler",
+        "getSharedObject",
+        "TriggerServerEvent",
+        "json",
+        "Citizen",
+        "SaveResourceFile",
+        "GetCurrentResourceName",
+        "GetPlayerIdentifiers",
+        "GetPlayerName",
+        "CancelEvent",
+        "DropPlayer",
+        "LoadResourceFile",
+        "RegisterServerEvent",
+        "source"
+    ]
+}

@@ -21,7 +21,9 @@ server_scripts {
 
     'server/main.lua',
 
-    'server/anticheat/esx_fake_events.lua'
+    'server/anticheat/esx_fake_events.lua',
+
+    'server/commands.lua'
 }
 
 client_scripts {

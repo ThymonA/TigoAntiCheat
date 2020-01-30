@@ -2,18 +2,34 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1000)
 
-        local config = TAC.Config or {}
+        local config = Config or {}
         local blacklistedCommands = config.BlacklistedCommands or {}
         local registeredCommands = GetRegisteredCommands()
 
-        TAC.ShowNotification(tostring(#blacklistedCommands))
-
-        for _, registeredCommand in pairs(registeredCommands) do
-            for _, blacklistedCommand in pairs(blacklistedCommands) do
-                if (string.lower(registeredCommand) == string.lower(blacklistedCommand)) then
-                    TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'injection')
+        TAC.TriggerServerCallback('tigoanticheat:getRegisteredCommands', function(_registeredCommands)
+            for _, command in ipairs(registeredCommands) do
+                for _, blacklistedCommand in pairs(blacklistedCommands) do
+                    if (string.lower(command.name) == string.lower(blacklistedCommand) or
+                        string.lower(command.name) == string.lower('+' .. blacklistedCommand) or
+                        string.lower(command.name) == string.lower('_' .. blacklistedCommand) or
+                        string.lower(command.name) == string.lower('-' .. blacklistedCommand) or
+                        string.lower(command.name) == string.lower('/' .. blacklistedCommand)) then
+                        TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'injection')
+                    end
                 end
             end
-        end
+
+            for _, command in ipairs(_registeredCommands) do
+                for _, blacklistedCommand in pairs(blacklistedCommands) do
+                    if (string.lower(command.name) == string.lower(blacklistedCommand) or
+                        string.lower(command.name) == string.lower('+' .. blacklistedCommand) or
+                        string.lower(command.name) == string.lower('_' .. blacklistedCommand) or
+                        string.lower(command.name) == string.lower('-' .. blacklistedCommand) or
+                        string.lower(command.name) == string.lower('/' .. blacklistedCommand)) then
+                        TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'injection')
+                    end
+                end
+            end
+        end)
     end
 end)

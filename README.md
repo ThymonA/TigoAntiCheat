@@ -3,9 +3,9 @@
 [![Thymon](https://i.imgur.com/3EquTNl.jpg)](https://www.tigodev.com)
 
 [![Developer](https://img.shields.io/badge/Developer-TigoDevelopment-darkgreen)](https://github.com/TigoDevelopment)
-[![Discord](https://img.shields.io/badge/Discord-Tigo%239999-purple)](https://discordapp.com/users/636509961375055882)
-[![Version](https://img.shields.io/badge/Version-0.0.1-darkgreen)](https://github.com/TigoDevelopment/TigoAntiCheat/blob/master/version)
-[![Version](https://img.shields.io/badge/License-MIT-darkgreen)](https://github.com/TigoDevelopment/TigoAntiCheat/blob/master/LICENSE)
+[![Discord](https://img.shields.io/badge/Discord-Tigo%239999-purple)](https://github.com/TigoDevelopment/FiveM-AntiCheat)
+[![Version](https://img.shields.io/badge/Version-0.0.1-darkgreen)](https://github.com/TigoDevelopment/FiveM-AntiCheat)
+[![Version](https://img.shields.io/badge/License-MIT-darkgreen)](https://github.com/TigoDevelopment/FiveM-AntiCheat)
 
 ### About TigoAntiCheat
 

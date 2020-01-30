@@ -232,6 +232,10 @@ TAC.RegisterServerCallback('tigoanticheat:getServerConfig', function(source, cb)
     cb(TAC.Config)
 end)
 
+TAC.RegisterServerCallback('tigoanticheat:getRegisteredCommands', function(source, cb)
+    cb(GetRegisteredCommands())
+end)
+
 TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type, item)
     local _type = type or 'default'
     local _item = item or 'none'

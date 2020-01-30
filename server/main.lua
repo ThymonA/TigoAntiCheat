@@ -232,8 +232,9 @@ TAC.RegisterServerCallback('tigoanticheat:getServerConfig', function(source, cb)
     cb(TAC.Config)
 end)
 
-TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type)
+TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type, item)
     local _type = type or 'default'
+    local _item = item or 'none'
 
     _type = string.lower(_type)
 
@@ -241,5 +242,21 @@ TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type)
         TAC.BanPlayerWithNoReason(source)
     elseif (_type == 'godmode') then
         TAC.BanPlayerWithReason(source, _U('ban_type_godmode'))
+    elseif (_type == 'injection') then
+        TAC.BanPlayerWithReason(source, _U('ban_type_injection'))
+    elseif (_type == 'blacklisted_weapon') then
+        TAC.BanPlayerWithReason(source, _U('ban_type_blacklisted_weapon', _item))
+    elseif (_type == 'blacklisted_key') then
+        TAC.BanPlayerWithReason(source, _U('ban_type_blacklisted_key', _item))
+    elseif (_type == 'hash') then
+        TAC.BanPlayerWithReason(source, _U('ban_type_hash'))
     end
+end)
+
+TAC.RegisterServerEvent('tigoanticheat:playerResourceStarted', function(source)
+    if (TAC.StartedPlayers ~= nil and TAC.StartedPlayers[tostring(source)] ~= nil and TAC.StartedPlayers[tostring(source)]) then
+        TAC.BanPlayerWithReason(source, _U('lua_executor_found'))
+    end
+
+    TAC.StartedPlayers[tostring(source)] = true
 end)

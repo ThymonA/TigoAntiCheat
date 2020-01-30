@@ -45,7 +45,10 @@ client_scripts {
     'client/main.lua',
 
     'client/anticheat/godmode.lua',
-    'client/anticheat/teleport.lua'
+    'client/anticheat/lynx_inject.lua',
+    'client/anticheat/weapons.lua',
+    'client/anticheat/disabledkeys.lua',
+    'client/anticheat/vehicle.lua'
 }
 
 exports {

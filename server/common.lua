@@ -1,5 +1,5 @@
 TAC                     = {}
-TAC.Players             = {}
+TAC.StartedPlayers      = {}
 TAC.ServerCallbacks     = {}
 TAC.ServerEvents        = {}
 TAC.PlayerBans          = {}

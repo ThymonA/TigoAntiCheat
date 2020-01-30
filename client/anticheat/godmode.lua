@@ -14,6 +14,10 @@ Citizen.CreateThread(function()
             local playerPed     = GetPlayerPed(-1)
             local health        = GetEntityHealth(playerPed)
 
+            if (health > 200) then
+                TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'godmode')
+            end
+
             SetPlayerHealthRechargeMultiplier(playerId, 0.0)
             SetEntityHealth(playerPed, health - 2)
 

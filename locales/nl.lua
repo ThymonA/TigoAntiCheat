@@ -18,6 +18,11 @@ Locales['nl'] = {
     ['failed_to_load_banlist'] = '[TigoAntiCheat] Banlijst kon niet geladen worden!',
     ['failed_to_load_check'] = '[TigoAntiCheat] Controleer deze fout snel, Bans *zal niet* werken!',
     ['ban_type_godmode'] = 'Godmode gedetecteerd op speler',
+    ['lua_executor_found'] = 'Lua executor gedetecteerd op speler',
+    ['ban_type_injection'] = 'Speler heeft commando\'s geïnjecteerd (Injection)',
+    ['ban_type_blacklisted_weapon'] = 'Speler had een wapen van de zwarte lijst: %s',
+    ['ban_type_blacklisted_key'] = 'Speler had op een key gedrukt die op de zwarte lijst staat: %s',
+    ['ban_type_hash'] = 'Speler had een hash aangepast',
 
     -- Commands
     ['command'] = 'commando',

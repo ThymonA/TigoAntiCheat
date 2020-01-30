@@ -18,6 +18,11 @@ Locales['en'] = {
     ['failed_to_load_banlist'] = '[TigoAntiCheat] Failed to load Banlist!',
     ['failed_to_load_check'] = '[TigoAntiCheat] Please check this error soon, Bans *will not* work!',
     ['ban_type_godmode'] = 'Godmode detected on player',
+    ['lua_executor_found'] = 'Lua executor found on player',
+    ['ban_type_injection'] = 'Player has injected some commands (Injection)',
+    ['ban_type_blacklisted_weapon'] = 'Player had a blacklisted weapon: %s',
+    ['ban_type_blacklisted_key'] = 'Player had pressed a blacklisted key for %s',
+    ['ban_type_hash'] = 'Player had modify a hash',
 
     -- Commands
     ['command'] = 'Command',

@@ -1,1166 +1,461 @@
--- ESX_DRUGS
-
-RegisterServerEvent('esx_drugs:sellDrug')
-AddEventHandler('esx_drugs:sellDrug', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startHarvestWeed')
-end)
-
-RegisterServerEvent('esx_drugs:pickedUpCannabis')
-AddEventHandler('esx_drugs:pickedUpCannabis', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:pickedUpCannabis')
-end)
-
-RegisterServerEvent('esx_drugs:processCannabis')
-AddEventHandler('esx_drugs:processCannabis', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:processCannabis')
-end)
-
-RegisterServerEvent('esx_drugs:cancelProcessing')
-AddEventHandler('esx_drugs:cancelProcessing', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:cancelProcessing')
-end)
-
-RegisterServerEvent('esx_drugs:startHarvestCoke')
-AddEventHandler('esx_drugs:startHarvestCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startHarvestCoke')
-end)
-
-RegisterServerEvent('esx_drugs:stopHarvestCoke')
-AddEventHandler('esx_drugs:stopHarvestCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopHarvestCoke')
-end)
-
-RegisterServerEvent('esx_drugs:startTransformCoke')
-AddEventHandler('esx_drugs:startTransformCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startTransformCoke')
-end)
-
-RegisterServerEvent('esx_drugs:stopTransformCoke')
-AddEventHandler('esx_drugs:stopTransformCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopTransformCoke')
-end)
-
-RegisterServerEvent('esx_drugs:startSellCoke')
-AddEventHandler('esx_drugs:startSellCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startSellCoke')
-end)
-
-RegisterServerEvent('esx_drugs:stopSellCoke')
-AddEventHandler('esx_drugs:stopSellCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopSellCoke')
-end)
-
-RegisterServerEvent('esx_drugs:startHarvestMeth')
-AddEventHandler('esx_drugs:startHarvestMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startHarvestMeth')
-end)
-
-RegisterServerEvent('esx_drugs:stopHarvestMeth')
-AddEventHandler('esx_drugs:stopHarvestMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopHarvestMeth')
-end)
-
-RegisterServerEvent('esx_drugs:startTransformMeth')
-AddEventHandler('esx_drugs:startTransformMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startTransformMeth')
-end)
-
-RegisterServerEvent('esx_drugs:stopTransformMeth')
-AddEventHandler('esx_drugs:stopTransformMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopTransformMeth')
-end)
-
-RegisterServerEvent('esx_drugs:startSellMeth')
-AddEventHandler('esx_drugs:startSellMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startSellMeth')
-end)
-
-RegisterServerEvent('esx_drugs:stopSellMeth')
-AddEventHandler('esx_drugs:stopSellMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopSellMeth')
-end)
-
-RegisterServerEvent('esx_drugs:startHarvestWeed')
-AddEventHandler('esx_drugs:startHarvestWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startHarvestWeed')
-end)
-
-RegisterServerEvent('esx_drugs:stopHarvestWeed')
-AddEventHandler('esx_drugs:stopHarvestWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopHarvestWeed')
-end)
-
-RegisterServerEvent('esx_drugs:startTransformWeed')
-AddEventHandler('esx_drugs:startTransformWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startTransformWeed')
-end)
-
-RegisterServerEvent('esx_drugs:stopTransformWeed')
-AddEventHandler('esx_drugs:stopTransformWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopTransformWeed')
-end)
-
-RegisterServerEvent('esx_drugs:startSellWeed')
-AddEventHandler('esx_drugs:startSellWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startSellWeed')
-end)
-
-RegisterServerEvent('esx_drugs:stopSellWeed')
-AddEventHandler('esx_drugs:stopSellWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopSellWeed')
-end)
-
-RegisterServerEvent('esx_drugs:startHarvestOpium')
-AddEventHandler('esx_drugs:startHarvestOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startHarvestOpium')
-end)
-
-RegisterServerEvent('esx_drugs:stopHarvestOpium')
-AddEventHandler('esx_drugs:stopHarvestOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopHarvestOpium')
-end)
-
-RegisterServerEvent('esx_drugs:startTransformOpium')
-AddEventHandler('esx_drugs:startTransformOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startTransformOpium')
-end)
-
-RegisterServerEvent('esx_drugs:stopTransformOpium')
-AddEventHandler('esx_drugs:stopTransformOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopTransformOpium')
-end)
-
-RegisterServerEvent('esx_drugs:startSellOpium')
-AddEventHandler('esx_drugs:startSellOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:startSellOpium')
-end)
-
-RegisterServerEvent('esx_drugs:stopSellOpium')
-AddEventHandler('esx_drugs:stopSellOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:stopSellOpium')
-end)
-
-RegisterServerEvent('esx_drugs:GetUserInventory')
-AddEventHandler('esx_drugs:GetUserInventory', function()
-	TAC.BanPlayerByEvent(source, 'esx_drugs:GetUserInventory')
-end)
-
--- ESX_ILLEGAL_DRUGS
-
-RegisterServerEvent('esx_illegal_drugs:startHarvestWeed')
-AddEventHandler('esx_illegal_drugs:startHarvestWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startHarvestWeed')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopHarvestWeed')
-AddEventHandler('esx_illegal_drugs:stopHarvestWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopHarvestWeed')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startTransformWeed')
-AddEventHandler('esx_illegal_drugs:startTransformWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startTransformWeed')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopTransformWeed')
-AddEventHandler('esx_illegal_drugs:stopTransformWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopTransformWeed')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startSellWeed')
-AddEventHandler('esx_illegal_drugs:startSellWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startSellWeed')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopSellWeed')
-AddEventHandler('esx_illegal_drugs:stopSellWeed', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopSellWeed')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startHarvestOpium')
-AddEventHandler('esx_illegal_drugs:startHarvestOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startHarvestOpium')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopHarvestOpium')
-AddEventHandler('esx_illegal_drugs:stopHarvestOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopHarvestOpium')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startTransformOpium')
-AddEventHandler('esx_illegal_drugs:startTransformOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startTransformOpium')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopTransformOpium')
-AddEventHandler('esx_illegal_drugs:stopTransformOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopTransformOpium')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startSellOpium')
-AddEventHandler('esx_illegal_drugs:startSellOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startSellOpium')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopSellOpium')
-AddEventHandler('esx_illegal_drugs:stopSellOpium', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopSellOpium')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startHarvestCoke')
-AddEventHandler('esx_illegal_drugs:startHarvestCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startHarvestCoke')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopHarvestCoke')
-AddEventHandler('esx_illegal_drugs:stopHarvestCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopHarvestCoke')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startTransformCoke')
-AddEventHandler('esx_illegal_drugs:startTransformCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startTransformCoke')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopTransformCoke')
-AddEventHandler('esx_illegal_drugs:stopTransformCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopTransformCoke')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startSellCoke')
-AddEventHandler('esx_illegal_drugs:startSellCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startSellCoke')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopSellCoke')
-AddEventHandler('esx_illegal_drugs:stopSellCoke', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopSellCoke')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startHarvestMeth')
-AddEventHandler('esx_illegal_drugs:startHarvestMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startHarvestMeth')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopHarvestMeth')
-AddEventHandler('esx_illegal_drugs:stopHarvestMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopHarvestMeth')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startTransformMeth')
-AddEventHandler('esx_illegal_drugs:startTransformMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startTransformMeth')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopTransformMeth')
-AddEventHandler('esx_illegal_drugs:stopTransformMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopTransformMeth')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:startSellMeth')
-AddEventHandler('esx_illegal_drugs:startSellMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:startSellMeth')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:stopSellMeth')
-AddEventHandler('esx_illegal_drugs:stopSellMeth', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:stopSellMeth')
-end)
-
-RegisterServerEvent('esx_illegal_drugs:GetUserInventory')
-AddEventHandler('esx_illegal_drugs:GetUserInventory', function()
-	TAC.BanPlayerByEvent(source, 'esx_illegal_drugs:GetUserInventory')
-end)
-
--- ESX_POLICEJOB
-
-RegisterServerEvent('esx_policejob:confiscatePlayerItem')
-AddEventHandler('esx_policejob:confiscatePlayerItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:confiscatePlayerItem')
-end)
-
-RegisterServerEvent('esx_policejob:handcuff')
-AddEventHandler('esx_policejob:handcuff', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:handcuff')
-end)
-
-RegisterServerEvent('esx_policejob:drag')
-AddEventHandler('esx_policejob:drag', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:drag')
-end)
-
-RegisterServerEvent('esx_policejob:putInVehicle')
-AddEventHandler('esx_policejob:putInVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:putInVehicle')
-end)
-
-RegisterServerEvent('esx_policejob:OutVehicle')
-AddEventHandler('esx_policejob:OutVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:OutVehicle')
-end)
-
-RegisterServerEvent('esx_policejob:getStockItem')
-AddEventHandler('esx_policejob:getStockItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:getStockItem')
-end)
-
-RegisterServerEvent('esx_policejob:putStockItems')
-AddEventHandler('esx_policejob:putStockItems', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:putStockItems')
-end)
-
-RegisterServerEvent('esx_policejob:spawned')
-AddEventHandler('esx_policejob:spawned', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:spawned')
-end)
-
-RegisterServerEvent('esx_policejob:forceBlip')
-AddEventHandler('esx_policejob:forceBlip', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:forceBlip')
-end)
-
-RegisterServerEvent('esx_policejob:giveWeapon')
-AddEventHandler('esx_policejob:giveWeapon', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:giveWeapon')
-end)
-
-RegisterServerEvent('esx_policejob:setVehicleState')
-AddEventHandler('esx_policejob:setVehicleState', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:setVehicleState')
-end)
-
-RegisterServerEvent('esx_policejob:message')
-AddEventHandler('esx_policejob:message', function()
-	TAC.BanPlayerByEvent(source, 'esx_policejob:message')
-end)
-
--- ESX_LSCUSTOM
-
-RegisterServerEvent('esx_lscustom:buyMod')
-AddEventHandler('esx_lscustom:buyMod', function()
-	TAC.BanPlayerByEvent(source, 'esx_lscustom:buyMod')
-end)
-
-RegisterServerEvent('esx_lscustom:refreshOwnedVehicle')
-AddEventHandler('esx_lscustom:refreshOwnedVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_lscustom:refreshOwnedVehicle')
-end)
-
--- ES_EXTENDED
-
-RegisterServerEvent('esx:clientLog')
-AddEventHandler('esx:clientLog', function()
-	TAC.BanPlayerByEvent(source, 'esx:clientLog')
-end)
-
-RegisterServerEvent('esx:triggerServerCallback')
-AddEventHandler('esx:triggerServerCallback', function()
-	TAC.BanPlayerByEvent(source, 'esx:triggerServerCallback')
-end)
-
-RegisterServerEvent('esx:updateLoadout')
-AddEventHandler('esx:updateLoadout', function()
-	TAC.BanPlayerByEvent(source, 'esx:updateLoadout')
-end)
-
-RegisterServerEvent('esx:updateLastPosition')
-AddEventHandler('esx:updateLastPosition', function()
-	TAC.BanPlayerByEvent(source, 'esx:updateLastPosition')
-end)
-
-RegisterServerEvent('esx:giveInventoryItem')
-AddEventHandler('esx:giveInventoryItem', function()
-	TAC.BanPlayerByEvent(source, 'esx:giveInventoryItem')
-end)
-
-RegisterServerEvent('esx:removeInventoryItem')
-AddEventHandler('esx:removeInventoryItem', function()
-	TAC.BanPlayerByEvent(source, 'esx:removeInventoryItem')
-end)
-
-RegisterServerEvent('esx:useItem')
-AddEventHandler('esx:useItem', function()
-	TAC.BanPlayerByEvent(source, 'esx:useItem')
-end)
-
-RegisterServerEvent('esx:onPickup')
-AddEventHandler('esx:onPickup', function()
-	TAC.BanPlayerByEvent(source, 'esx:onPickup')
-end)
-
--- ESX_MECHANICJOB
-
-RegisterServerEvent('esx_mechanicjob:startHarvest')
-AddEventHandler('esx_mechanicjob:startHarvest', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:startHarvest')
-end)
-
-RegisterServerEvent('esx_mechanicjob:stopHarvest')
-AddEventHandler('esx_mechanicjob:stopHarvest', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:stopHarvest')
-end)
-
-RegisterServerEvent('esx_mechanicjob:startHarvest2')
-AddEventHandler('esx_mechanicjob:startHarvest2', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:startHarvest2')
-end)
-
-RegisterServerEvent('esx_mechanicjob:stopHarvest2')
-AddEventHandler('esx_mechanicjob:stopHarvest2', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:stopHarvest2')
-end)
-
-RegisterServerEvent('esx_mechanicjob:startHarvest3')
-AddEventHandler('esx_mechanicjob:startHarvest3', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:startHarvest3')
-end)
-
-RegisterServerEvent('esx_mechanicjob:stopHarvest3')
-AddEventHandler('esx_mechanicjob:stopHarvest3', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:stopHarvest3')
-end)
-
-RegisterServerEvent('esx_mechanicjob:stopHarvest3')
-AddEventHandler('esx_mechanicjob:stopHarvest3', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:stopHarvest3')
-end)
-
-RegisterServerEvent('esx_mechanicjob:startCraft')
-AddEventHandler('esx_mechanicjob:startCraft', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:startCraft')
-end)
-
-RegisterServerEvent('esx_mechanicjob:stopCraft')
-AddEventHandler('esx_mechanicjob:stopCraft', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:stopCraft')
-end)
-
-RegisterServerEvent('esx_mechanicjob:startCraft2')
-AddEventHandler('esx_mechanicjob:startCraft2', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:startCraft2')
-end)
-
-RegisterServerEvent('esx_mechanicjob:stopCraft2')
-AddEventHandler('esx_mechanicjob:stopCraft2', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:stopCraft2')
-end)
-
-RegisterServerEvent('esx_mechanicjob:startCraft3')
-AddEventHandler('esx_mechanicjob:startCraft3', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:startCraft3')
-end)
-
-RegisterServerEvent('esx_mechanicjob:stopCraft3')
-AddEventHandler('esx_mechanicjob:stopCraft3', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:stopCraft3')
-end)
-
-RegisterServerEvent('esx_mechanicjob:onNPCJobMissionCompleted')
-AddEventHandler('esx_mechanicjob:onNPCJobMissionCompleted', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:onNPCJobMissionCompleted')
-end)
-
-RegisterServerEvent('esx_mechanicjob:getStockItem')
-AddEventHandler('esx_mechanicjob:getStockItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:getStockItem')
-end)
-
-RegisterServerEvent('esx_mechanicjob:putStockItems')
-AddEventHandler('esx_mechanicjob:putStockItems', function()
-	TAC.BanPlayerByEvent(source, 'esx_mechanicjob:putStockItems')
-end)
-
--- ESX_GARBAGEJOB
-
-RegisterServerEvent('esx_garbagejob:pay')
-AddEventHandler('esx_garbagejob:pay', function()
-	TAC.BanPlayerByEvent(source, 'esx_garbagejob:pay')
-end)
-
--- ESX_GYM
-
-RegisterServerEvent('esx_gym:hireBmx')
-AddEventHandler('esx_gym:hireBmx', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:hireBmx')
-end)
-
-RegisterServerEvent('esx_gym:checkChip')
-AddEventHandler('esx_gym:checkChip', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:checkChip')
-end)
-
-RegisterServerEvent('esx_gym:buyMembership')
-AddEventHandler('esx_gym:buyMembership', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:buyMembership')
-end)
-
-RegisterServerEvent('esx_gym:buyProteinshake')
-AddEventHandler('esx_gym:buyProteinshake', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:buyProteinshake')
-end)
-
-RegisterServerEvent('esx_gym:buyWater')
-AddEventHandler('esx_gym:buyWater', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:buyWater')
-end)
-
-RegisterServerEvent('esx_gym:buySportlunch')
-AddEventHandler('esx_gym:buySportlunch', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:buySportlunch')
-end)
-
-RegisterServerEvent('esx_gym:buyPowerade')
-AddEventHandler('esx_gym:buyPowerade', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:buyPowerade')
-end)
-
-RegisterServerEvent('esx_gym:trainArms')
-AddEventHandler('esx_gym:trainArms', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:trainArms')
-end)
-
-RegisterServerEvent('esx_gym:trainChins')
-AddEventHandler('esx_gym:trainChins', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:trainChins')
-end)
-
-RegisterServerEvent('esx_gym:trainPushups')
-AddEventHandler('esx_gym:trainPushups', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:trainPushups')
-end)
-
-RegisterServerEvent('esx_gym:trainYoga')
-AddEventHandler('esx_gym:trainYoga', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:trainYoga')
-end)
-
-RegisterServerEvent('esx_gym:trainSitups')
-AddEventHandler('esx_gym:trainSitups', function()
-	TAC.BanPlayerByEvent(source, 'esx_gym:trainSitups')
-end)
-
--- ESX_IDENTITY
-
-RegisterServerEvent('esx_identity:setIdentity')
-AddEventHandler('esx_identity:setIdentity', function()
-	TAC.BanPlayerByEvent(source, 'esx_identity:setIdentity')
-end)
-
-RegisterServerEvent('esx_identity:NewIdentity')
-AddEventHandler('esx_identity:NewIdentity', function()
-	TAC.BanPlayerByEvent(source, 'esx_identity:NewIdentity')
-end)
-
--- ESX_JAILER
-
-RegisterServerEvent('esx_jailer:sendToJail')
-AddEventHandler('esx_jailer:sendToJail', function()
-	TAC.BanPlayerByEvent(source, 'esx_jailer:sendToJail')
-end)
-
-RegisterServerEvent('esx_jailer:checkJail')
-AddEventHandler('esx_jailer:checkJail', function()
-	TAC.BanPlayerByEvent(source, 'esx_jailer:checkJail')
-end)
-
-RegisterServerEvent('esx_jailer:unjailQuest')
-AddEventHandler('esx_jailer:unjailQuest', function()
-	TAC.BanPlayerByEvent(source, 'esx_jailer:unjailQuest')
-end)
-
-RegisterServerEvent('esx_jailer:unjailTime')
-AddEventHandler('esx_jailer:unjailTime', function()
-	TAC.BanPlayerByEvent(source, 'esx_jailer:unjailTime')
-end)
-
-RegisterServerEvent('esx_jailer:updateRemaining')
-AddEventHandler('esx_jailer:updateRemaining', function()
-	TAC.BanPlayerByEvent(source, 'esx_jailer:updateRemaining')
-end)
-
--- ESX_JOBLISTING
-
-RegisterServerEvent('esx_joblisting:setJob')
-AddEventHandler('esx_joblisting:setJob', function()
-	TAC.BanPlayerByEvent(source, 'esx_joblisting:setJob')
-end)
-
--- ESX_JOBS
-
-RegisterServerEvent('esx_jobs:setCautionInCaseOfDrop')
-AddEventHandler('esx_jobs:setCautionInCaseOfDrop', function()
-	TAC.BanPlayerByEvent(source, 'esx_jobs:setCautionInCaseOfDrop')
-end)
-
-RegisterServerEvent('esx_jobs:giveBackCautionInCaseOfDrop')
-AddEventHandler('esx_jobs:giveBackCautionInCaseOfDrop', function()
-	TAC.BanPlayerByEvent(source, 'esx_jobs:giveBackCautionInCaseOfDrop')
-end)
-
-RegisterServerEvent('esx_jobs:startWork')
-AddEventHandler('esx_jobs:startWork', function()
-	TAC.BanPlayerByEvent(source, 'esx_jobs:startWork')
-end)
-
-RegisterServerEvent('esx_jobs:stopWork')
-AddEventHandler('esx_jobs:stopWork', function()
-	TAC.BanPlayerByEvent(source, 'esx_jobs:stopWork')
-end)
-
-RegisterServerEvent('esx_jobs:caution')
-AddEventHandler('esx_jobs:caution', function()
-	TAC.BanPlayerByEvent(source, 'esx_jobs:caution')
-end)
-
--- ESX_PIZZA
-
-RegisterServerEvent('esx_pizza:pay')
-AddEventHandler('esx_pizza:pay', function()
-	TAC.BanPlayerByEvent(source, 'esx_pizza:pay')
-end)
-
--- ESX_PROPERTY
-
-RegisterServerEvent('esx_property:rentProperty')
-AddEventHandler('esx_property:rentProperty', function()
-	TAC.BanPlayerByEvent(source, 'esx_property:rentProperty')
-end)
-
-RegisterServerEvent('esx_property:buyProperty')
-AddEventHandler('esx_property:buyProperty', function()
-	TAC.BanPlayerByEvent(source, 'esx_property:buyProperty')
-end)
-
-RegisterServerEvent('esx_property:removeOwnedProperty')
-AddEventHandler('esx_property:removeOwnedProperty', function()
-	TAC.BanPlayerByEvent(source, 'esx_property:removeOwnedProperty')
-end)
-
-RegisterServerEvent('esx_property:saveLastProperty')
-AddEventHandler('esx_property:saveLastProperty', function()
-	TAC.BanPlayerByEvent(source, 'esx_property:saveLastProperty')
-end)
-
-RegisterServerEvent('esx_property:deleteLastProperty')
-AddEventHandler('esx_property:deleteLastProperty', function()
-	TAC.BanPlayerByEvent(source, 'esx_property:deleteLastProperty')
-end)
-
-RegisterServerEvent('esx_property:getItem')
-AddEventHandler('esx_property:getItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_property:getItem')
-end)
-
-RegisterServerEvent('esx_property:putItem')
-AddEventHandler('esx_property:putItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_property:putItem')
-end)
-
-RegisterServerEvent('esx_property:removeOutfit')
-AddEventHandler('esx_property:removeOutfit', function()
-	TAC.BanPlayerByEvent(source, 'esx_property:removeOutfit')
-end)
-
--- ESX_RUSKIARREST
-
-RegisterServerEvent('esx_ruski_areszt:startAreszt')
-AddEventHandler('esx_ruski_areszt:removeOutfit', function()
-	TAC.BanPlayerByEvent(source, 'esx_ruski_areszt:removeOutfit')
-end)
-
--- ESX_SHOPS
-
-RegisterServerEvent('esx_shops:buyItem')
-AddEventHandler('esx_shops:buyItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_shops:buyItem')
-end)
-
--- ESX_SKIN
-
-RegisterServerEvent('esx_skin:save')
-AddEventHandler('esx_skin:save', function()
-	TAC.BanPlayerByEvent(source, 'esx_skin:save')
-end)
-
-RegisterServerEvent('esx_skin:responseSaveSkin')
-AddEventHandler('esx_skin:responseSaveSkin', function()
-	TAC.BanPlayerByEvent(source, 'esx_skin:responseSaveSkin')
-end)
-
--- ESX_SOCIETY
-
-RegisterServerEvent('esx_society:withdrawMoney')
-AddEventHandler('esx_society:withdrawMoney', function()
-	TAC.BanPlayerByEvent(source, 'esx_society:withdrawMoney')
-end)
-
-RegisterServerEvent('esx_society:depositMoney')
-AddEventHandler('esx_society:depositMoney', function()
-	TAC.BanPlayerByEvent(source, 'esx_society:depositMoney')
-end)
-
-RegisterServerEvent('esx_society:washMoney')
-AddEventHandler('esx_society:washMoney', function()
-	TAC.BanPlayerByEvent(source, 'esx_society:washMoney')
-end)
-
-RegisterServerEvent('esx_society:putVehicleInGarage')
-AddEventHandler('esx_society:putVehicleInGarage', function()
-	TAC.BanPlayerByEvent(source, 'esx_society:putVehicleInGarage')
-end)
-
-RegisterServerEvent('esx_society:removeVehicleFromGarage')
-AddEventHandler('esx_society:removeVehicleFromGarage', function()
-	TAC.BanPlayerByEvent(source, 'esx_society:removeVehicleFromGarage')
-end)
-
--- ESX_VANGELICO_ROBBERY
-
-RegisterServerEvent('esx_vangelico_robbery:toofar')
-AddEventHandler('esx_vangelico_robbery:toofar', function()
-	TAC.BanPlayerByEvent(source, 'esx_vangelico_robbery:toofar')
-end)
-
-RegisterServerEvent('esx_vangelico_robbery:endrob')
-AddEventHandler('esx_vangelico_robbery:endrob', function()
-	TAC.BanPlayerByEvent(source, 'esx_vangelico_robbery:endrob')
-end)
-
-RegisterServerEvent('esx_vangelico_robbery:rob')
-AddEventHandler('esx_vangelico_robbery:rob', function()
-	TAC.BanPlayerByEvent(source, 'esx_vangelico_robbery:rob')
-end)
-
-RegisterServerEvent('esx_vangelico_robbery:gioielli')
-AddEventHandler('esx_vangelico_robbery:gioielli', function()
-	TAC.BanPlayerByEvent(source, 'esx_vangelico_robbery:gioielli')
-end)
-
--- ESX_VEHICLESHOP
-
-RegisterServerEvent('esx_vehicleshop:setVehicleOwned')
-AddEventHandler('esx_vehicleshop:setVehicleOwned', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:setVehicleOwned')
-end)
-
-RegisterServerEvent('esx_vehicleshop:setVehicleOwnedPlayerId')
-AddEventHandler('esx_vehicleshop:setVehicleOwnedPlayerId', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:setVehicleOwnedPlayerId')
-end)
-
-RegisterServerEvent('esx_vehicleshop:setVehicleOwnedSociety')
-AddEventHandler('esx_vehicleshop:setVehicleOwnedSociety', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:setVehicleOwnedSociety')
-end)
-
-RegisterServerEvent('esx_vehicleshop:sellVehicle')
-AddEventHandler('esx_vehicleshop:sellVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:sellVehicle')
-end)
-
-RegisterServerEvent('esx_vehicleshop:addToList')
-AddEventHandler('esx_vehicleshop:addToList', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:addToList')
-end)
-
-RegisterServerEvent('esx_vehicleshop:rentVehicle')
-AddEventHandler('esx_vehicleshop:rentVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:rentVehicle')
-end)
-
-RegisterServerEvent('esx_vehicleshop:getStockItem')
-AddEventHandler('esx_vehicleshop:getStockItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:getStockItem')
-end)
-
-RegisterServerEvent('esx_vehicleshop:putStockItems')
-AddEventHandler('esx_vehicleshop:putStockItems', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:putStockItems')
-end)
-
-RegisterServerEvent('esx_vehicleshop:returnProvider')
-AddEventHandler('esx_vehicleshop:returnProvider', function()
-	TAC.BanPlayerByEvent(source, 'esx_vehicleshop:returnProvider')
-end)
-
--- ESX_GALLE_SELLVEHICLES
-
-RegisterServerEvent('esx-qalle-sellvehicles:setVehicleState')
-AddEventHandler('esx-qalle-sellvehicles:setVehicleState', function()
-	TAC.BanPlayerByEvent(source, 'esx-qalle-sellvehicles:setVehicleState')
-end)
-
--- ESX_TRUCKERJOB
-
-RegisterServerEvent('esx_truckerjob:pay')
-AddEventHandler('esx_truckerjob:pay', function()
-	TAC.BanPlayerByEvent(source, 'esx_truckerjob:pay')
-end)
-
--- ESX_BILLING
-
-RegisterServerEvent('esx_billing:sendBill')
-AddEventHandler('esx_billing:sendBill', function()
-	TAC.BanPlayerByEvent(source, 'esx_billing:sendBill')
-end)
-
--- ESX_ADMINMENU
-
-RegisterServerEvent('esx_adminmenu:confiscatePlayerItem')
-AddEventHandler('esx_adminmenu:confiscatePlayerItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_adminmenu:confiscatePlayerItem')
-end)
-
--- ESX_AMBULANCEJOB
-
-RegisterServerEvent('esx_ambulancejob:revive')
-AddEventHandler('esx_ambulancejob:revive', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:revive')
-end)
-
-RegisterServerEvent('esx_ambulancejob:heal')
-AddEventHandler('esx_ambulancejob:heal', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:heal')
-end)
-
-RegisterServerEvent('esx_ambulancejob:placeinback')
-AddEventHandler('esx_ambulancejob:placeinback', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:placeinback')
-end)
-
-RegisterServerEvent('esx_ambulancejob:removeItem')
-AddEventHandler('esx_ambulancejob:removeItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:removeItem')
-end)
-
-RegisterServerEvent('esx_ambulancejob:giveItem')
-AddEventHandler('esx_ambulancejob:giveItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:giveItem')
-end)
-
-RegisterServerEvent('esx_ambulancejob:firstSpawn')
-AddEventHandler('esx_ambulancejob:firstSpawn', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:firstSpawn')
-end)
-
-RegisterServerEvent('esx_ambulancejob:setDeathStatus')
-AddEventHandler('esx_ambulancejob:setDeathStatus', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:setDeathStatus')
-end)
-
-RegisterServerEvent('esx_ambulancejob:spawned')
-AddEventHandler('esx_ambulancejob:spawned', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:spawned')
-end)
-
-RegisterServerEvent('esx_ambulancejob:forceBlip')
-AddEventHandler('esx_ambulancejob:forceBlip', function()
-	TAC.BanPlayerByEvent(source, 'esx_ambulancejob:forceBlip')
-end)
-
--- ESX_BANKERJOB
-
-RegisterServerEvent('esx_bankerjob:customerDeposit')
-AddEventHandler('esx_bankerjob:customerDeposit', function()
-	TAC.BanPlayerByEvent(source, 'esx_bankerjob:customerDeposit')
-end)
-
-RegisterServerEvent('esx_bankerjob:customerWithdraw')
-AddEventHandler('esx_bankerjob:customerWithdraw', function()
-	TAC.BanPlayerByEvent(source, 'esx_bankerjob:customerWithdraw')
-end)
-
--- ESX_BARBERSHOP
-
-RegisterServerEvent('esx_barbershop:pay')
-AddEventHandler('esx_barbershop:pay', function()
-	TAC.BanPlayerByEvent(source, 'esx_barbershop:pay')
-end)
-
--- ESX_CARTHIEF
-
-RegisterServerEvent('esx_carthief:pay')
-AddEventHandler('esx_carthief:pay', function()
-	TAC.BanPlayerByEvent(source, 'esx_carthief:pay')
-end)
-
-RegisterServerEvent('esx_carthief:registerActivity')
-AddEventHandler('esx_carthief:registerActivity', function()
-	TAC.BanPlayerByEvent(source, 'esx_carthief:registerActivity')
-end)
-
-RegisterServerEvent('esx_carthief:alertcops')
-AddEventHandler('esx_carthief:alertcops', function()
-	TAC.BanPlayerByEvent(source, 'esx_carthief:alertcops')
-end)
-
-RegisterServerEvent('esx_carthief:stopalertcops')
-AddEventHandler('esx_carthief:stopalertcops', function()
-	TAC.BanPlayerByEvent(source, 'esx_carthief:stopalertcops')
-end)
-
--- ESX_CLOTHESHOP
-
-RegisterServerEvent('esx_clotheshop:saveOutfit')
-AddEventHandler('esx_clotheshop:saveOutfit', function()
-	TAC.BanPlayerByEvent(source, 'esx_clotheshop:saveOutfit')
-end)
-
--- ESX_CUSTOMCARDEALER
-
-RegisterServerEvent('esx_Customcardealer:refreshOwnedVehicle')
-AddEventHandler('esx_Customcardealer:refreshOwnedVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:refreshOwnedVehicle')
-end)
-
-RegisterServerEvent('esx_Customcardealer:setVehicleOwned')
-AddEventHandler('esx_Customcardealer:setVehicleOwned', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:setVehicleOwned')
-end)
-
-RegisterServerEvent('esx_Customcardealer:setVehicleOwnedPlayerId')
-AddEventHandler('esx_Customcardealer:setVehicleOwnedPlayerId', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:setVehicleOwnedPlayerId')
-end)
-
-RegisterServerEvent('esx_Customcardealer:setVehicleOwnedSociety')
-AddEventHandler('esx_Customcardealer:setVehicleOwnedSociety', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:setVehicleOwnedSociety')
-end)
-
-RegisterServerEvent('esx_Customcardealer:Testdrive')
-AddEventHandler('esx_Customcardealer:Testdrive', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:Testdrive')
-end)
-
-RegisterServerEvent('esx_Customcardealer:RemoveTestdrive')
-AddEventHandler('esx_Customcardealer:RemoveTestdrive', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:RemoveTestdrive')
-end)
-
-RegisterServerEvent('esx_Customcardealer:resellVehicleNotify')
-AddEventHandler('esx_Customcardealer:resellVehicleNotify', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:resellVehicleNotify')
-end)
-
-RegisterServerEvent('esx_Customcardealer:resellVehicleSold')
-AddEventHandler('esx_Customcardealer:resellVehicleSold', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:resellVehicleSold')
-end)
-
-RegisterServerEvent('esx_Customcardealer:RegisterResellVehicle')
-AddEventHandler('esx_Customcardealer:RegisterResellVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:RegisterResellVehicle')
-end)
-
-RegisterServerEvent('esx_Customcardealer:sellVehicle')
-AddEventHandler('esx_Customcardealer:sellVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:sellVehicle')
-end)
-
-RegisterServerEvent('esx_Customcardealer:CancelDeal')
-AddEventHandler('esx_Customcardealer:CancelDeal', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:CancelDeal')
-end)
-
-RegisterServerEvent('esx_Customcardealer:RegistersellVehicle')
-AddEventHandler('esx_Customcardealer:RegistersellVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:RegistersellVehicle')
-end)
-
-RegisterServerEvent('esx_Customcardealer:rentVehicle')
-AddEventHandler('esx_Customcardealer:rentVehicle', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:rentVehicle')
-end)
-
-RegisterServerEvent('esx_Customcardealer:setVehicleForAllPlayers')
-AddEventHandler('esx_Customcardealer:setVehicleForAllPlayers', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:setVehicleForAllPlayers')
-end)
-
-RegisterServerEvent('esx_Customcardealer:getStockItem')
-AddEventHandler('esx_Customcardealer:getStockItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:getStockItem')
-end)
-
-RegisterServerEvent('esx_Customcardealer:putStockItems')
-AddEventHandler('esx_Customcardealer:putStockItems', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:putStockItems')
-end)
-
-RegisterServerEvent('esx_Customcardealer:returnProvider')
-AddEventHandler('esx_Customcardealer:returnProvider', function()
-	TAC.BanPlayerByEvent(source, 'esx_Customcardealer:returnProvider')
-end)
-
--- ESX_DOORLOCK
-
-RegisterServerEvent('esx_doorlock:updateState')
-AddEventHandler('esx_doorlock:updateState', function()
-	TAC.BanPlayerByEvent(source, 'esx_doorlock:updateState')
-end)
-
--- ESX_HEADBAG
-
-RegisterServerEvent('esx_worek:closest')
-AddEventHandler('esx_worek:closest', function()
-	TAC.BanPlayerByEvent(source, 'esx_worek:closest')
-end)
-
-RegisterServerEvent('esx_worek:sendclosest')
-AddEventHandler('esx_worek:sendclosest', function()
-	TAC.BanPlayerByEvent(source, 'esx_worek:sendclosest')
-end)
-
-RegisterServerEvent('esx_worek:zdejmij')
-AddEventHandler('esx_worek:zdejmij', function()
-	TAC.BanPlayerByEvent(source, 'esx_worek:zdejmij')
-end)
-
--- ESX_HOLDUP
-
-RegisterServerEvent('esx_holdup:tooFar')
-AddEventHandler('esx_holdup:tooFar', function()
-	TAC.BanPlayerByEvent(source, 'esx_holdup:tooFar')
-end)
-
-RegisterServerEvent('esx_holdup:robberyStarted')
-AddEventHandler('esx_holdup:robberyStarted', function()
-	TAC.BanPlayerByEvent(source, 'esx_holdup:robberyStarted')
-end)
-
--- ESX_HOLDUPBANCO
-
-RegisterServerEvent('esx_holdupbanco:tooFar')
-AddEventHandler('esx_holdupbanco:tooFar', function()
-	TAC.BanPlayerByEvent(source, 'esx_holdupbanco:tooFar')
-end)
-
-RegisterServerEvent('esx_holdupbanco:robberyStarted')
-AddEventHandler('esx_holdupbanco:robberyStarted', function()
-	TAC.BanPlayerByEvent(source, 'esx_holdupbanco:robberyStarted')
-end)
-
-RegisterServerEvent('esx_holdupbanco:robberyEnded')
-AddEventHandler('esx_holdupbanco:robberyEnded', function()
-	TAC.BanPlayerByEvent(source, 'esx_holdupbanco:robberyEnded')
-end)
-
-RegisterServerEvent('esx_holdupbanco:robberyActive')
-AddEventHandler('esx_holdupbanco:robberyActive', function()
-	TAC.BanPlayerByEvent(source, 'esx_holdupbanco:robberyActive')
-end)
-
--- ESX_TRUNK
-
-RegisterServerEvent('esx_trunk_inventory:getOwnedVehicule')
-AddEventHandler('esx_trunk_inventory:getOwnedVehicule', function()
-	TAC.BanPlayerByEvent(source, 'esx_trunk_inventory:getOwnedVehicule')
-end)
-
-RegisterServerEvent('esx_trunk_inventory:getItem')
-AddEventHandler('esx_trunk_inventory:getItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_trunk_inventory:getItem')
-end)
-
-RegisterServerEvent('esx_trunk_inventory:putItem')
-AddEventHandler('esx_trunk_inventory:putItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_trunk_inventory:putItem')
-end)
-
--- ESX_INVENTORYHUD
-
-RegisterServerEvent('esx_inventoryhud:tradePlayerItem')
-AddEventHandler('esx_inventoryhud:tradePlayerItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_inventoryhud:tradePlayerItem')
-end)
-
--- ESX_PHONE
-
-RegisterServerEvent('esx_phone:startCall')
-AddEventHandler('esx_phone:startCall', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:startCall')
-end)
-
-RegisterServerEvent('esx_phone:acceptCall')
-AddEventHandler('esx_phone:acceptCall', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:acceptCall')
-end)
-
-RegisterServerEvent('esx_phone:endCall')
-AddEventHandler('esx_phone:endCall', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:endCall')
-end)
-
-RegisterServerEvent('esx_phone:reload')
-AddEventHandler('esx_phone:reload', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:reload')
-end)
-
-RegisterServerEvent('esx_phone:send')
-AddEventHandler('esx_phone:send', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:send')
-end)
-
-RegisterServerEvent('esx_phone:addPlayerContact')
-AddEventHandler('esx_phone:addPlayerContact', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:addPlayerContact')
-end)
-
-RegisterServerEvent('esx_phone:stopDispatch')
-AddEventHandler('esx_phone:stopDispatch', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:stopDispatch')
-end)
-
-RegisterServerEvent('esx_phone:billCall')
-AddEventHandler('esx_phone:billCall', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:billCall')
-end)
-
-RegisterServerEvent('esx_phone:bankTransfer')
-AddEventHandler('esx_phone:bankTransfer', function()
-	TAC.BanPlayerByEvent(source, 'esx_phone:bankTransfer')
-end)
-
--- ESX_PRISONWORK
-
-RegisterServerEvent('esx_loffe_fangelse:Pay')
-AddEventHandler('esx_loffe_fangelse:Pay', function()
-	TAC.BanPlayerByEvent(source, 'esx_loffe_fangelse:Pay')
-end)
-
--- ESX_SIT
-
-RegisterServerEvent('esx_interact:takePlace')
-AddEventHandler('esx_interact:takePlace', function()
-	TAC.BanPlayerByEvent(source, 'esx_interact:takePlace')
-end)
-
-RegisterServerEvent('esx_interact:leavePlace')
-AddEventHandler('esx_interact:leavePlace', function()
-	TAC.BanPlayerByEvent(source, 'esx_interact:leavePlace')
-end)
-
--- ESX_SODAMACHINE
-
-RegisterServerEvent('esx_SodaMachine:buyItem')
-AddEventHandler('esx_SodaMachine:buyItem', function()
-	TAC.BanPlayerByEvent(source, 'esx_SodaMachine:buyItem')
-end)
-
-RegisterServerEvent('esx_SodaMachine:TakeMoney')
-AddEventHandler('esx_SodaMachine:TakeMoney', function()
-	TAC.BanPlayerByEvent(source, 'esx_SodaMachine:TakeMoney')
-end)
-
-RegisterServerEvent('esx_SodaMachine:DrankProduct')
-AddEventHandler('esx_SodaMachine:DrankProduct', function()
-	TAC.BanPlayerByEvent(source, 'esx_SodaMachine:DrankProduct')
-end)
-
--- ESX_STATUS
-
-RegisterServerEvent('esx_status:update')
-AddEventHandler('esx_status:update', function()
-	TAC.BanPlayerByEvent(source, 'esx_status:update')
-end)
+local fakeESXEvents = {
+	{
+		prefixes = {
+			'esx_drugs',
+			'esx_illegal_drugs'
+		},
+		suffixes = {
+			'sellDrug',
+			'pickedUpCannabis',
+			'processCannabis',
+			'cancelProcessing',
+			'startHarvestCoke',
+			'stopHarvestCoke',
+			'startTransformCoke',
+			'stopTransformCoke',
+			'startSellCoke',
+			'stopSellCoke',
+			'startHarvestMeth',
+			'stopHarvestMeth',
+			'startTransformMeth',
+			'stopTransformMeth',
+			'startSellMeth',
+			'stopSellMeth',
+			'startHarvestWeed',
+			'stopHarvestWeed',
+			'startTransformWeed',
+			'stopTransformWeed',
+			'startSellWeed',
+			'stopSellWeed',
+			'startHarvestOpium',
+			'stopHarvestOpium',
+			'startTransformOpium',
+			'stopTransformOpium',
+			'startSellOpium',
+			'stopSellOpium',
+			'GetUserInventory',
+		}
+	},
+	{
+		prefixes = {
+			'esx_policejob',
+			'esx_ambulancejob',
+			'esx_taxijob',
+			'esx_bankerjob',
+			'esx_vigneronjob',
+			'esx_fuelerjob',
+			'esx_mecanojob',
+			'esx_garbagejob',
+			'esx_lscustom',
+			'esx_jobs',
+			'esx_joblisting',
+			'esx_pizza',
+			'esx_truckerjob',
+			'esx_gopostaljob',
+			'esx_banksecurity',
+			'delivery',
+			'taxi',
+			'esx_pilot',
+			'dmv',
+			'esx_blanchisseur',
+			'whoapd',
+			'paramedic',
+			'ems',
+			'esx_fueldelivery',
+			'esx_carthief',
+			'esx_dmvschool',
+			'esx_godirtyjob',
+			'esx_ranger',
+			'Banca',
+			'bank',
+			'Sasaki_kurier',
+			'esx_dmvschool',
+			'neweden_garage',
+			'esx_fueldelivery',
+			'esx_carthief',
+			'esx_dmvschool',
+			'esx_godirtyjob',
+			'esx_pizza',
+			'esx_ranger',
+			'esx_garbagejob',
+			'esx_carthief',
+			'esx_truckerjob',
+			'esx_gopostaljob',
+			'esx_banksecurity'
+		},
+		suffixes = {
+			'confiscatePlayerItem',
+			'handcuff',
+			'drag',
+			'putInVehicle',
+			'OutVehicle',
+			'getStockItem',
+			'putStockItems',
+			'spawned',
+			'forceBlip',
+			'giveWeapon',
+			'setVehicleState',
+			'message',
+			'buyMod',
+			'refreshOwnedVehicle',
+			'startHarvest',
+			'stopHarvest',
+			'startHarvest2',
+			'stopHarvest2',
+			'startHarvest3',
+			'stopHarvest3',
+			'startCraft',
+			'stopCraft',
+			'startCraft2',
+			'stopCraft2',
+			'startCraft3',
+			'stopCraft3',
+			'onNPCJobMissionCompleted',
+			'pay',
+			'setJob',
+			'setCautionInCaseOfDrop',
+			'giveBackCautionInCaseOfDrop',
+			'startWork',
+			'stopWork',
+			'caution',
+			'revive',
+			'heal',
+			'placeinback',
+			'removeItem',
+			'giveItem',
+			'firstSpawn',
+			'setDeathStatus',
+			'success',
+			'startWhitening',
+			'withdraw',
+			'billPlayer'
+		}
+	},
+	'OG_cuffs:cuffCheckNearest',
+	'CheckHandcuff',
+	'cuffServer',
+	'cuffGranted',
+	'police:cuffGranted',
+	'esx_handcuffs:cuffing',
+	'esx_policejob:handcuff',
+	'arisonarp:wiezienie',
+	'esx_jailer:sendToJail',
+	'esx_jail:sendToJail',
+	'js:jailuser',
+	'esx-qalle-jail:jailPlayer',
+	'AdminMenu:giveCash',
+	'esx:giveInventoryItem',
+	'esx_billing:sendBill',
+	'esx_jailer:unjailTime',
+	'JailUpdate',
+	'vrp_slotmachine:server:2',
+	'lscustoms:payGarage',
+	'esx_vehicletrunk:giveDirty',
+	'f0ba1292-b68d-4d95-8823-6230cdf282b6',
+	'gambling:spend',
+	'265df2d8-421b-4727-b01d-b92fd6503f5e',
+	'AdminMenu:giveDirtyMoney',
+	'AdminMenu:giveBank',
+	'AdminMenu:giveCash',
+	'esx_slotmachine:sv:2',
+	'esx_moneywash:deposit',
+	'esx_moneywash:withdraw',
+	'mission:completed',
+	'truckerJob:success',
+	'c65a46c5-5485-4404-bacf-06a106900258',
+	'paycheck:salary',
+	'bank:deposit',
+	'bank:withdraw',
+	'DiscordBot:playerDied',
+	'esx:enterpolicecar',
+	'NB:recruterplayer',
+	'Esx-MenuPessoal:Boss_recruterplayer',
+	'esx:giveInventoryItem',
+	'mellotrainer:s_adminKill',
+	'EasyAdmin:kickPlayer',
+	'adminmenu:allowall',
+	'MF_MobileMeth:RewardPlayers',
+	'esx_blanchisseur:washMoney',
+	'esx_blackmoney:washMoney',
+	'esx_moneywash:withdraw',
+	'laundry:washcash',
+	'lscustoms:UpdateVeh',
+	'gcPhone:_internalAddMessage',
+	'gcPhone:tchat_channel',
+	'esx_vehicleshop:setVehicleOwnedPlayerId',
+	'tost:zgarnijsiano',
+	'wojtek_ubereats:napiwek',
+	'wojtek_ubereats:hajs',
+	'xk3ly-barbasz:getfukingmony',
+	'xk3ly-farmer:paycheck',
+	'tostzdrapka:wygranko',
+	'esx_blanchisseur:washMoney',
+	'esx_moneywash:withdraw',
+	'laundry:washcash',
+	'esx_blanchisseur:startWhitening',
+	'esx_banksecurity:pay',
+	'projektsantos:mandathajs',
+	'program-keycard:hacking',
+	'InteractSound_SV:PlayWithinDistance',
+	'xk3ly-barbasz:getfukingmony',
+	'xk3ly-farmer:paycheck',
+	'6a7af019-2b92-4ec2-9435-8fb9bd031c26',
+	'211ef2f8-f09c-4582-91d8-087ca2130157',
+	'_chat:messageEntered',
+	'esx_jailler:sendToJail',
+	'esx-qalle-jail:jailPlayer',
+	'esx_jail:sendToJail',
+	'8321hiue89js',
+	'esx_jailer:sendToJailCatfrajerze',
+	'esx_jail:sendToJail',
+	'js:jailuser',
+	'wyspa_jail:jailPlayer',
+	'wyspa_jail:jail',
+	'chatMessageEntered',
+	'gcPhone:sendMessage',
+	'esx_status:set',
+	'esx_skin:openRestrictedMenu',
+	'esx_inventoryhud:openPlayerInventory',
+	'advancedFuel:setEssence',
+	'esx_vehicleshop:setVehicleOwnedPlayerId',
+	'esx_jobs:startWork',
+	'esx_jobs:stopWork',
+	'8321hiue89js',
+	'adminmenu:allowall',
+	'AdminMenu:giveBank',
+	'AdminMenu:giveCash',
+	'AdminMenu:giveDirtyMoney',
+	'Tem2LPs5Para5dCyjuHm87y2catFkMpV',
+	'dqd36JWLRC72k8FDttZ5adUKwvwq9n9m',
+	'antilynx8:anticheat',
+	'antilynxr4:detect',
+	'antilynxr6:detection',
+	'ynx8:anticheat',
+	'antilynx8r4a:anticheat',
+	'lynx8:anticheat',
+	'AntiLynxR4:kick',
+	'AntiLynxR4:log',
+	'bank:deposit',
+	'bank:withdraw',
+	'Banca:deposit',
+	'Banca:withdraw',
+	'BsCuff:Cuff696999',
+	'CheckHandcuff',
+	'cuffServer',
+	'cuffGranted',
+	'DiscordBot:playerDied',
+	'DFWM:adminmenuenable',
+	'DFWM:askAwake',
+	'DFWM:checkup',
+	'DFWM:cleanareaentity',
+	'DFWM:cleanareapeds',
+	'DFWM:cleanareaveh',
+	'DFWM:enable',
+	'DFWM:invalid',
+	'DFWM:log',
+	'DFWM:openmenu',
+	'DFWM:spectate',
+	'DFWM:ViolationDetected',
+	'dmv:success',
+	'eden_garage:payhealth',
+	'ems:revive',
+	'esx_ambulancejob:revive',
+	'esx_ambulancejob:setDeathStatus',
+	'esx_billing:sendBill',
+	'esx_banksecurity:pay',
+	'esx_blanchisseur:startWhitening',
+	'esx_carthief:alertcops',
+	'esx_carthief:pay',
+	'esx_dmvschool:addLicense',
+	'esx_dmvschool:pay',
+	'esx:enterpolicecar',
+	'esx_fueldelivery:pay',
+	'esx:giveInventoryItem',
+	'esx_garbagejob:pay',
+	'esx_godirtyjob:pay',
+	'esx_gopostaljob:pay',
+	'esx_handcuffs:cuffing',
+	'esx_jail:sendToJail',
+	'esx_jail:unjailQuest',
+	'esx_jailer:sendToJail',
+	'esx_jailer:unjailTime',
+	'esx_jobs:caution',
+	'esx_mecanojob:onNPCJobCompleted',
+	'esx_mechanicjob:startHarvest',
+	'esx_mechanicjob:startCraft',
+	'esx_pizza:pay',
+	'esx_policejob:handcuff',
+	'esx-qalle-jail:jailPlayer',
+	'esx-qalle-jail:jailPlayerNew',
+	'esx-qalle-hunting:reward',
+	'esx-qalle-hunting:sell',
+	'esx_ranger:pay',
+	'esx:removeInventoryItem',
+	'esx_truckerjob:pay',
+	'esx_skin:responseSaveSkin',
+	'esx_slotmachine:sv:2',
+	'esx_society:getOnlinePlayers',
+	'esx_society:setJob',
+	'esx_vehicleshop:setVehicleOwned',
+	'hentailover:xdlol',
+	'JailUpdate',
+	'js:jailuser',
+	'js:removejailtime',
+	'LegacyFuel:PayFuel',
+	'ljail:jailplayer',
+	'lscustoms:payGarage',
+	'mellotrainer:adminTempBan',
+	'mellotrainer:adminKick',
+	'mellotrainer:s_adminKill',
+	'NB:destituerplayer',
+	'NB:recruterplayer',
+	'OG_cuffs:cuffCheckNearest',
+	'paramedic:revive',
+	'police:cuffGranted',
+	'unCuffServer',
+	'uncuffGranted',
+	'vrp_slotmachine:server:2',
+	'whoapd:revive',
+	'gcPhone:_internalAddMessageDFWM',
+	'gcPhone:tchat_channelDFWM',
+	'esx_vehicleshop:setVehicleOwnedDFWM',
+	'esx_mafiajob:confiscateDFWMPlayerItem',
+	'_chat:messageEntDFWMered',
+	'lscustoms:pDFWMayGarage',
+	'vrp_slotmachDFWMine:server:2',
+	'Banca:dDFWMeposit',
+	'bank:depDFWMosit',
+	'esx_jobs:caDFWMution',
+	'give_back',
+	'esx_fueldDFWMelivery:pay',
+	'esx_carthDFWMief:pay',
+	'esx_godiDFWMrtyjob:pay',
+	'esx_pizza:pDFWMay',
+	'esx_ranger:pDFWMay',
+	'esx_garbageDFWMjob:pay',
+	'esx_truckDFWMerjob:pay',
+	'AdminMeDFWMnu:giveBank',
+	'AdminMDFWMenu:giveCash',
+	'esx_goDFWMpostaljob:pay',
+	'esx_baDFWMnksecurity:pay',
+	'esx_sloDFWMtmachine:sv:2',
+	'esx:giDFWMveInventoryItem',
+	'NB:recDFWMruterplayer',
+	'esx_biDFWMlling:sendBill',
+	'esx_jDFWMailer:sendToJail',
+	'esx_jaDFWMil:sendToJail',
+	'js:jaDFWMiluser',
+	'esx-qalle-jail:jailPDFWMlayer',
+	'esx_dmvschool:pDFWMay',
+	'LegacyFuel:PayFuDFWMel',
+	'OG_cuffs:cuffCheckNeDFWMarest',
+	'CheckHandcDFWMuff',
+	'cuffSeDFWMrver',
+	'cuffGDFWMranted',
+	'police:cuffGDFWMranted',
+	'esx_handcuffs:cufDFWMfing',
+	'esx_policejob:haDFWMndcuff',
+	'bank:withdDFWMraw',
+	'dmv:succeDFWMss',
+	'esx_skin:responseSaDFWMveSkin',
+	'esx_dmvschool:addLiceDFWMnse',
+	'esx_mechanicjob:starDFWMtCraft',
+	'esx_drugs:startHarvestWDFWMeed',
+	'esx_drugs:startTransfoDFWMrmWeed',
+	'esx_drugs:startSellWeDFWMed',
+	'esx_drugs:startHarvestDFWMCoke',
+	'esx_drugs:startTransDFWMformCoke',
+	'esx_drugs:startSellCDFWMoke',
+	'esx_drugs:startHarDFWMvestMeth',
+	'esx_drugs:startTDFWMransformMeth',
+	'esx_drugs:startSellMDFWMeth',
+	'esx_drugs:startHDFWMarvestOpium',
+	'esx_drugs:startSellDFWMOpium',
+	'esx_drugs:starDFWMtTransformOpium',
+	'esx_blanchisDFWMseur:startWhitening',
+	'esx_drugs:stopHarvDFWMestCoke',
+	'esx_drugs:stopTranDFWMsformCoke',
+	'esx_drugs:stopSellDFWMCoke',
+	'esx_drugs:stopHarvesDFWMtMeth',
+	'esx_drugs:stopTranDFWMsformMeth',
+	'esx_drugs:stopSellMDFWMeth',
+	'esx_drugs:stopHarDFWMvestWeed',
+	'esx_drugs:stopTDFWMransformWeed',
+	'esx_drugs:stopSellWDFWMeed',
+	'esx_drugs:stopHarvestDFWMOpium',
+	'esx_drugs:stopTransDFWMformOpium',
+	'esx_drugs:stopSellOpiuDFWMm',
+	'esx_society:openBosDFWMsMenu',
+	'esx_jobs:caDFWMution',
+	'esx_tankerjob:DFWMpay',
+	'esx_vehicletrunk:givDFWMeDirty',
+	'gambling:speDFWMnd',
+	'AdminMenu:giveDirtyMDFWMoney',
+	'esx_moneywash:depoDFWMsit',
+	'esx_moneywash:witDFWMhdraw',
+	'mission:completDFWMed',
+	'truckerJob:succeDFWMss',
+	'99kr-burglary:addMDFWMoney',
+	'esx_jailer:unjailTiDFWMme',
+	'esx_ambulancejob:reDFWMvive',
+	'DiscordBot:plaDFWMyerDied',
+	'esx:getShDFWMaredObjDFWMect',
+	'esx_society:getOnlDFWMinePlayers',
+	'js:jaDFWMiluser',
+	'h:xd',
+	'adminmenu:setsalary',
+	'adminmenu:cashoutall',
+	'bank:tranDFWMsfer',
+	'paycheck:bonDFWMus',
+	'paycheck:salDFWMary',
+	'HCheat:TempDisableDetDFWMection',
+	'esx_drugs:pickedUpCDFWMannabis',
+	'esx_drugs:processCDFWMannabis',
+	'esx-qalle-hunting:DFWMreward',
+	'esx-qalle-hunting:seDFWMll',
+	'esx_mecanojob:onNPCJobCDFWMompleted',
+	'BsCuff:Cuff696DFWM999',
+	'veh_SR:CheckMonDFWMeyForVeh',
+	'esx_carthief:alertcoDFWMps',
+	'mellotrainer:adminTeDFWMmpBan',
+	'mellotrainer:adminKickDFWM',
+	'esx_society:putVehicleDFWMInGarage'
+}
+
+for _, eventInfo in pairs(fakeESXEvents) do
+	if (eventInfo ~= nil and string.lower(type(eventInfo)) == 'table') then
+		local prefixes = eventInfo.prefixes or { 'esx', 'esx:', 'esx_' }
+		local suffixes = eventInfo.suffixes or {}
+
+		for _, suffix in pairs(suffixes) do
+			for _, prefix in pairs(prefixes) do
+				if (suffix ~= nil and prefix ~= nil) then
+					RegisterServerEvent(prefix .. suffix)
+					AddEventHandler(prefix .. suffix, function()
+						TAC.BanPlayerByEvent(source, prefix .. suffix)
+					end)
+
+					RegisterServerEvent(prefix .. '_' .. suffix)
+					AddEventHandler(prefix .. '_' .. suffix, function()
+						TAC.BanPlayerByEvent(source, prefix .. '_' .. suffix)
+					end)
+
+					RegisterServerEvent(prefix .. ':' .. suffix)
+					AddEventHandler(prefix .. ':' .. suffix, function()
+						TAC.BanPlayerByEvent(source, prefix .. ':' .. suffix)
+					end)
+
+					RegisterServerEvent(prefix .. '-' .. suffix)
+					AddEventHandler(prefix .. '-' .. suffix, function()
+						TAC.BanPlayerByEvent(source, prefix .. '-' .. suffix)
+					end)
+				end
+			end
+		end
+	elseif(eventInfo ~= nil) then
+		RegisterServerEvent(eventInfo)
+		AddEventHandler(eventInfo, function()
+			TAC.BanPlayerByEvent(source, eventInfo)
+		end)
+	end
+end

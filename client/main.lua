@@ -1,3 +1,7 @@
+AddEventHandler('esx:getSharedObject', function(cb)
+	TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'esx_shared')
+end)
+
 AddEventHandler('onResourceStart', function(resourceName)
     if (GetCurrentResourceName() ~= resourceName) then
         return

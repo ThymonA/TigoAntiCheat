@@ -254,6 +254,8 @@ TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type, item)
         TAC.BanPlayerWithReason(source, _U('ban_type_blacklisted_key', _item))
     elseif (_type == 'hash') then
         TAC.BanPlayerWithReason(source, _U('ban_type_hash'))
+    elseif (_type == 'esx_shared') then
+        TAC.BanPlayerWithReason(source, _U('ban_type_esx_shared'))
     end
 end)
 

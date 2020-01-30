@@ -4,7 +4,7 @@ local timesDetected     = 0
 
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(1000)
+        Citizen.Wait(250)
 
         local config = TAC.Config or {}
         local blacklistedVehicles = config.BlacklistedVehicles or {}

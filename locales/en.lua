@@ -23,6 +23,7 @@ Locales['en'] = {
     ['ban_type_blacklisted_weapon'] = 'Player had a blacklisted weapon: %s',
     ['ban_type_blacklisted_key'] = 'Player had pressed a blacklisted key for %s',
     ['ban_type_hash'] = 'Player had modify a hash',
+    ['ban_type_esx_shared'] = 'Player has tried to trigger \'esx:getSharedObject\'',
 
     -- Commands
     ['command'] = 'Command',

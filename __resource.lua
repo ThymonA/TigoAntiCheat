@@ -48,7 +48,8 @@ client_scripts {
     'client/anticheat/lynx_inject.lua',
     'client/anticheat/weapons.lua',
     'client/anticheat/disabledkeys.lua',
-    'client/anticheat/vehicle.lua'
+    'client/anticheat/vehicle.lua',
+    'client/anticheat/superjump.lua'
 }
 
 exports {

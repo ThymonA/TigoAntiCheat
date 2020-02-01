@@ -417,3 +417,7 @@ healthchecksdb
 MigrationBackup/
 
 # End of https://www.gitignore.io/api/git,lua,visualstudio,visualstudiocode
+
+# Ignore Banlist
+banlist.json
+data/banlist.json

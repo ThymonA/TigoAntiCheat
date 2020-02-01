@@ -1,3 +1,7 @@
+AddEventHandler('gameEventTriggered', function (name, args)
+    print('game event ' .. name .. ' (' .. json.encode(args) .. ')')
+end)
+
 TAC.LoadBanList = function()
     local banlistContent = LoadResourceFile(GetCurrentResourceName(), 'data/banlist.json')
 
@@ -256,6 +260,8 @@ TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type, item)
         TAC.BanPlayerWithReason(source, _U('ban_type_hash'))
     elseif (_type == 'esx_shared') then
         TAC.BanPlayerWithReason(source, _U('ban_type_esx_shared'))
+    elseif (_type == 'superjump') then
+        TAC.BanPlayerWithReason(source, _U('ban_type_superjump'))
     end
 end)
 

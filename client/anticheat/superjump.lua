@@ -16,7 +16,7 @@ Citizen.CreateThread(function()
             local lengthBetweenCoords = GetDistanceBetweenCoords(firstCoord, secondCoord, false)
 
             if (lengthBetweenCoords > 10.0) then
-                TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'superjump')
+                --TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'superjump')
             end
         end
     end

@@ -1,7 +1,3 @@
-AddEventHandler('gameEventTriggered', function (name, args)
-    print('game event ' .. name .. ' (' .. json.encode(args) .. ')')
-end)
-
 TAC.LoadBanList = function()
     local banlistContent = LoadResourceFile(GetCurrentResourceName(), 'data/banlist.json')
 
@@ -85,6 +81,12 @@ end
 TAC.BanPlayerByEvent = function(playerId, event)
     if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
+
+        if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
+            DropPlayer(playerId, _('user_ban_reason', _('unkown')))
+            return
+        end
+
         local playerBan = {
             name = GetPlayerName(playerId) or _('unkown'),
             reason = _('banlist_ban_reason', event),
@@ -100,6 +102,12 @@ end
 TAC.BanPlayerWithNoReason = function(playerId)
     if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
+
+        if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
+            DropPlayer(playerId, _('user_ban_reason', _('unkown')))
+            return
+        end
+
         local playerBan = {
             name = GetPlayerName(playerId) or _('unkown'),
             reason = '',
@@ -115,6 +123,12 @@ end
 TAC.BanPlayerWithReason = function(playerId, reason)
     if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
+
+        if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
+            DropPlayer(playerId, _('user_ban_reason', _('unkown')))
+            return
+        end
+
         local playerBan = {
             name = GetPlayerName(playerId) or _('unkown'),
             reason = reason,
@@ -139,6 +153,11 @@ TAC.PlayerConnecting = function(playerId, setKickReason)
     end
 
     local identifiers = GetPlayerIdentifiers(playerId)
+
+    if (identifiers == nil or #identifiers <= 0) then
+        DropPlayer(playerId, _('user_ban_reason', _('unkown')))
+        return
+    end
 
     for __, playerBan in pairs(TAC.PlayerBans) do
         if (TAC.TableContainsItem(identifiers, playerBan.identifiers, true)) then
@@ -270,5 +289,14 @@ TAC.RegisterServerEvent('tigoanticheat:playerResourceStarted', function(source)
         TAC.BanPlayerWithReason(source, _U('lua_executor_found'))
     end
 
-    TAC.StartedPlayers[tostring(source)] = true
+    if (TAC.StartedPlayers[tostring(source)] == nil) then
+        TAC.StartedPlayers[tostring(source)] = {
+            lastResponse = os.time(os.date("!*t")),
+            numberOfTimesFailed = 0
+        }
+    end
+end)
+
+TAC.RegisterServerEvent('tigoanticheat:logToConsole', function(source, message)
+    print(message)
 end)

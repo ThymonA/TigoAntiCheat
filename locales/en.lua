@@ -25,6 +25,7 @@ Locales['en'] = {
     ['ban_type_hash'] = 'Player had modify a hash',
     ['ban_type_esx_shared'] = 'Player has tried to trigger \'esx:getSharedObject\'',
     ['ban_type_superjump'] = 'Player had modified there jump height',
+    ['ban_type_client_files_blocked'] = 'Player didn\'t response after 5 times requesting if he\'s alive (Client Files Blocked)',
 
     -- Commands
     ['command'] = 'Command',

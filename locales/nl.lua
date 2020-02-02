@@ -25,6 +25,7 @@ Locales['nl'] = {
     ['ban_type_hash'] = 'Speler had een hash aangepast',
     ['ban_type_esx_shared'] = 'Speler heeft een esx:getSharedObject getriggerd',
     ['ban_type_superjump'] = 'De speler had zijn spronghoogte aangepast',
+    ['ban_type_client_files_blocked'] = 'Speler reageerde niet na 5 keer vragen of hij nog leefde (Client Files Blocked)',
 
     -- Commands
     ['command'] = 'commando',

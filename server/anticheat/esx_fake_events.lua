@@ -413,7 +413,17 @@ local fakeESXEvents = {
 	'esx_carthief:alertcoDFWMps',
 	'mellotrainer:adminTeDFWMmpBan',
 	'mellotrainer:adminKickDFWM',
-	'esx_society:putVehicleDFWMInGarage'
+	'esx_society:putVehicleDFWMInGarage',
+	'esx:clientLog',
+	'esx:triggerServerCallback',
+	'esx:playerLoaded',
+	'esx:createMissingPickups',
+	'esx:updateLoadout',
+	'esx:updateLastPosition',
+	'esx:giveInventoryItem',
+	'esx:removeInventoryItem',
+	'esx:useItem',
+	'esx:onPickup'
 }
 
 for _, eventInfo in pairs(fakeESXEvents) do

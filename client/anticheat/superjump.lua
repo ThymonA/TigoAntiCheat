@@ -15,8 +15,8 @@ Citizen.CreateThread(function()
             local secondCoord = GetEntityCoords(playerPed)
             local lengthBetweenCoords = GetDistanceBetweenCoords(firstCoord, secondCoord, false)
 
-            if (lengthBetweenCoords > 10.0) then
-                --TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'superjump')
+            if (lengthBetweenCoords > 250.0) then
+                TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'superjump')
             end
         end
     end

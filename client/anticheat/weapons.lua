@@ -12,6 +12,8 @@ Citizen.CreateThread(function()
             if (HasPedGotWeapon(playerPed, blacklistedWeaponHash, false)) then
                 RemoveAllPedWeapons(playerPed)
 
+                Citizen.Wait(250)
+
                 TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'blacklisted_weapon', blacklistedWeaponName)
             end
         end

@@ -4,6 +4,7 @@ TAC.ServerCallbacks     = {}
 TAC.ClientCallbacks     = {}
 TAC.ClientEvents        = {}
 TAC.Config              = {}
+TAC.SecurityTokens      = {}
 
 TAC.RegisterClientCallback = function(name, cb)
     TAC.ClientCallbacks[name] = cb
@@ -16,7 +17,9 @@ end
 TAC.TriggerServerCallback = function(name, cb, ...)
     TAC.ServerCallbacks[TAC.CurrentRequestId] = cb
 
-    TriggerServerEvent('tigoanticheat:triggerServerCallback', name, TAC.CurrentRequestId, ...)
+    local token = TAC.GetResourceToken(GetCurrentResourceName())
+
+    TriggerServerEvent('tigoanticheat:triggerServerCallback', name, TAC.CurrentRequestId, token, ...)
 
     if (TAC.CurrentRequestId < 65535) then
         TAC.CurrentRequestId = TAC.CurrentRequestId + 1
@@ -26,22 +29,20 @@ TAC.TriggerServerCallback = function(name, cb, ...)
 end
 
 TAC.TriggerServerEvent = function(name, ...)
-    TriggerServerEvent('tigoanticheat:triggerServerEvent', name, ...)
+    local token = TAC.GetResourceToken(GetCurrentResourceName())
+
+    TriggerServerEvent('tigoanticheat:triggerServerEvent', name, token, ...)
 end
 
 TAC.TriggerClientCallback = function(name, cb, ...)
     if (TAC.ClientCallbacks ~= nil and TAC.ClientCallbacks[name] ~= nil) then
         TAC.ClientCallbacks[name](cb, ...)
-    else
-        TAC.TriggerServerEvent('tigoanticheat:logToConsole', '[TigoAntiCheat] TriggerClientCallback => ' .. _('callback_not_found', name))
     end
 end
 
 TAC.TriggerClientEvent = function(name, ...)
     if (TAC.ClientEvents ~= nil and TAC.ClientEvents[name] ~= nil) then
         TAC.ClientEvents[name](...)
-    else
-        TAC.TriggerServerEvent('tigoanticheat:logToConsole', '[TigoAntiCheat] TriggerClientEvent => ' .. _('trigger_not_found', name))
     end
 end
 

@@ -21,6 +21,8 @@ server_scripts {
     'shared/functions.lua',
     'shared/ansicolors.lua',
 
+    'server/tokenizer/main.lua',
+
     'server/main.lua',
 
     'server/anticheat/esx_fake_events.lua',
@@ -42,6 +44,8 @@ client_scripts {
 
     'shared/functions.lua',
     'shared/ansicolors.lua',
+
+    'client/tokenizer/main.lua',
 
     'client/main.lua',
 

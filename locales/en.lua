@@ -12,10 +12,12 @@ Locales['en'] = {
 
     -- Ban strings
     ['user_ban_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | You have been banned from this server ( 𝗨𝘀𝗲𝗿𝗻𝗮𝗺𝗲: %s )',
+    ['user_kick_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | You have been kicked ( 𝗥𝗲𝗮𝘀𝗼𝗻: %s )',
     ['banlist_ban_reason'] = 'Player has tried to trigger \'%s\' event',
     ['banlist_not_loaded_kick_player'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Our bans hasn\'t loaded, you\'ll have to wait a couple of seconds. Try again later!',
     ['new_identifiers_found'] = '%s, new identifier(s) found - original ban %s',
     ['failed_to_load_banlist'] = '[TigoAntiCheat] Failed to load Banlist!',
+    ['failed_to_load_tokenlist'] = '[TigoAntiCheat] Failed to load Tokenlist!',
     ['failed_to_load_check'] = '[TigoAntiCheat] Please check this error soon, Bans *will not* work!',
     ['ban_type_godmode'] = 'Godmode detected on player',
     ['lua_executor_found'] = 'Lua executor found on player',
@@ -26,6 +28,8 @@ Locales['en'] = {
     ['ban_type_esx_shared'] = 'Player has tried to trigger \'esx:getSharedObject\'',
     ['ban_type_superjump'] = 'Player had modified there jump height',
     ['ban_type_client_files_blocked'] = 'Player didn\'t response after 5 times requesting if he\'s alive (Client Files Blocked)',
+    ['kick_type_security_token'] = 'Because we couldn\'t create a new secret token',
+    ['kick_type_security_mismatch'] = 'Because your secret token didn\'t match',
 
     -- Commands
     ['command'] = 'Command',

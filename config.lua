@@ -1,5 +1,6 @@
-Config          = {}
-Config.Locale   = 'nl'
+Config          	= {}
+Config.Locale   	= 'nl'
+Config.TokenLength	= 64
 
 -- Commands used to open a mod menu
 Config.BlacklistedCommands = {

@@ -12,10 +12,12 @@ Locales['nl'] = {
 
     -- Ban strings
     ['user_ban_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Je bent verbannen van deze server ( 𝗚𝗲𝗯𝗿𝘂𝗶𝗸𝗲𝗿𝘀𝗻𝗮𝗮𝗺: %s )',
+    ['user_kick_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Je bent gekicked ( 𝗥𝗲𝗱𝗲𝗻: %s )',
     ['banlist_ban_reason'] = 'De speler heeft geprobeerd om \'%s\' aan te roepen',
     ['banlist_not_loaded_kick_player'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Onze bans zijn niet geladen, je zult een paar seconden moeten wachten. Probeer het later nog eens.',
     ['new_identifiers_found'] = '%s, nieuwe id\'s gevonden - oorspronkelijke ban %s',
     ['failed_to_load_banlist'] = '[TigoAntiCheat] Banlijst kon niet geladen worden!',
+    ['failed_to_load_tokenlist'] = '[TigoAntiCheat] Tokenlijst kon niet geladen worden!',
     ['failed_to_load_check'] = '[TigoAntiCheat] Controleer deze fout snel, Bans *zal niet* werken!',
     ['ban_type_godmode'] = 'Godmode gedetecteerd op speler',
     ['lua_executor_found'] = 'Lua executor gedetecteerd op speler',
@@ -26,6 +28,8 @@ Locales['nl'] = {
     ['ban_type_esx_shared'] = 'Speler heeft een esx:getSharedObject getriggerd',
     ['ban_type_superjump'] = 'De speler had zijn spronghoogte aangepast',
     ['ban_type_client_files_blocked'] = 'Speler reageerde niet na 5 keer vragen of hij nog leefde (Client Files Blocked)',
+    ['kick_type_security_token'] = 'Omdat wij geen nieuwe geheime code konden aanmaken',
+    ['kick_type_security_mismatch'] = 'Omdat uw geheime code niet overeen komt',
 
     -- Commands
     ['command'] = 'commando',

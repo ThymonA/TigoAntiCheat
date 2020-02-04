@@ -15,5 +15,5 @@ end)
 
 RegisterNetEvent('tigoanticheat:triggerClientEvent')
 AddEventHandler('tigoanticheat:triggerClientEvent', function(name, ...)
-    TAC.TriggerClientEvent(name, source, ...)
+    TAC.TriggerClientEvent(name, ...)
 end)

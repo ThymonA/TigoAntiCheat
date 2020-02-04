@@ -141,6 +141,12 @@ TAC.BanPlayerWithReason = function(playerId, reason)
     end
 end
 
+TAC.KickPlayerWithReason = function(playerId, reason)
+    if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
+        DropPlayer(playerId, _('user_kick_reason', reason))
+    end
+end
+
 TAC.PlayerConnecting = function(playerId, setKickReason)
     if (not TAC.BanListLoaded) then
         setKickReason(_('banlist_not_loaded_kick_player'))

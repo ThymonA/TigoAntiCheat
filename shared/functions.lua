@@ -38,3 +38,13 @@ end
 TAC.PrintToConsole = function(message)
     print(AnsiConsole(message))
 end
+
+TAC.RandomString = function(length)
+    local result = ''
+
+	for i = 1, length do
+		result = result .. string.char(math.random(97, 122))
+    end
+
+	return result
+end

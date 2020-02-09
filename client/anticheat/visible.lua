@@ -1,6 +1,6 @@
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(0)
+        Citizen.Wait(1000)
 
         local playedPed = GetPlayerPed(-1)
 

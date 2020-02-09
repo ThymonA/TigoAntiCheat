@@ -1,3 +1,5 @@
+TAC.ServerConfigLoaded = false
+
 AddEventHandler('esx:getSharedObject', function(cb)
 	TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'esx_shared')
 end)
@@ -11,11 +13,21 @@ AddEventHandler('onResourceStart', function(resourceName)
 end)
 
 Citizen.CreateThread(function()
-    local configLoaded = false
+    TAC.LaodServerConfig()
 
-    while not configLoaded do
-        Citizen.Wait(100)
+    Citizen.Wait(1000)
 
+    while not TAC.ServerConfigLoaded do
+        Citizen.Wait(1000)
+
+        TAC.LaodServerConfig()
+    end
+
+    return
+end)
+
+TAC.LaodServerConfig = function()
+    if (not TAC.ServerConfigLoaded) then
         TAC.TriggerServerCallback('tigoanticheat:getServerConfig', function(config)
             TAC.Config = config
             TAC.Config.BlacklistedWeapons = {}
@@ -29,9 +41,7 @@ Citizen.CreateThread(function()
                 TAC.Config.BlacklistedVehicles[blacklistedVehicle] = GetHashKey(blacklistedVehicle)
             end
 
-            configLoaded = true
+            TAC.ServerConfigLoaded = true
         end)
     end
-
-    return
-end)
+end

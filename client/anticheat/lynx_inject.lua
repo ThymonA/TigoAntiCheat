@@ -1,6 +1,6 @@
 Citizen.CreateThread(function()
     while true do
-        Citizen.Wait(1000)
+        Citizen.Wait(60000)
 
         local config = Config or {}
         local blacklistedCommands = config.BlacklistedCommands or {}

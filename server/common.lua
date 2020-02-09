@@ -24,19 +24,11 @@ RegisterServerEvent('tigoanticheat:triggerServerCallback')
 AddEventHandler('tigoanticheat:triggerServerCallback', function(name, requestId, token, ...)
     local _source = source
 
-    print('[ ' .. os.date('%Y-%m-%d %H:%M:%S') .. ' ] Start ' .. name .. ' event!')
-    print('[ ' .. os.date('%Y-%m-%d %H:%M:%S') .. ' ] RequestId: ' .. requestId)
-    print('[ ' .. os.date('%Y-%m-%d %H:%M:%S') .. ' ] Token: ' .. token)
-
     if (TAC.ValidateOrKick(_source, GetCurrentResourceName(), token)) then
         TAC.TriggerServerCallback(name, _source, function(...)
-            print('[ ' .. os.date('%Y-%m-%d %H:%M:%S') .. ' ] Start client callback for ' .. name)
             TriggerClientEvent('tigoanticheat:serverCallback', _source, requestId, ...)
-            print('[ ' .. os.date('%Y-%m-%d %H:%M:%S') .. ' ] End client callback for ' .. name)
         end, ...)
     end
-
-    print('[ ' .. os.date('%Y-%m-%d %H:%M:%S') .. ' ] End ' .. name .. ' event!')
 end)
 
 RegisterServerEvent('tigoanticheat:triggerServerEvent')

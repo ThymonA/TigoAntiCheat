@@ -83,12 +83,12 @@ TAC.BanPlayerByEvent = function(playerId, event)
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
 
         if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
-            DropPlayer(playerId, _('user_ban_reason', _('unkown')))
+            DropPlayer(playerId, _('user_ban_reason', _('unknown')))
             return
         end
 
         local playerBan = {
-            name = GetPlayerName(playerId) or _('unkown'),
+            name = GetPlayerName(playerId) or _('unknown'),
             reason = _('banlist_ban_reason', event),
             identifiers = bannedIdentifiers
         }
@@ -104,12 +104,12 @@ TAC.BanPlayerWithNoReason = function(playerId)
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
 
         if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
-            DropPlayer(playerId, _('user_ban_reason', _('unkown')))
+            DropPlayer(playerId, _('user_ban_reason', _('unknown')))
             return
         end
 
         local playerBan = {
-            name = GetPlayerName(playerId) or _('unkown'),
+            name = GetPlayerName(playerId) or _('unknown'),
             reason = '',
             identifiers = bannedIdentifiers
         }
@@ -125,12 +125,12 @@ TAC.BanPlayerWithReason = function(playerId, reason)
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
 
         if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
-            DropPlayer(playerId, _('user_ban_reason', _('unkown')))
+            DropPlayer(playerId, _('user_ban_reason', _('unknown')))
             return
         end
 
         local playerBan = {
-            name = GetPlayerName(playerId) or _('unkown'),
+            name = GetPlayerName(playerId) or _('unknown'),
             reason = reason,
             identifiers = bannedIdentifiers
         }
@@ -161,7 +161,7 @@ TAC.PlayerConnecting = function(playerId, setKickReason)
     local identifiers = GetPlayerIdentifiers(playerId)
 
     if (identifiers == nil or #identifiers <= 0) then
-        DropPlayer(playerId, _('user_ban_reason', _('unkown')))
+        DropPlayer(playerId, _('user_ban_reason', _('unknown')))
         return
     end
 
@@ -197,7 +197,7 @@ TAC.CheckForNewIdentifiers = function(playerId, identifiers, name, reason)
 
     if (#newIdentifiers > 0) then
         local playerBan = {
-            name = GetPlayerName(playerId) or _('unkown'),
+            name = GetPlayerName(playerId) or _('unknown'),
             reason = _('new_identifiers_found', reason, name),
             identifiers = newIdentifiers
         }

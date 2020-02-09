@@ -3,7 +3,7 @@ Locales['en'] = {
     ['name'] = 'TigoAntiCheat',
 
     -- General
-    ['unkown'] = 'Unkown',
+    ['unknown'] = 'unknown',
     ['fatal_error'] = 'FATAL ERROR',
 
     -- Resource strings

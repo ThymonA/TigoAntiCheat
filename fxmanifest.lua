@@ -42,6 +42,7 @@ client_scripts {
     'locales/nl.lua',
     'locales/pl.lua',
     'locales/dk.lua',
+    'locales/tr.lua',
 
     'config.lua',
 

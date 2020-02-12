@@ -17,6 +17,8 @@ Citizen.CreateThread(function()
         Citizen.Wait(1000)
 
         TAC.LaodServerConfig()
+            else
+            print("Whoopsie something went really wrong")
     end
 
     return

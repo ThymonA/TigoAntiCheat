@@ -1,3 +1,4 @@
+local registeredEvents = {}
 local fakeEvents = {
 	{
 		prefixes = {
@@ -419,35 +420,59 @@ for _, eventInfo in pairs(fakeEvents) do
 		local prefixes = eventInfo.prefixes or { 'esx', 'esx:', 'esx_', 'esx-', 'vrp', 'vrp:', 'vrp_', 'vrp-' }
 		local suffixes = eventInfo.suffixes or {}
 
+		if (registeredEvents == nil) then
+			registeredEvents = {}
+		end
+
 		for _, suffix in pairs(suffixes) do
 			for _, prefix in pairs(prefixes) do
 				if (suffix ~= nil and prefix ~= nil) then
-					RegisterServerEvent(prefix .. suffix)
-					AddEventHandler(prefix .. suffix, function()
-						TAC.BanPlayerByEvent(source, prefix .. suffix)
-					end)
+					if (registeredEvents[prefix .. suffix] == nil or not registeredEvents[prefix .. suffix]) then
+						RegisterServerEvent(prefix .. suffix)
+						AddEventHandler(prefix .. suffix, function()
+							TAC.BanPlayerByEvent(source, prefix .. suffix)
+						end)
 
-					RegisterServerEvent(prefix .. '_' .. suffix)
-					AddEventHandler(prefix .. '_' .. suffix, function()
-						TAC.BanPlayerByEvent(source, prefix .. '_' .. suffix)
-					end)
+						registeredEvents[prefix .. suffix] = true
+					end
 
-					RegisterServerEvent(prefix .. ':' .. suffix)
-					AddEventHandler(prefix .. ':' .. suffix, function()
-						TAC.BanPlayerByEvent(source, prefix .. ':' .. suffix)
-					end)
+					if (registeredEvents[prefix .. '_' .. suffix] == nil or not registeredEvents[prefix .. '_' .. suffix]) then
+						RegisterServerEvent(prefix .. '_' .. suffix)
+						AddEventHandler(prefix .. '_' .. suffix, function()
+							TAC.BanPlayerByEvent(source, prefix .. '_' .. suffix)
+						end)
 
-					RegisterServerEvent(prefix .. '-' .. suffix)
-					AddEventHandler(prefix .. '-' .. suffix, function()
-						TAC.BanPlayerByEvent(source, prefix .. '-' .. suffix)
-					end)
+						registeredEvents[prefix .. '_' .. suffix] = true
+					end
+
+					if (registeredEvents[prefix .. ':' .. suffix] == nil or not registeredEvents[prefix .. ':' .. suffix]) then
+						RegisterServerEvent(prefix .. ':' .. suffix)
+						AddEventHandler(prefix .. ':' .. suffix, function()
+							TAC.BanPlayerByEvent(source, prefix .. ':' .. suffix)
+						end)
+
+						registeredEvents[prefix .. ':' .. suffix] = true
+					end
+
+					if (registeredEvents[prefix .. '-' .. suffix] == nil or not registeredEvents[prefix .. '-' .. suffix]) then
+						RegisterServerEvent(prefix .. '-' .. suffix)
+						AddEventHandler(prefix .. '-' .. suffix, function()
+							TAC.BanPlayerByEvent(source, prefix .. '-' .. suffix)
+						end)
+
+						registeredEvents[prefix .. '-' .. suffix] = true
+					end
 				end
 			end
 		end
 	elseif(eventInfo ~= nil) then
-		RegisterServerEvent(eventInfo)
-		AddEventHandler(eventInfo, function()
-			TAC.BanPlayerByEvent(source, eventInfo)
-		end)
+		if (registeredEvents[eventInfo] == nil or not registeredEvents[eventInfo]) then
+			RegisterServerEvent(eventInfo)
+			AddEventHandler(eventInfo, function()
+				TAC.BanPlayerByEvent(source, eventInfo)
+			end)
+
+			registeredEvents[eventInfo] = true
+		end
 	end
 end

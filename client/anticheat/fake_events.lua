@@ -1,3 +1,4 @@
+local registeredEvents = {}
 local fakeEvents = {
     -- ESX Events
     'esx:getSharedObject',
@@ -54,8 +55,16 @@ local fakeEvents = {
 }
 
 for _, eventInfo in pairs(fakeEvents) do
-    RegisterNetEvent(eventInfo)
-    AddEventHandler(eventInfo, function()
-        TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'event', eventInfo)
-    end)
+    if (registeredEvents == nil) then
+        registeredEvents = {}
+    end
+
+    if (registeredEvents[eventInfo] == nil or not registeredEvents[eventInfo]) then
+        RegisterNetEvent(eventInfo)
+        AddEventHandler(eventInfo, function()
+            TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'event', eventInfo)
+        end)
+
+        registeredEvents[eventInfo] = true
+    end
 end

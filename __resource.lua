@@ -12,6 +12,7 @@ server_scripts {
 
     'locales/en.lua',
     'locales/nl.lua',
+    'locales/pl.lua',
 
     'config.lua',
 
@@ -25,7 +26,7 @@ server_scripts {
 
     'server/main.lua',
 
-    'server/anticheat/esx_fake_events.lua',
+    'server/anticheat/fake_events.lua',
     'server/anticheat/response.lua',
 
     'server/commands.lua'
@@ -54,8 +55,8 @@ client_scripts {
     'client/anticheat/weapons.lua',
     'client/anticheat/disabledkeys.lua',
     'client/anticheat/vehicle.lua',
-    'client/anticheat/superjump.lua',
     'client/anticheat/response.lua',
+    'client/anticheat/fake_events.lua'
 }
 
 exports {

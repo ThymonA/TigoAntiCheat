@@ -8,7 +8,7 @@ Locales['pl'] = {
 
     -- Resource strings
     ['callback_not_found'] = '[%s] nie został znaleziony',
-    ['trigger_not_found'] = '[%s] nie został znaleziony,
+    ['trigger_not_found'] = '[%s] nie został znaleziony',
 
     -- Ban strings
     ['user_ban_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Zostałeś zbanowany ( 𝗨𝘀𝗲𝗿𝗻𝗮𝗺𝗲: %s )',

@@ -16,7 +16,7 @@ end
 
 local supported = not IsWindows()
 
-if IsWindows() then 
+if IsWindows() then
     supported = os.getenv("ANSICON")
 end
 

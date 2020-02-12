@@ -69,13 +69,15 @@ TAC.AddBlacklist = function(data)
         return
     end
 
-    table.insert(banlist, data)
+    if (data.identifiers ~= nil and #data.identifiers > 0) then
+        table.insert(banlist, data)
 
-    TAC.PlayerBans = banlist
+        TAC.PlayerBans = banlist
 
-    TAC.LogBanToDiscord(data)
+        TAC.LogBanToDiscord(data)
 
-    SaveResourceFile(GetCurrentResourceName(), 'data/banlist.json', json.encode(banlist, { indent = true }), -1)
+        SaveResourceFile(GetCurrentResourceName(), 'data/banlist.json', json.encode(banlist, { indent = true }), -1)
+    end
 end
 
 TAC.BanPlayerByEvent = function(playerId, event)
@@ -287,6 +289,8 @@ TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type, item)
         TAC.BanPlayerWithReason(source, _U('ban_type_esx_shared'))
     elseif (_type == 'superjump') then
         TAC.BanPlayerWithReason(source, _U('ban_type_superjump'))
+    elseif (_type == 'event') then
+        TAC.BanPlayerByEvent(source, _item)
     end
 end)
 

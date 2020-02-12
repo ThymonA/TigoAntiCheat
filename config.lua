@@ -1,5 +1,5 @@
 Config          	= {}
-Config.Locale   	= 'nl'
+Config.Locale   	= 'en'
 Config.TokenLength	= 64
 
 -- Commands used to open a mod menu
@@ -9,7 +9,8 @@ Config.BlacklistedCommands = {
     'lol',
     'xddd',
     'chocolate',
-    'panickey'
+	'panickey',
+	'jolmany'
 }
 
 -- Blacklisted weapons that players can never have

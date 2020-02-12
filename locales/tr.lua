@@ -1,4 +1,4 @@
-Locales['en'] = {
+Locales['tr'] = {
     -- Name
     ['name'] = 'TigoAntiHile',
 

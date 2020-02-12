@@ -108,6 +108,8 @@ Event perfix | Example event
 `h` | `h:xd`
 `HCheat` | `HCheat:TempDisableDetDFWMection`
 `veh_SR` | `veh_SR:CheckMonDFWMeyForVeh`
+`ambulancier` | `ambulancier:selfRespawn`
+`UnJP` | `UnJP`
 
 ### Enable `/anticheat` for players
 If you want `/anticheat` command available for example your Admin's than you can add this line to your `server.cfg`

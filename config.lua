@@ -10,7 +10,8 @@ Config.BlacklistedCommands = {
     'xddd',
     'chocolate',
 	'panickey',
-	'jolmany'
+	'jolmany',
+	'killmenu'
 }
 
 -- Blacklisted weapons that players can never have

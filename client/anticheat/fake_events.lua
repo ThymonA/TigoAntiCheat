@@ -52,6 +52,8 @@ local fakeEvents = {
     'wyspa_jail:jailPlayer',
     'wyspa_jail:jail',
     'gcPhone:sendMessage',
+    'ambulancier:selfRespawn',
+    'UnJP'
 }
 
 for _, eventInfo in pairs(fakeEvents) do

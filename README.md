@@ -46,7 +46,6 @@ Search | Replace
 `AddEventHandler("esx` | `AddEventHandler("tac`
 `RegisterNetEvent("esx` | `RegisterNetEvent("tac`
 `RegisterServerCallback("esx` | `RegisterServerCallback("tac`
-`RegisterServerCallback("esx` | `RegisterServerCallback("tac`
 `TriggerServerCallback("esx` | `TriggerServerCallback("tac`
 
 `tac` is an example and does not necessarily need to be used. You can put anything you want here. 

@@ -21,7 +21,7 @@ Also, using this resource is at your own risk and is not a magical resource that
 In order to use this anticheat, all `esx:`, `esx_` etc. must be renamed.
 The anticheat replaces `esx_...` server calls to perm bans.
 
-Change e.g. `esx_drugs` to `tac_drugs` (only `EventHandlers`, `ClientEvents` and `ServerEvents`, leave resource folder just the orignal resource name example: `esx_drugs`).
+Change e.g. `esx_drugs` to `tac_drugs` (leave resource folder just the orignal resource name example: `esx_drugs`).
 
 ⚠️ Everything that needs to be replaced
 

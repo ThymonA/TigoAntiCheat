@@ -23,6 +23,34 @@ The anticheat replaces `esx_...` server calls to perm bans.
 
 Change e.g. `esx_drugs` to `tac_drugs` (only `EventHandlers`, `ClientEvents` and `ServerEvents`, leave resource folder just the orignal resource name example: `esx_drugs`).
 
+⚠️ Everything that needs to be replaced
+Search | Replace
+:--------:|:--------:
+TriggerEvent('esx | TriggerEvent('tac
+TriggerClientEvent('esx | TriggerClientEvent('tac
+TriggerServerEvent('esx | TriggerServerEvent('tac
+TriggerServerEventInternal('esx | TriggerServerEventInternal('tac
+TriggerEventInternal('esx | TriggerEventInternal('tac
+RegisterServerEvent('esx | RegisterServerEvent('tac
+AddEventHandler('esx | AddEventHandler('tac
+RegisterNetEvent('esx | RegisterNetEvent('tac
+RegisterServerCallback('esx | RegisterServerCallback('tac
+TriggerServerCallback('esx | TriggerServerCallback('tac
+TriggerEvent("esx | TriggerEvent("tac
+TriggerClientEvent("esx | TriggerClientEvent("tac
+TriggerServerEvent("esx | TriggerServerEvent("tac
+TriggerServerEventInternal("esx | TriggerServerEventInternal("tac
+TriggerEventInternal("esx | TriggerEventInternal("tac
+RegisterServerEvent("esx | RegisterServerEvent("tac
+AddEventHandler("esx | AddEventHandler("tac
+RegisterNetEvent("esx | RegisterNetEvent("tac
+RegisterServerCallback("esx | RegisterServerCallback("tac
+RegisterServerCallback("esx | RegisterServerCallback("tac
+TriggerServerCallback("esx | TriggerServerCallback("tac
+
+`tac` is an example and does not necessarily need to be used. You can put anything you want here. 
+As long as `esx` is changed to something else
+
 [![Edit ESX](https://i.imgur.com/JwMIDdN.png)](https://i.imgur.com/JwMIDdN.png)
 
 ### Overview of other events without prefix with `esx`

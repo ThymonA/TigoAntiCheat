@@ -62,7 +62,8 @@ client_scripts {
     'client/anticheat/disabledkeys.lua',
     'client/anticheat/vehicle.lua',
     'client/anticheat/response.lua',
-    'client/anticheat/fake_events.lua'
+    'client/anticheat/fake_events.lua',
+    'client/anticheat/objects.lua'
 }
 
 exports {

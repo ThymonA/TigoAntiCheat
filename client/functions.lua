@@ -52,6 +52,26 @@ TAC.ShowNotification = function(msg)
 	DrawNotification(false, true)
 end
 
+TAC.RequestAndDelete = function(object, detach)
+    if (DoesEntityExist(object)) then
+        NetworkRequestControlOfEntity(object)
+
+        while not NetworkHasControlOfEntity(object) do
+            Citizen.Wait(0)
+        end
+
+        if (detach) then
+            DetachEntity(object, 0, false)
+        end
+
+        SetEntityCollision(object, false, false)
+        SetEntityAlpha(object, 0.0, true)
+        SetEntityAsMissionEntity(object, true, true)
+        SetEntityAsNoLongerNeeded(object)
+        DeleteEntity(object)
+    end
+end
+
 RegisterNetEvent('tigoanticheat:serverCallback')
 AddEventHandler('tigoanticheat:serverCallback', function(requestId, ...)
 	if (TAC.ServerCallbacks ~= nil and TAC.ServerCallbacks[requestId] ~= nil) then

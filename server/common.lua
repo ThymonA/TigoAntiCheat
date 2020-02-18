@@ -42,8 +42,8 @@ AddEventHandler('tigoanticheat:triggerServerEvent', function(name, token, ...)
     end
 end)
 
-AddEventHandler('playerConnecting', function(playerName, setKickReason)
-    TAC.PlayerConnecting(source, setKickReason)
+AddEventHandler('playerConnecting', function(name, setCallback, deferrals)
+    TAC.PlayerConnecting(source, setCallback, deferrals)
 end)
 
 TAC.GetConfigVariable = function(name, _type, _default)

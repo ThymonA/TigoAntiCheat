@@ -150,14 +150,21 @@ TAC.KickPlayerWithReason = function(playerId, reason)
     end
 end
 
-TAC.PlayerConnecting = function(playerId, setKickReason)
+TAC.PlayerConnecting = function(playerId, setCallback, deferrals)
+    local vpnChecked = false
+
+    deferrals.defer()
+    deferrals.update(_U('checking'))
+
+    Citizen.Wait(100)
+
     if (not TAC.BanListLoaded) then
-        setKickReason(_('banlist_not_loaded_kick_player'))
-        CancelEvent()
+        deferrals.done(_('banlist_not_loaded_kick_player'))
         return
     end
 
     if (TAC.IgnorePlayer(playerId)) then
+        deferrals.done()
         return
     end
 
@@ -174,15 +181,52 @@ TAC.PlayerConnecting = function(playerId, setKickReason)
                 TAC.CheckForNewIdentifiers(playerId, identifiers, playerBan.name, playerBan.reason)
             end
 
-            setKickReason(_('user_ban_reason', playerBan.name))
-            CancelEvent()
+            deferrals.done(_('user_ban_reason', playerBan.name))
             return
         end
     end
 
     if (TAC.Config.VPNCheck) then
-        TAC.CheckVPN(playerId, setKickReason)
+        if (TAC.IgnorePlayer(playerId)) then
+            return
+        end
+
+        local playerIP = TAC.GetPlayerIP(playerId)
+
+        if (playerIP == nil) then
+            deferrals.done(_('ip_blocked'))
+            return
+        end
+
+        PerformHttpRequest('http://check.getipintel.net/check.php?ip=' .. playerIP .. '&flags=b&contact=me@tigodev.com', function(statusCode, response, headers)
+            local responseNumber = tonumber(response)
+
+            if (responseNumber >= 0.99) then
+                local ignoreIP = false
+
+                if (TAC.WhitelistedIPsLoaded) then
+                    for _, ip in pairs(TAC.WhitelistedIPs) do
+                        if (ip == playerIP) then
+                            ignoreIP = true
+                        end
+                    end
+                end
+
+                if (not ignoreIP) then
+                    deferrals.done(_('ip_blocked'))
+                    return
+                end
+            end
+
+            vpnChecked = true
+        end)
     end
+
+    while not vpnChecked do
+        Citizen.Wait(10)
+    end
+
+    deferrals.done()
 end
 
 TAC.CheckForNewIdentifiers = function(playerId, identifiers, name, reason)

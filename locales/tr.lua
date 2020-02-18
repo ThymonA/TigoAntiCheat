@@ -11,6 +11,7 @@ Locales['tr'] = {
     ['trigger_not_found'] = '[%s] bulunamadi',
 
     -- Ban strings
+    ['checking'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Şu anda kontrol ediliyorsunuz...',
     ['user_ban_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Bu sunucudan banlandin ( Isim: %s )',
     ['user_kick_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Sunucudan atildin ( Sebep: %s )',
     ['banlist_ban_reason'] = 'Oyuncu bu eventi triggerlamaya calisti \'%s\' event',

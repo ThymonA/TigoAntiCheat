@@ -10,6 +10,8 @@ TAC.Config                  = {}
 TAC.ConfigLoaded            = false
 TAC.SecurityTokens          = {}
 TAC.SecurityTokensLoaded    = false
+TAC.WhitelistedIPs          = {}
+TAC.WhitelistedIPsLoaded    = false
 TAC.Version                 = '0.0.0'
 
 AddEventHandler('tigoanticheat:getSharedObject', function(cb)
@@ -44,10 +46,11 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason)
     TAC.PlayerConnecting(source, setKickReason)
 end)
 
-TAC.GetConfigVariable = function(name, _type)
+TAC.GetConfigVariable = function(name, _type, _default)
     _type = _type or 'string'
+    _default = _default or ''
 
-    local value = GetConvar(name, '') or ''
+    local value = GetConvar(name, _default) or _default
 
     if (string.lower(_type) == 'string') then
         return tostring(value)

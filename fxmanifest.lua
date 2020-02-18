@@ -7,7 +7,7 @@ name 'TigoAntiCheat'
 author 'TigoDevelopment'
 contact 'me@tigodev.com'
 
-version '0.0.1'
+version '1.0.0'
 
 server_scripts {
     'shared/locale.lua',
@@ -26,6 +26,7 @@ server_scripts {
     'shared/ansicolors.lua',
 
     'server/tokenizer/main.lua',
+    'server/vpn/check.lua',
 
     'server/main.lua',
 

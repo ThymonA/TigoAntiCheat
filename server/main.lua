@@ -33,6 +33,7 @@ TAC.LoadConfig = function()
         GodMode             = TAC.GetConfigVariable('tigoanticheat.godmode', 'boolean'),
         Webhook             = TAC.GetConfigVariable('tigoanticheat.webhook', 'string'),
         BypassEnabled       = TAC.GetConfigVariable('tigoanticheat.bypassenabled', 'boolean'),
+        VPNCheck            = TAC.GetConfigVariable('tigoanticheat.VPNCheck', 'boolean', true),
     }
 
     TAC.ConfigLoaded = true
@@ -178,6 +179,10 @@ TAC.PlayerConnecting = function(playerId, setKickReason)
             return
         end
     end
+
+    if (TAC.Config.VPNCheck) then
+        TAC.CheckVPN(playerId, setKickReason)
+    end
 end
 
 TAC.CheckForNewIdentifiers = function(playerId, identifiers, name, reason)
@@ -246,6 +251,12 @@ Citizen.CreateThread(function()
 
     while not TAC.ConfigLoaded do
         TAC.LoadConfig()
+
+        Citizen.Wait(10)
+    end
+
+    while not TAC.WhitelistedIPsLoaded do
+        TAC.LoadWhitelistedIPs()
 
         Citizen.Wait(10)
     end

@@ -13,7 +13,7 @@ RegisterCommand('anticheat', function(source, args, raw)
     local isConsole = TAC.IsConsole(source)
 
     if (args == nil or string.lower(type(args)) ~= 'table' or #args <= 0 or string.lower(tostring(args[1])) == 'help') then
-        TAC.Commands['help'].func(isConsole)
+        TAC.Commands['help'].func(isConsole, {})
         return
     end
 
@@ -21,7 +21,8 @@ RegisterCommand('anticheat', function(source, args, raw)
 
     for key, data in pairs(TAC.Commands) do
         if (string.lower(key) == command) then
-            data.func(isConsole)
+            local param = args[2] or nil
+            data.func(isConsole, param)
             return
         end
     end
@@ -34,6 +35,25 @@ TAC.Commands['reload'] = {
     func = function(isConsole)
         TAC.LoadBanList()
         TAC.Print(isConsole, '%{reset}[%{red}' .. _('name') .. '%{reset}] %{white}' .. _('banlist_reloaded'))
+    end
+}
+
+TAC.Commands['ip-reload'] = {
+    description = _('ips_command_reload'),
+    func = function(isConsole)
+        TAC.LoadWhitelistedIPs()
+        TAC.Print(isConsole, '%{reset}[%{red}' .. _('name') .. '%{reset}] %{white}' .. _('ips_reloaded'))
+    end
+}
+
+TAC.Commands['ip-add'] = {
+    description = _('ips_command_add'),
+    func = function(isConsole, ip)
+        if (TAC.AddIPToWhitelist(ip)) then
+            TAC.Print(isConsole, '%{reset}[%{red}' .. _('name') .. '%{reset}] %{white}' .. _('ip_added', ip))
+        else
+            TAC.Print(isConsole, '%{reset}[%{red}' .. _('name') .. '%{reset}] %{white}' .. _('ip_invalid', ip))
+        end
     end
 }
 

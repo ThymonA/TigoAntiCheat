@@ -12,6 +12,7 @@ TAC.SecurityTokens          = {}
 TAC.SecurityTokensLoaded    = false
 TAC.WhitelistedIPs          = {}
 TAC.WhitelistedIPsLoaded    = false
+TAC.CheckedIPs              = {}
 TAC.Version                 = '0.0.0'
 
 AddEventHandler('tigoanticheat:getSharedObject', function(cb)

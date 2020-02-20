@@ -203,34 +203,64 @@ TAC.PlayerConnecting = function(playerId, setCallback, deferrals)
             Citizen.Wait(10)
         end
 
-        PerformHttpRequest('http://v2.api.iphub.info/ip/' .. playerIP, function(statusCode, response, headers)
-            if (statusCode == 200) then
-                local rawData = response or '{}'
-                local ipInfo = json.decode(rawData)
-                local blockIP =  ipInfo.block or 0
+        local ipInfo = {}
 
-                if (blockIP == 1) then
-                    local ignoreIP = false
+        if (TAC.CheckedIPs ~= nil and TAC.CheckedIPs[playerIP] ~= nil) then
+            ipInfo = TAC.CheckedIPs[playerIP] or {}
 
-                    if (TAC.WhitelistedIPsLoaded) then
-                        for _, ip in pairs(TAC.WhitelistedIPs) do
-                            if (ip == playerIP) then
-                                ignoreIP = true
-                            end
+            local blockIP =  ipInfo.block or 0
+
+            if (blockIP == 1) then
+                local ignoreIP = false
+
+                if (TAC.WhitelistedIPsLoaded) then
+                    for _, ip in pairs(TAC.WhitelistedIPs) do
+                        if (ip == playerIP) then
+                            ignoreIP = true
                         end
                     end
+                end
 
-                    if (not ignoreIP) then
-                        deferrals.done(_('ip_blocked'))
-                        return
-                    end
+                if (not ignoreIP) then
+                    deferrals.done(_('ip_blocked'))
+                    return
                 end
             end
 
             vpnChecked = true
-        end, 'GET', '', {
-            ['X-Key'] = TAC.Config.VPNKey
-        })
+        else
+            PerformHttpRequest('http://v2.api.iphub.info/ip/' .. playerIP, function(statusCode, response, headers)
+                if (statusCode == 200) then
+                    local rawData = response or '{}'
+                    ipInfo = json.decode(rawData)
+
+                    TAC.CheckedIPs[playerIP] = ipInfo
+
+                    local blockIP =  ipInfo.block or 0
+
+                    if (blockIP == 1) then
+                        local ignoreIP = false
+
+                        if (TAC.WhitelistedIPsLoaded) then
+                            for _, ip in pairs(TAC.WhitelistedIPs) do
+                                if (ip == playerIP) then
+                                    ignoreIP = true
+                                end
+                            end
+                        end
+
+                        if (not ignoreIP) then
+                            deferrals.done(_('ip_blocked'))
+                            return
+                        end
+                    end
+                end
+
+                vpnChecked = true
+            end, 'GET', '', {
+                ['X-Key'] = TAC.Config.VPNKey
+            })
+        end
     end
 
     while not vpnChecked do

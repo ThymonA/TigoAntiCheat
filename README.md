@@ -4,21 +4,21 @@
 
 [![Developer](https://img.shields.io/badge/Developer-TigoDevelopment-darkgreen)](https://github.com/TigoDevelopment)
 [![Discord](https://img.shields.io/badge/Discord-Tigo%239999-purple)](https://discordapp.com/users/636509961375055882)
-[![Version](https://img.shields.io/badge/Version-0.0.1-darkgreen)](https://github.com/TigoDevelopment/TigoAntiCheat/blob/master/version)
+[![Version](https://img.shields.io/badge/Version-1.0.0-darkgreen)](https://github.com/TigoDevelopment/TigoAntiCheat/blob/master/version)
 [![Version](https://img.shields.io/badge/License-MIT-darkgreen)](https://github.com/TigoDevelopment/TigoAntiCheat/blob/master/LICENSE)
 
 ### About TigoAntiCheat
 
 AntiCheat by Tigo is a resource created for FiveM. This resource is to detect hackers and ban them from your server.
 
-⚠️ Not following all the instructions will result in a possible ban, this resource cannot work correctly without a proper installation.
+⚠️ Not following all the instructions will result in a possible ban, this resource cannot work correctly without proper installation.
 Also, using this resource is at your own risk and is not a magical resource that will stop all hackers.
 
 ### Requirement
 - None
 
 ### Get Started
-In order to use this anticheat, all `esx:`, `esx_` etc. must be renamed.
+To use this anticheat, all `esx:`, `esx_` etc. must be renamed.
 The anticheat replaces `esx_...` server calls to perm bans.
 
 Change e.g. `esx_drugs` to `tac_drugs` (leave resource folder just the orignal resource name example: `esx_drugs`).
@@ -149,7 +149,7 @@ Use `/anticheat` or `/anticheat help` to show all available commands.
 
 ### Bypass
 If you have players like Admin's who should never be banned, you should add the following to their group
-⚠️ You have to add these to the group of people who are allowed to use spectates, noclip, godmode and other bannable functionalities.
+⚠️ You have to add these to the group of people who are allowed to use spectates, noclip, godmode, and other bannable functionalities.
 ```cfg
 add_ace group.admin tigoanticheat.bypass allow
 ```
@@ -163,6 +163,11 @@ Code | Values | Type
 `set tigoanticheat.updateidentifiers true` | `true` If a player is banned and joined with new identifiers, those identifiers will banned immediately. | `boolean`
 `set tigoanticheat.bypassenabled false` | `true` All players with `tigoanticheat.bypass` will not be checked or banned. | `boolean`
 `set tigoanticheat.webhook "https://discordapp.com/api/webhooks/.../..."` | Webhook url from discord to log bans there | `string`
+`set tigoanticheat.VPNCheck` | `true` If VPN check needs to be enabled, `false` If VPN check needs to be disabled | `boolean`
+`set tigoanticheat.VPNKey "UXZyszcyjZ8KYQeDPyfUTs83mj2Nagdd9EVWWtVSk9GJEHpZne=="` | The API key you have from [IPHub](https://iphub.info/) - https://iphub.info/ | `string`
+
+### VPN Checker
+Because hackers often use a VPN or change their IP after being banned from the server, there is a VPN blocker in TigoAntiCheat. This VPN blocker use information from [IPHub](https://iphub.info/). To use this VPN blocker you must create an account on [IPHub](https://iphub.info/) and create a (free) API Key. After creating an account, you get 1.000 requests every day for free, if you use more then a 1.000 every day then you need to upgrade your free API, you will get charged for this. TigoAntiCheat has a built-in IP cache, which means that it stores all IPs from the earlier request. The cache is completely empty after restarting the server or TigoAntiCheat resource himself.
 
 ### License
 MIT License
@@ -190,4 +195,4 @@ SOFTWARE.
 
 ### Disclamer
 ---
-This resource was created by me with all the knowledge at the time of writing. It doesn't mean cheating becomes impossible. Updates will be done if there is time and reason to do so. The request of new functionality is allowed, but does not mean that it will be released.
+This resource was created by me with all the knowledge at the time of writing. It doesn't mean cheating becomes impossible. Updates will be done if there are time and reason to do so. The request for new functionality is allowed but it does not mean that it will be released.

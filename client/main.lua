@@ -28,6 +28,7 @@ TAC.LaodServerConfig = function()
             TAC.Config = config
             TAC.Config.BlacklistedWeapons = {}
             TAC.Config.BlacklistedVehicles = {}
+            TAC.Config.HasBypass = TAC.Config.HasBypass or false
 
             for _, blacklistedWeapon in pairs(Config.BlacklistedWeapons) do
                 TAC.Config.BlacklistedWeapons[blacklistedWeapon] = GetHashKey(blacklistedWeapon)

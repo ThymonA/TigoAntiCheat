@@ -11,7 +11,6 @@ Locales['pl'] = {
     ['trigger_not_found'] = '[%s] nie został znaleziony',
 
     -- Ban strings
-    ['checking'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Jesteś obecnie sprawdzany...',
     ['user_ban_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Zostałeś zbanowany ( 𝗨𝘀𝗲𝗿𝗻𝗮𝗺𝗲: %s )',
     ['user_kick_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Zostałeś wyrzucony z serwera ( 𝗥𝗲𝗮𝘀𝗼𝗻: %s )',
     ['banlist_ban_reason'] = 'Gracz próbował wywołać \'%s\' event',

@@ -11,7 +11,7 @@ Locales['nl'] = {
     ['trigger_not_found'] = '[%s] is niet gevonden',
 
     -- Ban strings
-    ['checking'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | U wordt momenteel gecontroleerd...',
+    ['checking'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Is u aan het controleren...',
     ['user_ban_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Je bent verbannen van deze server ( 𝗚𝗲𝗯𝗿𝘂𝗶𝗸𝗲𝗿𝘀𝗻𝗮𝗮𝗺: %s )',
     ['user_kick_reason'] = '👮 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Je bent gekicked ( 𝗥𝗲𝗱𝗲𝗻: %s )',
     ['banlist_ban_reason'] = 'De speler heeft geprobeerd om \'%s\' aan te roepen',

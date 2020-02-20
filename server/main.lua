@@ -34,6 +34,7 @@ TAC.LoadConfig = function()
         Webhook             = TAC.GetConfigVariable('tigoanticheat.webhook', 'string'),
         BypassEnabled       = TAC.GetConfigVariable('tigoanticheat.bypassenabled', 'boolean'),
         VPNCheck            = TAC.GetConfigVariable('tigoanticheat.VPNCheck', 'boolean', true),
+        VPNKey              = TAC.GetConfigVariable('tigoanticheat.VPNKey', 'string')
     }
 
     TAC.ConfigLoaded = true
@@ -198,28 +199,38 @@ TAC.PlayerConnecting = function(playerId, setCallback, deferrals)
             return
         end
 
-        PerformHttpRequest('http://check.getipintel.net/check.php?ip=' .. playerIP .. '&flags=b&contact=me@tigodev.com', function(statusCode, response, headers)
-            local responseNumber = tonumber(response)
+        while (not TAC.ConfigLoaded) do
+            Citizen.Wait(10)
+        end
 
-            if (responseNumber >= 0.99) then
-                local ignoreIP = false
+        PerformHttpRequest('http://v2.api.iphub.info/ip/' .. playerIP, function(statusCode, response, headers)
+            if (statusCode == 200) then
+                local rawData = response or '{}'
+                local ipInfo = json.decode(rawData)
+                local blockIP =  ipInfo.block or 0
 
-                if (TAC.WhitelistedIPsLoaded) then
-                    for _, ip in pairs(TAC.WhitelistedIPs) do
-                        if (ip == playerIP) then
-                            ignoreIP = true
+                if (blockIP == 1) then
+                    local ignoreIP = false
+
+                    if (TAC.WhitelistedIPsLoaded) then
+                        for _, ip in pairs(TAC.WhitelistedIPs) do
+                            if (ip == playerIP) then
+                                ignoreIP = true
+                            end
                         end
                     end
-                end
 
-                if (not ignoreIP) then
-                    deferrals.done(_('ip_blocked'))
-                    return
+                    if (not ignoreIP) then
+                        deferrals.done(_('ip_blocked'))
+                        return
+                    end
                 end
             end
 
             vpnChecked = true
-        end)
+        end, 'GET', '', {
+            ['X-Key'] = TAC.Config.VPNKey
+        })
     end
 
     while not vpnChecked do
@@ -314,6 +325,8 @@ TAC.RegisterServerCallback('tigoanticheat:getServerConfig', function(source, cb)
     if ((TAC.Config.GodMode or false) and TAC.IgnorePlayer(source)) then
         TAC.Config.GodMode = false
     end
+
+    TAC.Config.HasBypass = TAC.IgnorePlayer(source)
 
     cb(TAC.Config)
 end)

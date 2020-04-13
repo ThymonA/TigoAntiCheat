@@ -83,7 +83,13 @@ TAC.AddBlacklist = function(data)
 end
 
 TAC.BanPlayerByEvent = function(playerId, event)
-    if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
+    if (playerId == nil) then
+        return
+    end
+    
+    playerId = tonumber(playerId)
+    
+    if (playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
 
         if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
@@ -104,7 +110,13 @@ TAC.BanPlayerByEvent = function(playerId, event)
 end
 
 TAC.BanPlayerWithNoReason = function(playerId)
-    if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
+    if (playerId == nil) then
+        return
+    end
+    
+    playerId = tonumber(playerId)
+    
+    if (playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
 
         if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
@@ -125,7 +137,13 @@ TAC.BanPlayerWithNoReason = function(playerId)
 end
 
 TAC.BanPlayerWithReason = function(playerId, reason)
-    if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
+    if (playerId == nil) then
+        return
+    end
+    
+    playerId = tonumber(playerId)
+    
+    if (playerId > 0 and not TAC.IgnorePlayer(source)) then
         local bannedIdentifiers = GetPlayerIdentifiers(playerId)
 
         if (bannedIdentifiers == nil or #bannedIdentifiers <= 0) then
@@ -146,7 +164,13 @@ TAC.BanPlayerWithReason = function(playerId, reason)
 end
 
 TAC.KickPlayerWithReason = function(playerId, reason)
-    if (playerId ~= nil and playerId > 0 and not TAC.IgnorePlayer(source)) then
+    if (playerId == nil) then
+        return
+    end
+    
+    playerId = tonumber(playerId)
+    
+    if (playerId > 0 and not TAC.IgnorePlayer(source)) then
         DropPlayer(playerId, _('user_kick_reason', reason))
     end
 end

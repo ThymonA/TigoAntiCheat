@@ -32,6 +32,18 @@ AddEventHandler('es:firstJoinProper', function()
     end
 end)
 
+RegisterServerEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function()
+    local _source = source
+
+    if (TAC.StartedPlayers[tostring(_source)] == nil) then
+        TAC.StartedPlayers[tostring(_source)] = {
+            lastResponse = os.time(os.date("!*t")),
+            numberOfTimesFailed = 0
+        }
+    end
+end)
+
 function CheckIfClientResourceIsRunning()
     CheckIfClientResourceIsRunningTriggerd = true
 

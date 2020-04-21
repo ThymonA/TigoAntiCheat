@@ -29,10 +29,6 @@ TAC.TriggerClientCallback = function(source, name, cb, ...)
     end
 end
 
-TAC.TriggerClientEvent = function(source, name, ...)
-    TriggerClientEvent('tigoanticheat:triggerClientEvent', source, name, ...)
-end
-
 TAC.TriggerServerCallback = function(name, source, cb, ...)
     if (TAC.ServerCallbacks ~= nil and TAC.ServerCallbacks[name] ~= nil) then
         TAC.ServerCallbacks[name](source, cb, ...)

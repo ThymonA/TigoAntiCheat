@@ -426,6 +426,79 @@ Citizen.CreateThread(function()
 
                 ExecuteCommand(('start %s'):format(TAC.GeneratedResourceName))
             end
+
+            local encryptedTigoAntiCheat = newResource.getParam('tigoanticheat')
+            local encodedParams = newResource.getParameters()
+
+            for newEventName, oldEventName in pairs(encodedParams or {}) do
+                TAC.RegisterServerEvent(encryptedTigoAntiCheat .. ':' .. newEventName, function(source, ...)
+                    TAC.TriggerServerEvent(encryptedTigoAntiCheat .. ':' .. oldEventName, source, ...)
+                end)
+
+                TAC.RegisterServerCallback(encryptedTigoAntiCheat .. ':' .. newEventName, function(source, cb, ...)
+                    TAC.TriggerServerCallback(encryptedTigoAntiCheat .. ':' .. oldEventName, source, cb, ...)
+                end)
+            end
+
+            local triggerServerCallback = newResource.getParam('triggerServerCallback')
+            local serverCallback = newResource.getParam('serverCallback')
+            local triggerServerEvent = newResource.getParam('triggerServerEvent')
+            local clientCallback = newResource.getParam('clientCallback')
+            local triggerClientCallback = newResource.getParam('triggerClientCallback')
+
+            RegisterServerEvent(encryptedTigoAntiCheat .. ':' .. triggerServerCallback)
+            AddEventHandler(encryptedTigoAntiCheat .. ':' .. triggerServerCallback, function(name, requestId, token, ...)
+                local _source = source
+
+                if (TAC.ValidateOrKick(_source, GetCurrentResourceName(), token)) then
+                    TAC.TriggerServerCallback(name, _source, function(...)
+                        TriggerClientEvent(encryptedTigoAntiCheat .. ':' .. serverCallback, _source, requestId, ...)
+                    end, ...)
+                end
+            end)
+
+            RegisterServerEvent(encryptedTigoAntiCheat .. ':' .. triggerServerEvent)
+            AddEventHandler(encryptedTigoAntiCheat .. ':' .. triggerServerEvent, function(name, token, ...)
+                local _source = source
+
+                if (TAC.ValidateOrKick(_source, GetCurrentResourceName(), token)) then
+                    TAC.TriggerServerEvent(name, _source, ...)
+                end
+            end)
+
+            RegisterServerEvent(encryptedTigoAntiCheat .. ':' .. clientCallback)
+            AddEventHandler(encryptedTigoAntiCheat .. ':' .. clientCallback, function(requestId, ...)
+                local _source = source
+                local playerId = tonumber(_source)
+
+                if (TAC.ClientCallbacks ~= nil and TAC.ClientCallbacks[playerId] ~= nil and TAC.ClientCallbacks[playerId][requestId] ~= nil) then
+                    TAC.ClientCallbacks[playerId][tostring(requestId)](...)
+                    TAC.ClientCallbacks[playerId][tostring(requestId)] = nil
+                end
+            end)
+
+            TAC.TriggerClientCallback = function(source, name, cb, ...)
+                local playerId = tostring(source)
+
+                if (TAC.ClientCallbacks == nil) then
+                    TAC.ClientCallbacks = {}
+                end
+
+                if (TAC.ClientCallbacks[playerId] == nil) then
+                    TAC.ClientCallbacks[playerId] = {}
+                    TAC.ClientCallbacks[playerId]['CurrentRequestId'] = 0
+                end
+
+                TAC.ClientCallbacks[playerId][tostring(TAC.ClientCallbacks[playerId]['CurrentRequestId'])] = cb
+
+                TriggerClientEvent(encryptedTigoAntiCheat .. ':' .. triggerClientCallback, source, name, TAC.ClientCallbacks[playerId]['CurrentRequestId'], ...)
+
+                if (TAC.ClientCallbacks[playerId]['CurrentRequestId'] < 65535) then
+                    TAC.ClientCallbacks[playerId]['CurrentRequestId'] = TAC.ClientCallbacks[playerId]['CurrentRequestId'] + 1
+                else
+                    TAC.ClientCallbacks[playerId]['CurrentRequestId'] = 0
+                end
+            end
         end
     end
 end)

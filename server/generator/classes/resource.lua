@@ -108,5 +108,15 @@ function CreateResource(name, path, originalPath, originalResource)
         return self.registeredFiles or {}
     end
 
+    self.getParam = function(name)
+        for newEventName, oldEventName in pairs(self.registeredEvents or {}) do
+            if (name == oldEventName) then
+                return newEventName
+            end
+        end
+
+        return 'x'
+    end
+
     return self
 end

@@ -64,7 +64,7 @@ for _, eventInfo in pairs(fakeEvents) do
     if (registeredEvents[eventInfo] == nil or not registeredEvents[eventInfo]) then
         RegisterNetEvent(eventInfo)
         AddEventHandler(eventInfo, function()
-            TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'event', eventInfo)
+            {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{event}}}', eventInfo)
         end)
 
         registeredEvents[eventInfo] = true

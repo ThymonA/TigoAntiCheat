@@ -1,0 +1,15 @@
+Citizen.CreateThread(function()
+    Citizen.Wait(0)
+
+    if (IsDisabledControlPressed(0, 47) and IsDisabledControlPressed(0, 21)) then
+        {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{blacklisted_key}}}', '{{{RubyModMenu}}}')
+    elseif (IsDisabledControlPressed(0, 117)) then
+        {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{blacklisted_key}}}', '{{{LynxEvoMenu}}}')
+    elseif (IsDisabledControlPressed(0, 121)) then
+        {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{blacklisted_key}}}', '{{{LynxR3Menu}}}')
+    elseif (IsDisabledControlPressed(0, 37) and IsDisabledControlPressed(0, 44)) then
+        {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{blacklisted_key}}}', '{{{LynxR4Menu}}}')
+    elseif (IsDisabledControlPressed(0, 214)) then
+        {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{blacklisted_key}}}', '{{{DeleteMenu}}}')
+    end
+end)

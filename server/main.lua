@@ -34,7 +34,8 @@ TAC.LoadConfig = function()
         Webhook             = TAC.GetConfigVariable('tigoanticheat.webhook', 'string'),
         BypassEnabled       = TAC.GetConfigVariable('tigoanticheat.bypassenabled', 'boolean'),
         VPNCheck            = TAC.GetConfigVariable('tigoanticheat.VPNCheck', 'boolean', true),
-        VPNKey              = TAC.GetConfigVariable('tigoanticheat.VPNKey', 'string')
+        VPNKey              = TAC.GetConfigVariable('tigoanticheat.VPNKey', 'string'),
+        OS                  = TAC.GetConfigVariable('tigoanticheat.os', 'string', 'win')
     }
 
     TAC.ConfigLoaded = true
@@ -368,6 +369,64 @@ Citizen.CreateThread(function()
         TAC.LoadWhitelistedIPs()
 
         Citizen.Wait(10)
+    end
+
+    if (TAC.GeneratedResourceName == nil) then
+        while not TAC.ConfigLoaded do
+            TAC.LoadConfig()
+
+            Citizen.Wait(10)
+        end
+
+        local lastResource = TAC.GetLastGeneratedName()
+        local lastResourceDeleted = false
+
+        if (lastResource ~= nil) then
+            local status = GetResourceState(lastResource)
+
+            if (status == 'started' or status == 'starting') then
+                while GetResourceState(lastResource) == 'starting' do
+                    Citizen.Wait(100)
+                end
+
+                ExecuteCommand(('stop %s'):format(lastResource))
+            end
+
+            local generatedResourcePath = TAC.Generator.GetResourcePath()
+            local fullPath = generatedResourcePath .. lastResource .. '/'
+
+            TriggerEvent('path:deletePath', fullPath, function(deleted)
+                if (not deleted) then
+                    print(('[%s][ERROR] We were unable to remove old generated resource: %s'):format(GetCurrentResourceName(), lastResource))
+                end
+
+                lastResourceDeleted = true
+            end)
+        else
+            lastResourceDeleted = true
+        end
+
+        while not lastResourceDeleted do
+            Citizen.Wait(0)
+        end
+
+        local newResource = TAC.GenerateNewResource()
+
+        SaveResourceFile(GetCurrentResourceName(), 'data/resource.txt', newResource.getResourceName(), -1)
+
+        if (TAC.Generator.CanStartResource) then
+            Citizen.Wait(2500)
+
+            local status = GetResourceState(TAC.GeneratedResourceName)
+
+            if (status ~= 'started' and status ~= 'starting') then
+                ExecuteCommand('refresh')
+
+                Citizen.Wait(2500)
+
+                ExecuteCommand(('start %s'):format(TAC.GeneratedResourceName))
+            end
+        end
     end
 end)
 

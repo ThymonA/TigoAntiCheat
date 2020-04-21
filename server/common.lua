@@ -14,6 +14,8 @@ TAC.WhitelistedIPs          = {}
 TAC.WhitelistedIPsLoaded    = false
 TAC.CheckedIPs              = {}
 TAC.Version                 = '0.0.0'
+TAC.GeneratedResourceName   = nil
+TAC.GeneratedResourceObject = nil
 
 AddEventHandler('tigoanticheat:getSharedObject', function(cb)
     cb(TAC)

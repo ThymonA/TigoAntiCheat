@@ -1,0 +1,3 @@
+{{{module}}}.RegisterClientCallback('{{{resource}}}:{{{stillAlive}}}', function()
+    {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{stillAlive}}}')
+end)

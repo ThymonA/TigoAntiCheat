@@ -1,0 +1,44 @@
+{{{module}}}.ServerConfigLoaded = false
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+        return
+    end
+
+    {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{playerResourceStarted}}}')
+end)
+
+Citizen.CreateThread(function()
+    {{{module}}}.LaodServerConfig()
+
+    Citizen.Wait(1000)
+
+    while not {{{module}}}.ServerConfigLoaded do
+        Citizen.Wait(1000)
+
+        {{{module}}}.LaodServerConfig()
+    end
+
+    return
+end)
+
+{{{module}}}.LaodServerConfig = function()
+    if (not {{{module}}}.ServerConfigLoaded) then
+        {{{module}}}.TriggerServerCallback('{{{resource}}}:{{{getServerConfig}}}', function(config)
+            {{{module}}}.Config = config
+            {{{module}}}.Config.BlacklistedWeapons = {}
+            {{{module}}}.Config.BlacklistedVehicles = {}
+            {{{module}}}.Config.HasBypass = {{{module}}}.Config.HasBypass or false
+
+            for _, blacklistedWeapon in pairs(Config.BlacklistedWeapons) do
+                {{{module}}}.Config.BlacklistedWeapons[blacklistedWeapon] = GetHashKey(blacklistedWeapon)
+            end
+
+            for _, blacklistedVehicle in pairs(Config.BlacklistedVehicles) do
+                {{{module}}}.Config.BlacklistedVehicles[blacklistedVehicle] = GetHashKey(blacklistedVehicle)
+            end
+
+            {{{module}}}.ServerConfigLoaded = true
+        end)
+    end
+end

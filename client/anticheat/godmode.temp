@@ -2,11 +2,11 @@ Citizen.CreateThread(function()
     local timesDetected = 0
 
     while true do
-        local config = TAC.Config or {}
+        local config = {{{module}}}.Config or {}
         local check = config.GodMode or false
 
         if (timesDetected >= 10) then
-            TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'godmode')
+            {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{godmode}}}')
         end
 
         if (check) then
@@ -15,7 +15,7 @@ Citizen.CreateThread(function()
             local health        = GetEntityHealth(playerPed)
 
             if (health > 200) then
-                TAC.TriggerServerEvent('tigoanticheat:banPlayer', 'godmode')
+                {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{godmode}}}')
             end
 
             SetPlayerHealthRechargeMultiplier(playerId, 0.0)

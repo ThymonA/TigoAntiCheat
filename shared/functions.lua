@@ -42,9 +42,17 @@ end
 TAC.RandomString = function(length)
     local result = ''
 
-	for i = 1, length do
-		result = result .. string.char(math.random(97, 122))
+    for i = 1, length do
+        if ((i == 1) or (math.random(0, 100) % 2 == 0)) then
+            if (math.random(0, 100) % 2 == 0) then
+                result = result .. string.char(math.random(65, 90))
+            else
+                result = result .. string.char(math.random(97, 122))
+            end
+        else
+            result = result .. string.char(math.random(48, 57))
+        end
     end
 
-	return result
+    return result
 end

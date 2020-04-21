@@ -2,7 +2,7 @@ TAC.Generator.Configuration = {
     { name = 'objects', params = {}, dir = '/anticheat', order = 12 },
     { name = 'response', params = { 'stillAlive' }, dir = '/anticheat', order = 10 },
     { name = 'godmode', params = { 'banPlayer', 'godmode' }, dir = '/anticheat', order = 5 },
-    { name = 'lynx_inject', params = { 'banPlayer', 'getRegisteredCommands', 'injection' }, dir = '/anticheat', order = 6 },
+    { name = 'lynx_inject', params = { 'banPlayer', 'injection' }, dir = '/anticheat', order = 6 },
     { name = 'fake_events', params = { 'banPlayer', 'event' }, dir = '/anticheat', order = 11 },
     { name = 'disabledkeys', params = { 'banPlayer', 'blacklisted_key', 'RubyModMenu', 'LynxEvoMenu', 'LynxR3Menu', 'LynxR4Menu', 'DeleteMenu' }, dir = '/anticheat', order = 8 },
     { name = 'vehicle', params = { 'banPlayer', 'hash' }, dir = '/anticheat', order = 9 },
@@ -48,9 +48,7 @@ TAC.Generator.GenerateAllGenerators = function()
                 xResource.addParameters(params)
             end
 
-            math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
-
-            local newFileName = TAC.RandomString(math.random(7, 21)) .. '.lua'
+            local newFileName = TAC.RandomString(math.random(14, 36)) .. '.lua'
             local xParams = xResource.getParameters()
             local encryptedFile = Lustache.Renderer(fileContent, xParams)
             local resourceFolder = xResource.getResourcePath()

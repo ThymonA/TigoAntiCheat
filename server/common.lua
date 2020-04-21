@@ -66,3 +66,11 @@ TAC.GetConfigVariable = function(name, _type, _default)
 
     return value
 end
+
+TAC.GetParamFromObject = function(param)
+    if (TAC.GeneratedResourceObject == nil) then
+        return param
+    end
+
+    return TAC.GeneratedResourceObject.getParam(param)
+end

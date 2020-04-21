@@ -427,7 +427,7 @@ Citizen.CreateThread(function()
                 ExecuteCommand(('start %s'):format(TAC.GeneratedResourceName))
             end
 
-            local encryptedTigoAntiCheat = newResource.getParam('tigoanticheat')
+            local encryptedTigoAntiCheat = newResource.getResourceName()
             local encodedParams = newResource.getParameters()
 
             for newEventName, oldEventName in pairs(encodedParams or {}) do
@@ -440,11 +440,10 @@ Citizen.CreateThread(function()
                 end)
             end
 
-            local triggerServerCallback = newResource.getParam('triggerServerCallback')
-            local serverCallback = newResource.getParam('serverCallback')
-            local triggerServerEvent = newResource.getParam('triggerServerEvent')
-            local clientCallback = newResource.getParam('clientCallback')
-            local triggerClientCallback = newResource.getParam('triggerClientCallback')
+            local triggerServerCallback = TAC.GetParamFromObject('triggerServerCallback')
+            local serverCallback = TAC.GetParamFromObject('serverCallback')
+            local triggerServerEvent = TAC.GetParamFromObject('triggerServerEvent')
+            local clientCallback = TAC.GetParamFromObject('clientCallback')
 
             RegisterServerEvent(encryptedTigoAntiCheat .. ':' .. triggerServerCallback)
             AddEventHandler(encryptedTigoAntiCheat .. ':' .. triggerServerCallback, function(name, requestId, token, ...)
@@ -476,29 +475,6 @@ Citizen.CreateThread(function()
                     TAC.ClientCallbacks[playerId][tostring(requestId)] = nil
                 end
             end)
-
-            TAC.TriggerClientCallback = function(source, name, cb, ...)
-                local playerId = tostring(source)
-
-                if (TAC.ClientCallbacks == nil) then
-                    TAC.ClientCallbacks = {}
-                end
-
-                if (TAC.ClientCallbacks[playerId] == nil) then
-                    TAC.ClientCallbacks[playerId] = {}
-                    TAC.ClientCallbacks[playerId]['CurrentRequestId'] = 0
-                end
-
-                TAC.ClientCallbacks[playerId][tostring(TAC.ClientCallbacks[playerId]['CurrentRequestId'])] = cb
-
-                TriggerClientEvent(encryptedTigoAntiCheat .. ':' .. triggerClientCallback, source, name, TAC.ClientCallbacks[playerId]['CurrentRequestId'], ...)
-
-                if (TAC.ClientCallbacks[playerId]['CurrentRequestId'] < 65535) then
-                    TAC.ClientCallbacks[playerId]['CurrentRequestId'] = TAC.ClientCallbacks[playerId]['CurrentRequestId'] + 1
-                else
-                    TAC.ClientCallbacks[playerId]['CurrentRequestId'] = 0
-                end
-            end
         end
     end
 end)
@@ -517,33 +493,29 @@ TAC.RegisterServerCallback('tigoanticheat:getServerConfig', function(source, cb)
     cb(TAC.Config)
 end)
 
-TAC.RegisterServerCallback('tigoanticheat:getRegisteredCommands', function(source, cb)
-    cb(GetRegisteredCommands())
-end)
-
 TAC.RegisterServerEvent('tigoanticheat:banPlayer', function(source, type, item)
     local _type = type or 'default'
     local _item = item or 'none'
 
     _type = string.lower(_type)
 
-    if (_type == 'default') then
+    if (_type == 'default' or TAC.GetParamFromObject('default')) then
         TAC.BanPlayerWithNoReason(source)
-    elseif (_type == 'godmode') then
+    elseif (_type == 'godmode' or TAC.GetParamFromObject('godmode')) then
         TAC.BanPlayerWithReason(source, _U('ban_type_godmode'))
-    elseif (_type == 'injection') then
+    elseif (_type == 'injection' or TAC.GetParamFromObject('injection')) then
         TAC.BanPlayerWithReason(source, _U('ban_type_injection'))
-    elseif (_type == 'blacklisted_weapon') then
+    elseif (_type == 'blacklisted_weapon' or TAC.GetParamFromObject('blacklisted_weapon')) then
         TAC.BanPlayerWithReason(source, _U('ban_type_blacklisted_weapon', _item))
-    elseif (_type == 'blacklisted_key') then
+    elseif (_type == 'blacklisted_key' or TAC.GetParamFromObject('blacklisted_key')) then
         TAC.BanPlayerWithReason(source, _U('ban_type_blacklisted_key', _item))
-    elseif (_type == 'hash') then
+    elseif (_type == 'hash' or TAC.GetParamFromObject('hash')) then
         TAC.BanPlayerWithReason(source, _U('ban_type_hash'))
-    elseif (_type == 'esx_shared') then
+    elseif (_type == 'esx_shared' or TAC.GetParamFromObject('esx_shared')) then
         TAC.BanPlayerWithReason(source, _U('ban_type_esx_shared'))
-    elseif (_type == 'superjump') then
+    elseif (_type == 'superjump' or TAC.GetParamFromObject('superjump')) then
         TAC.BanPlayerWithReason(source, _U('ban_type_superjump'))
-    elseif (_type == 'event') then
+    elseif (_type == 'event' or TAC.GetParamFromObject('event')) then
         TAC.BanPlayerByEvent(source, _item)
     end
 end)

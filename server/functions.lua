@@ -9,6 +9,10 @@ end
 TAC.TriggerClientCallback = function(source, name, cb, ...)
     local playerId = tostring(source)
 
+    if (playerId == '0' or playerId == '' or source == 0 or source == nil) then
+        return
+    end
+
     if (TAC.ClientCallbacks == nil) then
         TAC.ClientCallbacks = {}
     end
@@ -17,6 +21,9 @@ TAC.TriggerClientCallback = function(source, name, cb, ...)
         TAC.ClientCallbacks[playerId] = {}
         TAC.ClientCallbacks[playerId]['CurrentRequestId'] = 0
     end
+
+    print(source)
+    print(name)
 
     TAC.ClientCallbacks[playerId][tostring(TAC.ClientCallbacks[playerId]['CurrentRequestId'])] = cb
 
@@ -59,13 +66,7 @@ end)
 TAC.GeneratedNewResourceName = function()
     local prefix = { 'esx_policejob', 'esx_ambulancejob', 'esx_taxijob', 'esx_bankerjob', 'esx_vigneronjob', 'esx_fuelerjob', 'esx_mecanojob', 'esx_garbagejob', 'esx_lscustom', 'esx_jobs', 'esx_joblisting', 'esx_pizza', 'esx_blanchisseur', 'esx_pilot', 'esx_carthief', 'esx_godirtyjob', 'esx_ranger', 'esx_fueldelivery', 'esx_truckerjob', 'esx_gopostaljob', 'esx_banksecurity', 'delivery', 'taxi', 'dmv', 'whoapd', 'paramedic', 'ems', 'Banca', 'Sasaki_kurier', 'neweden_garage' }
     local suffix = { 'confiscatePlayerItem', 'handcuff', 'drag', 'putInVehicle', 'OutVehicle', 'getStockItem', 'putStockItems', 'spawned', 'forceBlip', 'giveWeapon', 'setVehicleState', 'message', 'buyMod', 'refreshOwnedVehicle', 'startHarvest', 'stopHarvest', 'startHarvest2', 'stopHarvest2', 'startHarvest3', 'stopHarvest3', 'startCraft', 'stopCraft', 'startCraft2', 'stopCraft2', 'startCraft3', 'stopCraft3', 'onNPCJobMissionCompleted', 'pay', 'setJob', 'setCautionInCaseOfDrop', 'giveBackCautionInCaseOfDrop', 'startWork', 'stopWork', 'caution', 'revive', 'heal', 'placeinback', 'removeItem', 'giveItem', 'firstSpawn', 'setDeathStatus', 'success', 'startWhitening', 'withdraw', 'billPlayer', }
-
-    math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
-
     local randomInt = math.random(1, #prefix)
-
-    math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
-
     local randomInt2 = math.random(1, #suffix)
 
     local prefixName = prefix[randomInt]

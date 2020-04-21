@@ -74,7 +74,7 @@ function CheckIfClientResourceIsRunning()
                     TAC.StartedPlayers[playerId].numberOfTimesFailed = TAC.StartedPlayers[playerId].numberOfTimesFailed + 1
                 end
 
-                TAC.TriggerClientCallback(tonumber(playerId), 'tigoanticheat:stillAlive', function()
+                TAC.TriggerClientCallback(tonumber(playerId), TAC.GetParamFromObject('tigoanticheat') .. ':' .. TAC.GetParamFromObject('stillAlive'), function()
                     if (TAC.StartedPlayers[playerId] ~= nil) then
                         TAC.StartedPlayers[playerId].lastResponse = os.time(os.date("!*t"))
 

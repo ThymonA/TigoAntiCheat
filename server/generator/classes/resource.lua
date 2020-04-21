@@ -12,23 +12,13 @@ function CreateResource(name, path, originalPath, originalResource)
         local result = ''
 
         for i = 1, length do
-            math.randomseed(self.toInt(os.time() / math.random(1, 99)))
-
             if ((i == 1) or (math.random(0, 100) % 2 == 0)) then
-                math.randomseed(self.toInt(os.time() / math.random(1, 99)))
-
                 if (math.random(0, 100) % 2 == 0) then
-                    math.randomseed(self.toInt(os.time() / math.random(1, 99)))
-
                     result = result .. string.char(math.random(65, 90))
                 else
-                    math.randomseed(self.toInt(os.time() / math.random(1, 99)))
-
                     result = result .. string.char(math.random(97, 122))
                 end
             else
-                math.randomseed(self.toInt(os.time() / math.random(1, 99)))
-
                 result = result .. string.char(math.random(48, 57))
             end
         end
@@ -37,8 +27,7 @@ function CreateResource(name, path, originalPath, originalResource)
     end
 
     self.generateRandomEvent = function(event)
-        math.randomseed(self.toInt(os.time() / math.random(1, 99)))
-        local length = math.random(5, 8)
+        local length = math.random(11, 41)
         local newEventName = self.generateRandomString(length)
 
         if (self.registeredEvents ~= nil and self.registeredEvents[newEventName] ~= nil) then
@@ -52,14 +41,24 @@ function CreateResource(name, path, originalPath, originalResource)
 
     self.path = path or 'unknown'
 
-    math.randomseed(self.toInt(os.time() / math.random(1, 99)))
-
-    self.module = string.upper(self.generateRandomString(math.random(3, 8)))
+    self.module = string.upper(self.generateRandomString(math.random(13, 31)))
     self.resource = name or 'unknown'
     self.events = { }
 
     self.originalPath = originalPath or 'unknown'
     self.originalResource = originalResource or 'unknown'
+
+    self.addEventName = function(name, encrypt)
+        name = name or 'none'
+
+        if (self.events ~= nil and self.events[name] ~= nil) then
+            return
+        end
+
+        self.events[name] = encrypt
+    end
+
+    self.addEventName('tigoanticheat', self.resource)
 
     self.getResourceName = function()
         return self.resource
@@ -133,7 +132,7 @@ function CreateResource(name, path, originalPath, originalResource)
             end
         end
 
-        return 'x'
+        return name
     end
 
     return self

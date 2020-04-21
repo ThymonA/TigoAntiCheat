@@ -43,13 +43,18 @@ TAC.RandomString = function(length)
     local result = ''
 
     for i = 1, length do
+        math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
         if ((i == 1) or (math.random(0, 100) % 2 == 0)) then
+            math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
             if (math.random(0, 100) % 2 == 0) then
+                math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
                 result = result .. string.char(math.random(65, 90))
             else
+                math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
                 result = result .. string.char(math.random(97, 122))
             end
         else
+            math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
             result = result .. string.char(math.random(48, 57))
         end
     end

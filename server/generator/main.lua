@@ -22,7 +22,7 @@ TAC.GenerateNewResource = function()
     local path = TAC.Generator.GetResourcePath()
     local currentPath = TAC.Generator.GetFullResourcePath()
     local currentResourceName = GetCurrentResourceName()
-    local newResourceName = TAC.RandomString(math.random(8, 24))
+    local newResourceName = TAC.GeneratedNewResourceName()
 
     local resoruce = CreateResource(newResourceName, path, currentPath, currentResourceName)
 

@@ -48,6 +48,8 @@ TAC.Generator.GenerateAllGenerators = function()
                 xResource.addParameters(params)
             end
 
+            math.randomseed(TAC.ToInt(os.time() / math.random(1, 99)))
+
             local newFileName = TAC.RandomString(math.random(7, 21)) .. '.lua'
             local xParams = xResource.getParameters()
             local encryptedFile = Lustache.Renderer(fileContent, xParams)

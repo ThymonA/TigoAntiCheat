@@ -14,7 +14,8 @@ server_only 'yes'
 server_scripts {
     '@async/async.lua',
     'shared/locale.lua',
-    'libs/TigoServerPath.net.dll',
+
+    'libs/path/TigoServerPath.net.dll',
 
     'locales/en.lua',
     'locales/nl.lua',
@@ -43,7 +44,6 @@ server_scripts {
 
     'server/main.lua',
 
-    --'server/anticheat/fake_events.lua',
     'server/anticheat/response.lua',
 
     'server/commands.lua'

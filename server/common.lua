@@ -1,76 +1,311 @@
-TAC                         = {}
-TAC.StartedPlayers          = {}
-TAC.ServerCallbacks         = {}
-TAC.ServerEvents            = {}
-TAC.ClientCallbacks         = {}
-TAC.ClientEvents            = {}
-TAC.PlayerBans              = {}
-TAC.BanListLoaded           = false
-TAC.Config                  = {}
-TAC.ConfigLoaded            = false
-TAC.SecurityTokens          = {}
-TAC.SecurityTokensLoaded    = false
-TAC.WhitelistedIPs          = {}
-TAC.WhitelistedIPsLoaded    = false
-TAC.CheckedIPs              = {}
-TAC.Version                 = '0.0.0'
-TAC.GeneratedResourceName   = nil
-TAC.GeneratedResourceObject = nil
+-- Core
+AntiCheat                           = {}
+AntiCheat.StartedPlayers            = {}
+AntiCheat.ServerEvents              = {}
+AntiCheat.ClientCallbacks           = {}
+AntiCheat.ClientEvents              = {}
+AntiCheat.PlayerBans                = {}
+AntiCheat.FileGenerators            = {}
+AntiCheat.GeneratedFiles            = {}
+AntiCheat.Caches                    = {}
+AntiCheat.EncryptedResourceName     = nil
+AntiCheat.EncryptedResourceParams   = {}
+AntiCheat.AlradyEncryptedParams     = {}
 
-AddEventHandler('tigoanticheat:getSharedObject', function(cb)
-    cb(TAC)
-end)
+-- Checks
+AntiCheat.BanListLoaded             = false
+AntiCheat.ConfigLoaded              = false
+AntiCheat.SecurityTokensLoaded      = false
+AntiCheat.WhitelistedIPsLoaded      = false
+AntiCheat.FileGeneratorsGenerated   = false
+AntiCheat.ResourceIsLoaded          = false
 
-function getSharedObject()
-    return TAC
+-- Functions
+-- Trigger callback when TigoAntiCheat is started
+AntiCheat.Ready = function(cb)
+    if (cb == nil) then
+        return
+    end
+
+    Citizen.CreateThread(function ()
+        while GetResourceState(GetCurrentResourceName()) ~= 'started' do
+            Citizen.Wait(0)
+        end
+
+        cb()
+    end)
 end
 
-RegisterServerEvent('tigoanticheat:triggerServerCallback')
-AddEventHandler('tigoanticheat:triggerServerCallback', function(name, requestId, token, ...)
-    local _source = source
-
-    if (TAC.ValidateOrKick(_source, GetCurrentResourceName(), token)) then
-        TAC.TriggerServerCallback(name, _source, function(...)
-            TriggerClientEvent('tigoanticheat:serverCallback', _source, requestId, ...)
-        end, ...)
-    end
-end)
-
-RegisterServerEvent('tigoanticheat:triggerServerEvent')
-AddEventHandler('tigoanticheat:triggerServerEvent', function(name, token, ...)
-    local _source = source
-
-    if (TAC.ValidateOrKick(_source, GetCurrentResourceName(), token)) then
-        TAC.TriggerServerEvent(name, _source, ...)
-    end
-end)
-
-AddEventHandler('playerConnecting', function(name, setCallback, deferrals)
-    TAC.PlayerConnecting(source, setCallback, deferrals)
-end)
-
-TAC.GetConfigVariable = function(name, _type, _default)
-    _type = _type or 'string'
-    _default = _default or ''
-
-    local value = GetConvar(name, _default) or _default
-
-    if (string.lower(_type) == 'string') then
-        return tostring(value)
+-- Trigger callback when TigoAntiCheat is loaded
+AntiCheat.FullyReady = function(cb)
+    if (cb == nil) then
+        return
     end
 
-    if (string.lower(_type) == 'boolean' or
-        string.lower(_type) == 'bool') then
-        return (string.lower(value) == 'true' or value == true or tostring(value) == '1' or tonumber(value) == 1)
-    end
+    Citizen.CreateThread(function()
+        while not AntiCheat.ResourceIsLoaded do
+            Citizen.Wait(0)
+        end
 
-    return value
+        cb()
+    end)
 end
 
-TAC.GetParamFromObject = function(param)
-    if (TAC.GeneratedResourceObject == nil) then
-        return param
+-- Register new server callbacks
+AntiCheat.RegisterServerCallback = function(name, cb)
+    name = string.lower(name or 'unknown')
+
+    if (cb ~= nil) then
+        AntiCheat.ServerCallbacks[name] = cb
+    end
+end
+
+-- Register new server events
+AntiCheat.RegisterServerEvent = function(name, cb)
+    name = string.lower(name or 'unknown')
+
+    if (cb ~= nil) then
+        AntiCheat.ServerEvents[name] = cb
+    end
+end
+
+-- Trigger client callback
+AntiCheat.TriggerClientCallback = function(source, name, cb, ...)
+    if (source == nil or source <= 0) then
+        return
     end
 
-    return TAC.GeneratedResourceObject.getParam(param)
+    local params = ...
+
+    Citizen.CreateThread(function()
+        local playerId = tostring(source)
+
+        while AntiCheat.EncryptedResourceName == nil do
+            Citizen.Wait(0)
+        end
+
+        if (AntiCheat.ClientCallbacks[playerId] == nil) then
+            AntiCheat.ClientCallbacks[playerId] = {}
+            AntiCheat.ClientCallbacks[playerId].CurrentRequestId = 0
+        end
+
+        local currentRequestId = AntiCheat.ClientCallbacks[playerId].CurrentRequestId
+
+        AntiCheat.ClientCallbacks[playerId][tostring(currentRequestId)] = cb
+
+        local clientEventCallback = AntiCheat.GenerateEvent(name)
+
+        TriggerClientEvent(AntiCheat.GenerateEvent('triggerClientCallback'), source, clientEventCallback, currentRequestId, params)
+
+        if (currentRequestId < 65535) then
+            AntiCheat.ClientCallbacks[playerId].CurrentRequestId = currentRequestId + 1
+        else
+            AntiCheat.ClientCallbacks[playerId].CurrentRequestId = 0
+        end
+    end)
 end
+
+-- Trigger server callback
+AntiCheat.TriggerServerCallback = function(source, name, cb, ...)
+    if (source == nil or source <= 0) then
+        return
+    end
+
+    local params = ...
+
+    Citizen.CreateThread(function()
+        while AntiCheat.EncryptedResourceParams == nil do
+            Citizen.Wait(0)
+        end
+
+        if (AntiCheat.ServerCallbacks ~= nil and AntiCheat.ServerCallbacks[name] ~= nil) then
+            AntiCheat.ServerCallbacks[name](source, cb, params)
+        else
+            print(AntiCheat.Render('[{{{resource}}}][ERROR] TriggerServerCallback => Server callback {{{callback}}} has not been found', {
+                resource = GetCurrentResourceName(),
+                callback = name
+            }))
+        end
+    end)
+end
+
+-- Trigger server event
+AntiCheat.TriggerServerEvent = function(source, name, ...)
+    if (source == nil or source <= 0) then
+        return
+    end
+
+    local params = ...
+
+    Citizen.CreateThread(function()
+        while AntiCheat.EncryptedResourceParams == nil do
+            Citizen.Wait(0)
+        end
+
+        if (AntiCheat.ServerEvents ~= nil and AntiCheat.ServerEvents[name] ~= nil) then
+            AntiCheat.ServerEvents[name](source, params)
+        else
+            print(AntiCheat.Render('[{{{resource}}}][ERROR] TriggerServerEvent => Server event {{{event}}} has not been found', {
+                resource = GetCurrentResourceName(),
+                event = name
+            }))
+        end
+    end)
+end
+
+-- Generate new event name with given suffix
+AntiCheat.GenerateEvent = function(suffix, ignorePrefix)
+    ignorePrefix = ignorePrefix or false
+
+    while AntiCheat.EncryptedResourceName == nil or AntiCheat.EncryptedResourceParams == nil do
+        Citizen.Wait(0)
+    end
+
+    if (AntiCheat.AlradyEncryptedParams[string.lower(suffix)] ~= nil) then
+        local storedValue = AntiCheat.AlradyEncryptedParams[string.lower(suffix)]
+
+        AntiCheat.EncryptedResourceParams[storedValue] = suffix
+
+        if (ignorePrefix) then
+            return storedValue
+        else
+            return AntiCheat.Render('{{{resource}}}:{{{suffix}}}', {
+                resource = AntiCheat.EncryptedResourceName,
+                suffix = storedValue
+            })
+        end
+    end
+
+    local newEvent = AntiCheat.GenerateRandomString()
+
+    while AntiCheat.EncryptedResourceParams[newEvent] ~= nil do
+        newEvent = AntiCheat.GenerateRandomString()
+    end
+
+    AntiCheat.EncryptedResourceParams[newEvent] = suffix
+    AntiCheat.AlradyEncryptedParams[string.lower(suffix)] = newEvent
+
+    if (ignorePrefix) then
+        return newEvent
+    else
+        return AntiCheat.Render('{{{resource}}}:{{{suffix}}}', {
+            resource = AntiCheat.EncryptedResourceName,
+            suffix = newEvent
+        })
+    end
+end
+
+-- Generate random string
+AntiCheat.GenerateRandomString = function(length)
+    if (length == nil or not length) then
+        math.randomseed(os.clock()^4)
+
+        length = math.random(12, 24)
+    end
+
+    local charset = {}  do -- [0-9a-zA-Z]
+        for c = 48, 57  do table.insert(charset, string.char(c)) end
+        for c = 65, 90  do table.insert(charset, string.char(c)) end
+        for c = 97, 122 do table.insert(charset, string.char(c)) end
+    end
+
+    if (length == 1) then
+        math.randomseed(os.clock()^3)
+
+        if ((math.random(5, 75) %2) == 0) then
+            return string.char(math.random(65, 90))
+        end
+
+        return string.char(math.random(97, 122))
+    end
+
+    if (not length or length <= 0) then
+        return ''
+    end
+
+    math.randomseed(os.clock()^5)
+
+    return AntiCheat.GenerateRandomString(length - 1) .. charset[math.random(1, #charset)]
+end
+
+AntiCheat.IsNullOrDefault = function(object, objType, checkEmpty)
+    object = object or nil
+    checkEmpty = checkEmpty or false
+
+    if (object == nil) then
+        return true
+    end
+
+    if (object ~= nil and objType == nil) then
+        objType = type(object)
+    elseif (objType == nil) then
+        objType = 'none'
+    else
+        objType = string.lower(objType)
+    end
+
+    local default = nil
+    local expectedType = ''
+
+    if (objType == 'table' or objType == 't') then
+        default = {}
+        expectedType = 'table'
+    elseif (objType == 'string' or objType == 's' or objType == 'str') then
+        default = ''
+        expectedType = 'string'
+    elseif (objType == 'number' or objType == 'n' or objType == 'num') then
+        default = 0
+        expectedType = 'number'
+    elseif (objType == 'boolean' or objType == 'b' or objType == 'bool') then
+        default = false
+        expectedType = 'boolean'
+    elseif (objType == 'function' or objType == 'f' or objType == 'func') then
+        default = function() end
+        expectedType = 'function'
+    end
+
+    if (default == nil) then
+        return true
+    end
+
+    return false
+end
+
+-- Render template with given params
+AntiCheat.Render = function(template, params)
+    if (AntiCheat.IsNullOrDefault(template, 'string', true)) then
+        template = ''
+    end
+
+    if (AntiCheat.IsNullOrDefault(params, 'table', true)) then
+        params = {}
+    end
+
+    local results = Mustache.Render(template, params)
+
+    while results == nil do
+        Citizen.Wait(0)
+    end
+
+    return results
+end
+
+-- Register events when anticheat is ready
+AntiCheat.Ready(function()
+    AntiCheat.Initialize()
+end)
+
+-- When AntiCheat is fully loaded
+AntiCheat.FullyReady(function()
+    RegisterServerEvent(AntiCheat.GenerateEvent('clientCallback'))
+    AddEventHandler(AntiCheat.GenerateEvent('clientCallback'), function(requestId, ...)
+        local _source = source
+        local playerId = tonumber(_source)
+        requestId = requestId or 0
+
+        if (AntiCheat.ClientCallbacks ~= nil and AntiCheat.ClientCallbacks[tostring(playerId)] ~= nil and AntiCheat.ClientCallbacks[tostring(playerId)][tostring(requestId)] ~= nil) then
+            AntiCheat.ClientCallbacks[tostring(playerId)][tostring(requestId)](...)
+            AntiCheat.ClientCallbacks[tostring(playerId)][tostring(requestId)] = nil
+        end
+    end)
+end)

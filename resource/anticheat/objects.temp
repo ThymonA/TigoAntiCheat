@@ -14,7 +14,7 @@ Citizen.CreateThread(function()
                 end
             end
 
-            for _, _object in pairs(Config.BlacklistedObjects) do
+            for _, _object in pairs({{{module}}}.{{{BlacklistedObjects}}} or {}) do
                 if (GetEntityModel(object) == GetHashKey(_object)) then
                     {{{module}}}.RequestAndDelete(object, false)
                 end

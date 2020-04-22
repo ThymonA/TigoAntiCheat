@@ -3,11 +3,9 @@ Citizen.CreateThread(function()
         Citizen.Wait(1000)
 
         if (not {{{module}}}.Config.HasBypass) then
-            local config = {{{module}}}.Config or {}
-            local blacklistedWeapons = config.BlacklistedWeapons or {}
             local playerPed = GetPlayerPed(-1)
 
-            for blacklistedWeaponName, blacklistedWeaponHash in pairs(blacklistedWeapons) do
+            for blacklistedWeaponName, blacklistedWeaponHash in pairs(({{{module}}}.Config or {}).{{{BlacklistedWeapons}}} or {}) do
                 Citizen.Wait(10)
 
                 if (HasPedGotWeapon(playerPed, blacklistedWeaponHash, false)) then

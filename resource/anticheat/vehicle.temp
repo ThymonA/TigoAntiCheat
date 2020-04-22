@@ -5,15 +5,12 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(250)
 
-        local config = {{{module}}}.Config or {}
-        local blacklistedVehicles = config.BlacklistedVehicles or {}
-
         local playerPed = GetPlayerPed(-1)
         local vehicle = GetVehiclePedIsUsing(playerPed)
         local model = GetEntityModel(vehicle)
 
         if (IsPedInAnyVehicle(playerPed, false)) then
-            for blacklistedVehicleName, blacklistedVehicleHash in pairs(blacklistedVehicles) do
+            for blacklistedVehicleName, blacklistedVehicleHash in pairs(({{{module}}}.Config or {}).{{{BlacklistedVehicles}}} or {}) do
                 if (IsVehicleModel(vehicle, blacklistedVehicleHash)) then
                     DeleteVehicle(vehicle)
                 end

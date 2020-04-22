@@ -13,42 +13,22 @@ server_only 'yes'
 
 server_scripts {
     '@async/async.lua',
-    'shared/locale.lua',
+    '@mustache/mustache.lua',
 
-    'libs/path/TigoServerPath.net.dll',
+    'TigoAntiCheat.net.dll',
 
-    'locales/en.lua',
-    'locales/nl.lua',
-    'locales/pl.lua',
-    'locales/dk.lua',
+    'server/common.lua',
 
     'config.lua',
 
-    'server/generator/classes/resource.lua',
-
-    'server/common.lua',
     'server/functions.lua',
-
-    'libs/lustache/lustache.lua',
-
-    'shared/functions.lua',
-    'shared/ansicolors.lua',
-
-    'server/tokenizer/main.lua',
-
-    'server/generator/functions.lua',
-    'server/generator/generators.lua',
-    'server/generator/main.lua',
-
-    'server/vpn/check.lua',
-
-    'server/main.lua',
-
-    'server/anticheat/response.lua',
-
-    'server/commands.lua'
+    'server/main.lua'
 }
 
 server_exports {
 	'getSharedObject'
+}
+
+dependencies {
+    'mustache'
 }

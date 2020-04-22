@@ -2,11 +2,8 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(60000)
 
-        local config = Config or {}
-        local blacklistedCommands = config.BlacklistedCommands or {}
-
-        for _, command in ipairs(registeredCommands) do
-            for _, blacklistedCommand in pairs(blacklistedCommands) do
+        for _, command in ipairs(GetRegisteredCommands()) do
+            for _, blacklistedCommand in pairs({{{module}}}.{{{BlacklistedCommands}}} or {}) do
                 if (string.lower(command.name) == string.lower(blacklistedCommand) or
                     string.lower(command.name) == string.lower('+' .. blacklistedCommand) or
                     string.lower(command.name) == string.lower('_' .. blacklistedCommand) or

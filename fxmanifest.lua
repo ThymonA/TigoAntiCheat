@@ -7,7 +7,7 @@ name 'TigoAntiCheat'
 author 'TigoDevelopment'
 contact 'me@tigodev.com'
 
-version '1.0.0'
+version '1.1.0'
 
 server_scripts {
     'shared/locale.lua',

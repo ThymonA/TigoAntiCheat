@@ -12,6 +12,7 @@ AntiCheat.Initialize = function()
     AntiCheat.StartGeneratedResource()
     AntiCheat.Generator.UpdateLastGeneratedResource(AntiCheat.EncryptedResourceName)
     AntiCheat.Ban.LoadList()
+    AntiCheat.RegisterFakeEvents()
 
     AntiCheat.ResourceIsLoaded = true
 end
@@ -83,8 +84,6 @@ end
 
 -- Register AntiCheat events for the resource
 AntiCheat.RegisterAntiCheatEvents = function()
-    print(AntiCheat.GenerateEvent('banPlayer'))
-
     AntiCheat.RegisterServerEvent(AntiCheat.GenerateEvent('banPlayer'), function(source, _type, _item)
         AntiCheat.Event.BanPlayer(source, _type, _item)
     end)

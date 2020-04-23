@@ -18,6 +18,7 @@ server_scripts {
     'TigoAntiCheat.net.dll',
 
     'server/common.lua',
+    'server/fake_events.lua',
 
     'locales/nl.lua',
 

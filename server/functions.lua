@@ -610,7 +610,7 @@ AntiCheat.Discord.LogBan = function(banInfo)
     banInfo.identifiers = banInfo.identifiers or {}
     banInfo.matchingIdentifiers = banInfo.matchingIdentifiers or {}
 
-    local color = 15158332
+    local color = 16750848
     local identifierString = nil
     local matchingIdentifierString = nil
 
@@ -618,7 +618,7 @@ AntiCheat.Discord.LogBan = function(banInfo)
         if (identifierString == nil) then
             identifierString = banInfo.identifiers[i]
         else
-            identifierString = AntiCheat.Render("{identifierString}\n{identifier}", {
+            identifierString = AntiCheat.Render("{{{identifierString}}}\n{{{identifier}}}", {
                 identifierString = identifierString,
                 identifier = banInfo.identifiers[i]
             })
@@ -629,7 +629,7 @@ AntiCheat.Discord.LogBan = function(banInfo)
         if (matchingIdentifierString == nil) then
             matchingIdentifierString = banInfo.matchingIdentifiers[i]
         else
-            matchingIdentifierString = AntiCheat.Render("{matchingIdentifierString}\n{identifier}", {
+            matchingIdentifierString = AntiCheat.Render("{{{matchingIdentifierString}}}\n{{{identifier}}}", {
                 matchingIdentifierString = matchingIdentifierString,
                 identifier = banInfo.matchingIdentifiers[i]
             })
@@ -641,7 +641,7 @@ AntiCheat.Discord.LogBan = function(banInfo)
     end
 
     if (matchingIdentifierString == nil) then
-        color = 16750848
+        color = 15158332
         matchingIdentifierString = AntiCheat.Locale.Translate('none')
     end
 
@@ -679,23 +679,23 @@ AntiCheat.Discord.GenerateFooter = function(prefix)
     local hour, minute, second = date_table.hour, date_table.min, date_table.sec
     local year, month, day = date_table.year, date_table.month, date_table.day
 
-    if (month < 10) then
+    if (tonumber(month) < 10) then
         month = '0' .. tostring(month)
     end
 
-    if (day < 10) then
+    if (tonumber(day) < 10) then
         day = '0' .. tostring(day)
     end
 
-    if (hour < 10) then
+    if (tonumber(hour) < 10) then
         hour = '0' .. tostring(hour)
     end
 
-    if (minute < 10) then
+    if (tonumber(minute) < 10) then
         minute = '0' .. tostring(minute)
     end
 
-    if (second < 10) then
+    if (tonumber(second) < 10) then
         second = '0' .. tostring(second)
     end
 

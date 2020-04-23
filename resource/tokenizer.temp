@@ -4,8 +4,6 @@
     end
 
     {{{module}}}.SecurityTokens[newToken.name] = newToken
-
-    {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{storeSecurityToken}}}', newToken.name)
 end)
 
 {{{module}}}.GetResourceToken = function(resource)

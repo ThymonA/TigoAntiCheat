@@ -1,4 +1,4 @@
-# Installing TigoAntiCheat 2.0 - BETA
+# Installing
 ![FiveM Mustache](https://i.imgur.com/3dfbCNu.png)
 
 > Explanation on how to install TigoAntiCheat

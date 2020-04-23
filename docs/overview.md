@@ -1,4 +1,4 @@
-# Installing TigoAntiCheat 2.0 - BETA
+# Overview
 ![FiveM Mustache](https://i.imgur.com/3dfbCNu.png)
 
 > Overview of other events

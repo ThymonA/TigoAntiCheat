@@ -1,4 +1,4 @@
-# FiveM AntiCheat by Tigo | Version 2.0 BETA
+# Home
 ![FiveM Mustache](https://i.imgur.com/xulDluF.jpg)
 
 > A resource that detects different types of cheating

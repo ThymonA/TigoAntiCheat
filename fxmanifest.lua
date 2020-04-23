@@ -21,6 +21,7 @@ server_scripts {
     'server/fake_events.lua',
 
     'locales/nl.lua',
+    'locales/en.lua',
 
     'config.lua',
 
@@ -33,5 +34,6 @@ server_exports {
 }
 
 dependencies {
+    'async',
     'mustache'
 }

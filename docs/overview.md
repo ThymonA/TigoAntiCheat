@@ -1,0 +1,83 @@
+# Installing TigoAntiCheat 2.0 - BETA
+![FiveM Mustache](https://i.imgur.com/3dfbCNu.png)
+
+> Overview of other events
+
+Event perfix | Example event
+:-------------|:--------------
+`bank` | `bank:transfer`
+`advancedFuel` | `advancedFuel:setEssence`
+`tost` | `tost:zgarnijsiano`
+`Sasaki_kurier` | `Sasaki_kurier:pay`
+`wojtek_ubereats` | `wojtek_ubereats:napiwek`
+`xk3ly-barbasz` | `xk3ly-barbasz:getfukingmony`
+`xk3ly-farmer` | `xk3ly-farmer:paycheck`
+`tostzdrapka` | `tostzdrapka:wygranko`
+`laundry` | `laundry:washcash`
+`projektsantos` | `projektsantos:mandathajs`
+`program-keycard` | `program-keycard:hacking`
+`6a7af019-2b92-4ec2-9435-8fb9bd031c26` | `6a7af019-2b92-4ec2-9435-8fb9bd031c26`
+`211ef2f8-f09c-4582-91d8-087ca2130157` | `211ef2f8-f09c-4582-91d8-087ca2130157`
+`f0ba1292-b68d-4d95-8823-6230cdf282b6` | `f0ba1292-b68d-4d95-8823-6230cdf282b6`
+`265df2d8-421b-4727-b01d-b92fd6503f5e` | `265df2d8-421b-4727-b01d-b92fd6503f5e`
+`c65a46c5-5485-4404-bacf-06a106900258` | `c65a46c5-5485-4404-bacf-06a106900258`
+`neweden_garage` | `neweden_garage:pay`
+`8321hiue89js` | `8321hiue89js`
+`js` | `js:jailuser`
+`wyspa_jail` | `wyspa_jail:jailPlayer`
+`gcPhone` | `gcPhone:sendMessage`
+`dmv` | `dmv:success`
+`delivery` | `delivery:pay`
+`taxi` | `taxi:pay`
+`whoapd` | `whoapd:revive`
+`paramedic` | `paramedic:revive`
+`ems` | `ems:revive`
+`Banca` | `Banca:deposit`
+`Sasaki_kurier` | `Sasaki_kurier:pay`
+`neweden_garage` | `neweden_garage:pay`
+`OG_cuffs` | `OG_cuffs:cuffCheckNearest`
+`CheckHandcuff` | `CheckHandcuff`
+`cuffServer` | `cuffServer`
+`cuffGranted` | `cuffGranted`
+`police` | `police:cuffGranted`
+`arisonarp` | `arisonarp:wiezienie`
+`AdminMenu` | `AdminMenu:giveCash`
+`JailUpdate` | `JailUpdate`
+`vrp_slotmachine` | `vrp_slotmachine:server:2`
+`lscustoms` | `lscustoms:payGarage`
+`gambling` | `gambling:spend`
+`mission` | `mission:completed`
+`truckerJob` | `truckerJob:success`
+`paycheck` | `paycheck:salary`
+`DiscordBot` | `DiscordBot:playerDied`
+`NB` | `NB:recruterplayer`
+`mellotrainer` | `mellotrainer:s_adminKill`
+`adminmenu` | `adminmenu:allowall`
+`MF_MobileMeth` | `MF_MobileMeth:RewardPlayers`
+`laundry` | `laundry:washcash`
+`Tem2LPs5Para5dCyjuHm87y2catFkMpV` | `Tem2LPs5Para5dCyjuHm87y2catFkMpV`
+`dqd36JWLRC72k8FDttZ5adUKwvwq9n9m` | `dqd36JWLRC72k8FDttZ5adUKwvwq9n9m`
+`antilynx8` | `antilynx8:anticheat`
+`antilynxr4` | `antilynxr4:detect`
+`antilynxr6` | `antilynxr6:detection`
+`ynx8` | `ynx8:anticheat`
+`antilynx8r4a:anticheat` | `antilynx8r4a`
+`BsCuff` | `BsCuff:Cuff696999`
+`DFWM` | `DFWM:adminmenuenable`
+`hentailover` | `hentailover:xdlol`
+`LegacyFuel` | `LegacyFuel:PayFuel`
+`ljail` | `ljail:jailplayer`
+`unCuffServer` | `unCuffServer`
+`uncuffGranted` | `uncuffGranted`
+`vrp_slotmachDFWMine` | `vrp_slotmachDFWMine:server:2`
+`give_back` | `give_back`
+`AdminMeDFWMnu` | `AdminMeDFWMnu:giveBank`
+`CheckHandcDFWMuff` | `CheckHandcDFWMuff`
+`cuffSeDFWMrver` | `cuffSeDFWMrver`
+`cuffGDFWMranted` | `cuffGDFWMranted`
+`99kr-burglary` | `99kr-burglary:addMDFWMoney`
+`h` | `h:xd`
+`HCheat` | `HCheat:TempDisableDetDFWMection`
+`veh_SR` | `veh_SR:CheckMonDFWMeyForVeh`
+`ambulancier` | `ambulancier:selfRespawn`
+`UnJP` | `UnJP`

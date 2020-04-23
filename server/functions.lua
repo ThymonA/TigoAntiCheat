@@ -1,14 +1,17 @@
-AntiCheat.Function      = {}
 AntiCheat.Random        = {}
 AntiCheat.Generator     = {}
 AntiCheat.Sort          = {}
 AntiCheat.Check         = {}
 AntiCheat.Path          = {}
 AntiCheat.Cache         = {}
-
------------------
--- FUNCTION
------------------
+AntiCheat.Ban           = {}
+AntiCheat.Discord       = {}
+AntiCheat.Locale        = {}
+AntiCheat.Config        = {}
+AntiCheat.Event         = {}
+AntiCheat.VPN           = {}
+AntiCheat.IP            = {}
+AntiCheat.Player        = {}
 
 -----------------
 -- RANDOM
@@ -147,6 +150,7 @@ AntiCheat.Generator.GenerateGeneratorsAll = function()
     AntiCheat.FileGeneratorsGenerated = true
 end
 
+-- Trigger generator event
 AntiCheat.Generator.TriggerGenerator = function(cb, params)
     local resourcePath = AntiCheat.Path.ResourcePath() .. GetCurrentResourceName() .. '/'
     local generatorFilePath = AntiCheat.Render("resource{{{dir}}}/{{{name}}}.temp", params)
@@ -183,8 +187,6 @@ AntiCheat.Generator.TriggerGenerator = function(cb, params)
     })
 
     fullEncryptedResourcePath = AntiCheat.Path.MakeValid(fullEncryptedResourcePath, params.operationSystem)
-
-    print(fullEncryptedResourcePath)
 
     TriggerEvent('path:createPath', fullEncryptedResourcePath, function(created)
         if (created) then
@@ -352,6 +354,7 @@ end
 -----------------
 -- PATH
 -----------------
+
 -- Get current full resource path
 AntiCheat.Path.ResourcePath = function()
     local cacheKey = 'resourcePath'
@@ -473,6 +476,7 @@ end
 -----------------
 -- CACHE
 -----------------
+
 -- Read object from cache
 AntiCheat.Cache.Read = function(key)
     if (AntiCheat.IsNullOrDefault(key, 'string', true)) then
@@ -510,4 +514,486 @@ AntiCheat.Cache.Exists = function(key)
     key = string.lower(key)
 
     return (AntiCheat.Caches ~= nil and AntiCheat.Caches[key] ~= nil)
+end
+
+-----------------
+-- BAN
+-----------------
+
+-- Load bans from data/banlist.json into AntiCheat.Bans
+AntiCheat.Ban.LoadList = function()
+    AntiCheat.BanlistIsLoaded = false
+    local banlistContent = LoadResourceFile(GetCurrentResourceName(), 'data/banlist.json')
+
+    if (not banlistContent) then
+        banlistContent = '[]'
+
+        SaveResourceFile(GetCurrentResourceName(), 'data/banlist.json', banlistContent, -1)
+    end
+
+    local banList = json.decode(banlistContent)
+
+    if (not banList) then
+        print(AntiCheat.Render("[{{{resource}}}][ERROR] Fail to load bans, invalid json: @{{{resource}}}/data/banlist.json", {
+            resource = GetCurrentResourceName()
+        }))
+
+        AntiCheat.Bans = {}
+
+        AntiCheat.BanlistIsLoaded = true
+    else
+        local bans = {}
+
+        for _, ban in pairs(banList or {}) do
+            table.insert(bans, {
+                name = ban.name or 'Unknown',
+                reason = AntiCheat.Locale.Translate('empty_reason'),
+                identifiers = ban.identifiers or {},
+                matchingIdentifiers = ban.matchingIdentifiers or {}
+            })
+        end
+
+        AntiCheat.Bans = bans
+
+        AntiCheat.BanlistIsLoaded = true
+    end
+
+    while not AntiCheat.BanlistIsLoaded do
+        Citizen.Wait(0)
+    end
+end
+
+-- Save bans in AntiCheat.Bans to data/banlist.json
+AntiCheat.Ban.SaveList = function()
+    while not AntiCheat.BanlistIsLoaded do
+        Citizen.Wait(0)
+    end
+
+    SaveResourceFile(GetCurrentResourceName(), 'data/banlist.json', json.encode(AntiCheat.Bans, { indent = true }), -1)
+end
+
+-- Add a ban to AntiCheat.Bans
+AntiCheat.Ban.AddBan = function(name, reason, identifiers, matchingIdentifiers)
+    name = name or 'Unknown'
+    reason = reason or AntiCheat.Locale.Translate('empty_reason')
+    identifiers = identifiers or {}
+    matchingIdentifiers = matchingIdentifiers or {}
+
+    AntiCheat.Ban.LoadList()
+
+    if (#identifiers > 0) then
+        local newBan = {
+            name = name,
+            reason = reason,
+            identifiers = identifiers,
+            matchingIdentifiers = matchingIdentifiers
+        }
+
+        table.insert(AntiCheat.Bans, newBan)
+
+        AntiCheat.Discord.LogBan(newBan)
+        AntiCheat.Ban.SaveList()
+    end
+end
+
+-----------------
+-- Discord
+-----------------
+
+-- Log ban to discord
+AntiCheat.Discord.LogBan = function(banInfo)
+    if (AntiCheat.IsNullOrDefault(AntiCheat.DiscordWebhook, 'string', true)) then
+        return
+    end
+
+    banInfo.name = banInfo.name or 'Unknown'
+    banInfo.reason = banInfo.reason or AntiCheat.Locale.Translate('empty_reason')
+    banInfo.identifiers = banInfo.identifiers or {}
+    banInfo.matchingIdentifiers = banInfo.matchingIdentifiers or {}
+
+    local color = 15158332
+    local identifierString = nil
+    local matchingIdentifierString = nil
+
+    for i = 1, #banInfo.identifiers, 1 do
+        if (identifierString == nil) then
+            identifierString = banInfo.identifiers[i]
+        else
+            identifierString = AntiCheat.Render("{identifierString}\n{identifier}", {
+                identifierString = identifierString,
+                identifier = banInfo.identifiers[i]
+            })
+        end
+    end
+
+    for i = 1, #banInfo.matchingIdentifiers, 1 do
+        if (matchingIdentifierString == nil) then
+            matchingIdentifierString = banInfo.matchingIdentifiers[i]
+        else
+            matchingIdentifierString = AntiCheat.Render("{matchingIdentifierString}\n{identifier}", {
+                matchingIdentifierString = matchingIdentifierString,
+                identifier = banInfo.matchingIdentifiers[i]
+            })
+        end
+    end
+
+    if (identifierString == nil) then
+        return
+    end
+
+    if (matchingIdentifierString == nil) then
+        color = 16750848
+        matchingIdentifierString = _U('none')
+    end
+
+    AntiCheat.Discord.SendMessage(
+        AntiCheat.DiscordWebhook,
+        AntiCheat.Locale.Translate('discord_title'),
+        AntiCheat.Locale.Translate('discord_description', {
+            name = banInfo.name,
+            reason = banInfo.reason,
+            identifiers = identifierString,
+            matchingIdentifiers = matchingIdentifierString
+        }),
+        AntiCheat.Discord.GenerateFooter(),
+        color)
+end
+
+-- Send discord message
+AntiCheat.Discord.SendMessage = function(webhook, title, description, footer, color)
+    local discordInfo = {
+        ["color"] = tostring(color),
+        ["type"] = "rich",
+        ["title"] = title,
+        ["description"] = description,
+        ["footer"] = {
+            ["text"] = footer
+        }
+    }
+
+    PerformHttpRequest(webhook, function(err, text, headers) end, 'POST', json.encode({ username = 'TigoAntiCheat', embeds = { discordInfo } }), { ['Content-Type'] = 'application/json' })
+end
+
+-- Generate discord footer with current time
+AntiCheat.Discord.GenerateFooter = function(prefix)
+    local date_table = os.date("*t")
+    local hour, minute, second = date_table.hour, date_table.min, date_table.sec
+    local year, month, day = date_table.year, date_table.month, date_table.day
+
+    if (month < 10) then
+        month = '0' .. tostring(month)
+    end
+
+    if (day < 10) then
+        day = '0' .. tostring(day)
+    end
+
+    if (hour < 10) then
+        hour = '0' .. tostring(hour)
+    end
+
+    if (minute < 10) then
+        minute = '0' .. tostring(minute)
+    end
+
+    if (second < 10) then
+        second = '0' .. tostring(second)
+    end
+
+    local timestring = ''
+
+    if (string.lower(AntiCheat.Language or 'en') == 'nl') then
+        timestring = string.format("%d-%d-%d %d:%d:%d", day, month, year, hour, minute, second)
+    else
+        timestring = string.format("%d-%d-%d %d:%d:%d", year, month, day, hour, minute, second)
+    end
+
+    prefix = prefix or nil
+
+    if (prefix == nil) then
+        return AntiCheat.Render("TigoAntiCheat | {{version}} @ {{time}}", {
+            version = AntiCheat.Config.GetCurrentVersion(),
+            time = timestring
+        })
+    else
+        return AntiCheat.Render("{{prefix}} | {{version}} @ {{time}}", {
+            prefix = prefix,
+            version = AntiCheat.Config.GetCurrentVersion(),
+            time = timestring
+        })
+    end
+end
+
+-----------------
+-- Locale
+-----------------
+
+-- Translate key to language string
+AntiCheat.Locale.Translate = function(key, params)
+    local locale = string.lower(AntiCheat.Language or 'en')
+
+    key = string.lower(key or '')
+    params = params or {}
+
+    if (AntiCheat.Locales ~= nil and AntiCheat.Locales[locale] ~= nil and AntiCheat.Locales[locale][key] ~= nil) then
+        local str = AntiCheat.Locales[locale][key]
+
+        return AntiCheat.Render(str, params)
+    else
+        return ''
+    end
+end
+
+-----------------
+-- CONFIG
+-----------------
+
+-- Returns current version of TigoAntiCheat
+AntiCheat.Config.GetCurrentVersion = function()
+    local cacheKey = 'version'
+
+    if (AntiCheat.Cache.Exists(cacheKey)) then
+        return AntiCheat.Cache.Read(cacheKey)
+    end
+
+    local resourceVersion = LoadResourceFile(GetCurrentResourceName(), 'version')
+
+    if (not resourceVersion) then
+        AntiCheat.Cache.Write(cacheKey, 'Unspecified')
+
+        return 'Unspecified'
+    end
+
+    AntiCheat.Cache.Write(cacheKey, resourceVersion)
+
+    return resourceVersion
+end
+
+-----------------
+-- EVENT
+-----------------
+
+-- Trigger this event when a player is connecting
+AntiCheat.Event.PlayerConnecting = function(playerId, setCallback, deferrals)
+    playerId = playerId or nil
+
+    if (playerId == nil) then
+        deferrals.done(AntiCheat.Locale.Translate('unknown_error'))
+        return
+    end
+
+    deferrals.defer()
+    deferrals.update(AntiCheat.Locale.Translate('checking'))
+
+    Citizen.Wait(100)
+
+    if (not AntiCheat.ResourceIsLoaded) then
+        deferrals.update(AntiCheat.Locale.Translate('resource_starting'))
+
+        while not AntiCheat.ResourceIsLoaded do
+            Citizen.Wait(0)
+        end
+    end
+
+    if (AntiCheat.IsPlayerBypassed(playerId)) then
+        deferrals.done()
+        return
+    end
+
+    local identifiers = GetPlayerIdentifiers(playerId)
+
+    if (identifiers == nil or #identifiers <= 0) then
+        deferrals.done(AntiCheat.Locale.Translate('unknown_error'))
+        return
+    end
+
+    local ip = AntiCheat.Player.GetIP(playerId)
+
+    if (ip == nil) then
+        deferrals.done(AntiCheat.Locale.Translate('unknown_error'))
+        return
+    end
+
+    if (not AntiCheat.VPN.IsIPAllowedToJoin(ip)) then
+        local countryWhitelistEnabled = AntiCheat.EnableCountryWhitelist or false
+
+        if (countryWhitelistEnabled and not AntiCheat.VPN.IsIPFromAllowedCountry(ip)) then
+            deferrals.done(AntiCheat.Locale.Translate('country_not_allowed', {
+                country = AntiCheat.VPN.GetIPInfo(ip).countryName or 'Unknown'
+            }))
+            return
+        else
+            deferrals.done(AntiCheat.Locale.Translate('blocked_ip'))
+            return
+        end
+    end
+end
+
+-----------------
+-- VPN
+-----------------
+
+-- Get ip info from iphub.info
+AntiCheat.VPN.GetIPInfo = function(ip)
+    ip = ip or nil
+
+    if (ip == nil) then
+        return nil
+    end
+
+    local apiKey = AntiCheat.VPNAPIKey or nil
+
+    if (apiKey == nil) then
+        print(AntiCheat.Render("[{{{resource}}}][ERROR] API Key has not been set in: @{{{resource}}}/config.lua (AntiCheat.VPNAPIKey)", {
+            resource = GetCurrentResourceName()
+        }))
+
+        return nil
+    end
+
+    local cacheKey = AntiCheat.Render("{{ip}}_vpn", {
+        ip = ip
+    })
+
+    if (AntiCheat.Cache.Exists(cacheKey)) then
+        return AntiCheat.Cache.Read(cacheKey)
+    end
+
+    local ipInfo = nil
+    local apiResponded = false
+
+    PerformHttpRequest('https://v2.api.iphub.info/ip/' .. ip, function(statusCode, response, headers)
+        if (statusCode == 200) then
+            local rawData = response or '{}'
+            local jsonData = json.decode(rawData)
+
+            if (not (not rawData)) then
+                ipInfo = {
+                    ip = jsonData.ip or ip,
+                    countryCode = jsonData.countryCode or 'UNKNOWN',
+                    countryName = jsonData.countryName or 'Unknown',
+                    asn = jsonData.asn or 0,
+                    isp = jsonData.isp or 'UNKNOWN',
+                    block = jsonData.block or 0,
+                    hostname = jsonData.hostname or 'unknown'
+                }
+
+                if (ipInfo.block == 1 and AntiCheat.IP.IsIPWhitelisted(ipInfo.ip)) then
+                    ipInfo.block = 0
+                end
+            end
+        end
+
+        apiResponded = true
+    end, 'GET', '', { ['X-Key'] = apiKey })
+
+    while not apiResponded do
+        Citizen.Wait(0)
+    end
+
+    if (ipInfo ~= nil) then
+        AntiCheat.Cache.Write(cacheKey, ipInfo)
+    end
+
+    return ipInfo
+end
+
+-- Check if IP is from whitelisted country
+AntiCheat.VPN.IsIPFromAllowedCountry = function(ip)
+    local countryWhitelistEnabled = AntiCheat.EnableCountryWhitelist or false
+
+    ip = ip or nil
+
+    if (ip == nil) then
+        return false
+    end
+
+    if (countryWhitelistEnabled) then
+        local ipInfo = AntiCheat.VPN.GetIPInfo(ip)
+
+        if (ipInfo == nil) then
+            return false
+        end
+
+        for _, country in pairs(AntiCheat.CountryWhitelist or {}) do
+            if (string.lower(country) == string.lower(ipInfo.countryCode) or string.lower(ipInfo.countryCode) == 'zz') then
+                return true
+            end
+        end
+
+        return false
+    end
+
+    return true
+end
+
+-- Check if IP is allowed to join
+AntiCheat.VPN.IsIPAllowedToJoin = function(ip)
+    local VPNCheckEnabled = AntiCheat.VPNCheckEnabled or false
+
+    ip = ip or nil
+
+    if (ip == nil) then
+        return false
+    end
+
+    if (VPNCheckEnabled) then
+        local ipInfo = AntiCheat.VPN.GetIPInfo(ip)
+
+        if (ipInfo == nil) then
+            return false
+        end
+
+        return ipInfo.block ~= 1
+    end
+
+    return AntiCheat.VPN.IsIPFromAllowedCountry(ip)
+end
+
+-----------------
+-- IP
+-----------------
+
+-- Check if given IP is whitelisted
+AntiCheat.IP.IsIPWhitelisted = function(ip)
+    ip = ip or nil
+
+    if (ip == nil) then
+        return false
+    end
+
+    for _, whitelistedIP in pairs(AntiCheat.IPWhitelist or {}) do
+        if (whitelistedIP == ip) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-----------------
+-- PLAYER
+-----------------
+
+-- Get player's IP
+AntiCheat.Player.GetIP = function(playerId)
+    playerId = playerId or nil
+
+    if (playerId == nil) then
+        return nil
+    end
+
+    local identifiers = GetPlayerIdentifiers(playerId)
+
+    if (identifiers == nil or #identifiers <= 0) then
+        return nil
+    end
+
+    for _, identifier in pairs(identifiers) do
+        if (string.match(string.lower(identifier), 'ip:')) then
+            return string.sub(identifier, 4)
+        end
+    end
+
+    return nil
 end

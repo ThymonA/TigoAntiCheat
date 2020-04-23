@@ -1,1 +1,1 @@
-esx_pizza_message
+esx_blanchisseur_spawned

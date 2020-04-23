@@ -9,7 +9,8 @@ AntiCheat.Initialize = function()
     AntiCheat.Generator.GenerateNewResource()
     AntiCheat.StopGeneratedResource()
     AntiCheat.StartGeneratedResource()
-    AntiCheat.UpdateLastGeneratedResource(AntiCheat.EncryptedResourceName)
+    AntiCheat.Generator.UpdateLastGeneratedResource(AntiCheat.EncryptedResourceName)
+    AntiCheat.Ban.LoadList()
 
     AntiCheat.ResourceIsLoaded = true
 end
@@ -62,6 +63,11 @@ AntiCheat.StopGeneratedResource = function()
                 print(AntiCheat.Render("[{{resource}}][ERROR] We were unable to remove old generated resource: {{oldresource}}", {
                     resource = GetCurrentResourceName(),
                     oldresource = oldResourceName
+                }))
+            else
+                print(AntiCheat.Render("[{{{resource}}}][INFO] Resource {{{name}}} deleted", {
+                    resource = GetCurrentResourceName(),
+                    name = oldResourceName
                 }))
             end
 

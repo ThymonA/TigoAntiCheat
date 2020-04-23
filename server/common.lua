@@ -4,21 +4,20 @@ AntiCheat.StartedPlayers            = {}
 AntiCheat.ServerEvents              = {}
 AntiCheat.ClientCallbacks           = {}
 AntiCheat.ClientEvents              = {}
-AntiCheat.PlayerBans                = {}
+AntiCheat.Bans                      = {}
 AntiCheat.FileGenerators            = {}
 AntiCheat.GeneratedFiles            = {}
 AntiCheat.Caches                    = {}
+AntiCheat.Locales                   = {}
+AntiCheat.IPWhitelist               = {}
 AntiCheat.EncryptedResourceName     = nil
 AntiCheat.EncryptedResourceParams   = {}
 AntiCheat.AlradyEncryptedParams     = {}
 
 -- Checks
-AntiCheat.BanListLoaded             = false
-AntiCheat.ConfigLoaded              = false
-AntiCheat.SecurityTokensLoaded      = false
-AntiCheat.WhitelistedIPsLoaded      = false
 AntiCheat.FileGeneratorsGenerated   = false
 AntiCheat.ResourceIsLoaded          = false
+AntiCheat.BanlistIsLoaded           = false
 
 -- Functions
 -- Trigger callback when TigoAntiCheat is started
@@ -228,6 +227,7 @@ AntiCheat.GenerateRandomString = function(length)
     return AntiCheat.GenerateRandomString(length - 1) .. charset[math.random(1, #charset)]
 end
 
+-- Returns if object is null and hasn't a type mismatch
 AntiCheat.IsNullOrDefault = function(object, objType, checkEmpty)
     object = object or nil
     checkEmpty = checkEmpty or false
@@ -269,6 +269,23 @@ AntiCheat.IsNullOrDefault = function(object, objType, checkEmpty)
     end
 
     return false
+end
+
+-- Returns if player is allowed to be ignored
+AntiCheat.IsPlayerBypassed = function(playerId)
+    local isConsole = (playerId == nil or playerId <= 0 or tostring(playerId) == '0')
+
+    if (isConsole) then
+        return true
+    end
+
+    if (not (AntiCheat.BypassEnabled or false)) then
+        return false
+    end
+
+    local ace = AntiCheat.BypassAce or 'tigoanticheat.bypass'
+
+    return IsPlayerAceAllowed(playerId, ace)
 end
 
 -- Render template with given params

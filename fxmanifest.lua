@@ -2,7 +2,7 @@ fx_version 'adamant'
 
 game 'gta5'
 
-description 'This is an anti cheat made by Tigo for FiveM, this resource makes cheating on FiveM a lot harder.'
+description 'A resource that detects different types of cheating'
 name 'TigoAntiCheat'
 author 'TigoDevelopment'
 contact 'me@tigodev.com'

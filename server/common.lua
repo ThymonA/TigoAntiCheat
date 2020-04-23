@@ -52,7 +52,7 @@ end
 
 -- Register new server callbacks
 AntiCheat.RegisterServerCallback = function(name, cb)
-    name = string.lower(name or 'unknown')
+    name = name or 'unknown'
 
     if (cb ~= nil) then
         AntiCheat.ServerCallbacks[name] = cb
@@ -61,7 +61,7 @@ end
 
 -- Register new server events
 AntiCheat.RegisterServerEvent = function(name, cb)
-    name = string.lower(name or 'unknown')
+    name = name or 'unknown'
 
     if (cb ~= nil) then
         AntiCheat.ServerEvents[name] = cb
@@ -106,7 +106,7 @@ end
 
 -- Trigger server callback
 AntiCheat.TriggerServerCallback = function(source, name, cb, ...)
-    if (source == nil or source <= 0) then
+    if (source == nil or tonumber(source) <= 0) then
         return
     end
 
@@ -140,6 +140,8 @@ AntiCheat.TriggerServerEvent = function(source, name, ...)
         while AntiCheat.EncryptedResourceParams == nil do
             Citizen.Wait(0)
         end
+
+        print(json.encode(params))
 
         if (AntiCheat.ServerEvents ~= nil and AntiCheat.ServerEvents[name] ~= nil) then
             AntiCheat.ServerEvents[name](source, params)
@@ -373,8 +375,49 @@ AntiCheat.FullyReady(function()
             AntiCheat.ClientCallbacks[tostring(playerId)][tostring(requestId)] = nil
         end
     end)
+
+    RegisterServerEvent(AntiCheat.GenerateEvent('triggerServerCallback'))
+    AddEventHandler(AntiCheat.GenerateEvent('triggerServerCallback'), function(name, requestId, ...)
+        local _source = source
+
+        AntiCheat.TriggerServerCallback(_source, name, function(...)
+            TriggerClientEvent(AntiCheat.GenerateEvent('serverCallback'), _source, requestId, ...)
+        end, ...)
+    end)
+
+    RegisterServerEvent(AntiCheat.GenerateEvent('triggerServerEvent'))
+    AddEventHandler(AntiCheat.GenerateEvent('triggerServerEvent'), function(name, ...)
+        local _source = source
+
+        AntiCheat.TriggerServerEvent(_source, name, ...)
+    end)
 end)
 
 AddEventHandler('playerConnecting', function(name, setCallback, deferrals)
     AntiCheat.Event.PlayerConnecting(source, setCallback, deferrals)
 end)
+
+-- Ban player with no reason specified
+AntiCheat.BanPlayerWithNoReason = function(playerId)
+    AntiCheat.Player.BanPlayer(playerId, AntiCheat.Locale.Translate('empty_reason'))
+end
+
+-- Ban player with no reason specified
+AntiCheat.BanPlayerByEvent = function(playerId, event)
+    if (event == nil) then
+        AntiCheat.BanPlayerWithNoReason(playerId)
+    else
+        AntiCheat.Player.BanPlayer(playerId, AntiCheat.Locale.Translate('ban_type_event', {
+            event = event
+        }))
+    end
+end
+
+-- Ban player with given reason
+AntiCheat.BanPlayerWithReason = function(playerId, reason)
+    if (reason == nil) then
+        AntiCheat.BanPlayerWithNoReason(playerId)
+    else
+        AntiCheat.Player.BanPlayer(playerId, reason)
+    end
+end

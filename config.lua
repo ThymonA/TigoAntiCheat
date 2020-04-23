@@ -3,7 +3,7 @@ AntiCheat.UpdateIdentifiers         = true -- `true` When a banned players joine
 AntiCheat.BypassEnabled             = true -- `true` Players that has the permission `tigoanticheat.bypass` will never be banned by TigoAntiCheat
 AntiCheat.DiscordWebhook            = 'https://discordapp.com/api/webhooks/672127596837994496/tkfKt64wgSN6jtVq-SqMtWXkSyVk3Qq2Zfv_-_NqGNl8m-L3NEzjBGJt802zzyAvvX0F' -- Webhook to report new bans to
 AntiCheat.VPNCheckEnabled           = true -- `true` Determines if player's IP is possibly VPN and blocks access to your server.
-AntiCheat.VPNAPIKey                 = 'ODU0NDpuU1lTREFiTzRQVWRLQkVzS0RUOUp1Mmlad29uNW1NZA' -- https://iphub.info/apiKey/newFree Generate an API key to use VPN Check in TigoAntiCheat
+AntiCheat.VPNAPIKey                 = 'ODU0NDpuU1lTREFiTzRQVWRLQkVzS0RUOUp1Mmlad29uNW1NZA==' -- https://iphub.info/apiKey/newFree Generate an API key to use VPN Check in TigoAntiCheat
 AntiCheat.RunningOS                 = 'win' -- For OS specific operations, options: `win` for 'Windows' and `lux` for `Linux`
 AntiCheat.BypassAce                 = 'tigoanticheat.bypass' -- The permission ace a player must have to be ignored (example: add_ace group.admin tigoanticheat.bypass allow)
 AntiCheat.EnableCountryWhitelist    = false -- When `true` only IP's from countries described in CountryWhitelist can join

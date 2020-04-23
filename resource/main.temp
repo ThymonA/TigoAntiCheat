@@ -23,22 +23,20 @@ Citizen.CreateThread(function()
 end)
 
 {{{module}}}.LaodServerConfig = function()
-    if (not {{{module}}}.ServerConfigLoaded) then
-        {{{module}}}.TriggerServerCallback('{{{resource}}}:{{{getServerConfig}}}', function(config)
-            {{{module}}}.Config = config
-            {{{module}}}.Config.{{{BlacklistedWeapons}}} = {}
-            {{{module}}}.Config.{{{BlacklistedVehicles}}} = {}
-            {{{module}}}.Config.HasBypass = {{{module}}}.Config.HasBypass or false
-
-            for _, blacklistedWeapon in pairs({{{module}}}.{{{BlacklistedWeapons}}} or {}) do
-                {{{module}}}.Config.{{{BlacklistedWeapons}}}[blacklistedWeapon] = GetHashKey(blacklistedWeapon)
-            end
-
-            for _, blacklistedVehicle in pairs({{{module}}}.{{{BlacklistedVehicles}}} or {}) do
-                {{{module}}}.Config.{{{BlacklistedVehicles}}}[blacklistedVehicle] = GetHashKey(blacklistedVehicle)
-            end
-
-            {{{module}}}.ServerConfigLoaded = true
-        end)
+    if ({{{module}}}.Config == nil) then
+        {{{module}}}.Config = {}
     end
+
+    {{{module}}}.Config.{{{BlacklistedWeapons}}} = {}
+    {{{module}}}.Config.{{{BlacklistedVehicles}}} = {}
+
+    for _, blacklistedWeapon in pairs({{{module}}}.{{{BlacklistedWeapons}}} or {}) do
+        {{{module}}}.Config.{{{BlacklistedWeapons}}}[blacklistedWeapon] = GetHashKey(blacklistedWeapon)
+    end
+
+    for _, blacklistedVehicle in pairs({{{module}}}.{{{BlacklistedVehicles}}} or {}) do
+        {{{module}}}.Config.{{{BlacklistedVehicles}}}[blacklistedVehicle] = GetHashKey(blacklistedVehicle)
+    end
+
+    {{{module}}}.ServerConfigLoaded = true
 end

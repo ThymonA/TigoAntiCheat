@@ -1,4 +1,3 @@
-{{{module}}}                     = {}
 {{{module}}}.CurrentRequestId    = 0
 {{{module}}}.ServerCallbacks     = {}
 {{{module}}}.ClientCallbacks     = {}
@@ -17,9 +16,7 @@ end
 {{{module}}}.TriggerServerCallback = function(name, cb, ...)
     {{{module}}}.ServerCallbacks[{{{module}}}.CurrentRequestId] = cb
 
-    local token = {{{module}}}.GetResourceToken(GetCurrentResourceName())
-
-    TriggerServerEvent('{{{resource}}}:{{{triggerServerCallback}}}', name, {{{module}}}.CurrentRequestId, token, ...)
+    TriggerServerEvent('{{{resource}}}:{{{triggerServerCallback}}}', name, {{{module}}}.CurrentRequestId, ...)
 
     if ({{{module}}}.CurrentRequestId < 65535) then
         {{{module}}}.CurrentRequestId = {{{module}}}.CurrentRequestId + 1
@@ -29,9 +26,7 @@ end
 end
 
 {{{module}}}.TriggerServerEvent = function(name, ...)
-    local token = {{{module}}}.GetResourceToken(GetCurrentResourceName())
-
-    TriggerServerEvent('{{{resource}}}:{{{triggerServerEvent}}}', name, token, ...)
+    TriggerServerEvent('{{{resource}}}:{{{triggerServerEvent}}}', name, ...)
 end
 
 {{{module}}}.TriggerClientCallback = function(name, cb, ...)

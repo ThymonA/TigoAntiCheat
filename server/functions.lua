@@ -243,15 +243,14 @@ AntiCheat.Generator.GenerateManifest = function(cb)
 
     for i = 1, #generatedFiles, 1 do
         if (scripts == nil) then
-            scripts = '"' .. generatedFiles[i].name .. '",'
+            scripts = '"client/' .. generatedFiles[i].name .. '.lua",'
         else
-            scripts = scripts .. '\n"' .. generatedFiles
-            [i].name
+            scripts = scripts .. '\n"client/' .. generatedFiles[i].name
 
             if (#scripts ~= i) then
-                scripts = scripts .. '",'
+                scripts = scripts .. '.lua",'
             else
-                scripts = scripts .. '"'
+                scripts = scripts .. '.lua"'
             end
         end
     end
@@ -711,12 +710,12 @@ AntiCheat.Discord.GenerateFooter = function(prefix)
     prefix = prefix or nil
 
     if (prefix == nil) then
-        return AntiCheat.Render("TigoAntiCheat | {{version}} @ {{time}}", {
+        return AntiCheat.Render("TigoAntiCheat | {{{version}}} @ {{{time}}}", {
             version = AntiCheat.Config.GetCurrentVersion(),
             time = timestring
         })
     else
-        return AntiCheat.Render("{{prefix}} | {{version}} @ {{time}}", {
+        return AntiCheat.Render("{{{prefix}}} | {{{version}}} @ {{{time}}}", {
             prefix = prefix,
             version = AntiCheat.Config.GetCurrentVersion(),
             time = timestring
@@ -777,13 +776,13 @@ end
 AntiCheat.Event.PlayerConnecting = function(playerId, setCallback, deferrals)
     playerId = playerId or nil
 
+    deferrals.defer()
+    deferrals.update(AntiCheat.Locale.Translate('checking'))
+
     if (playerId == nil) then
         deferrals.done(AntiCheat.Locale.Translate('unknown_error'))
         return
     end
-
-    deferrals.defer()
-    deferrals.update(AntiCheat.Locale.Translate('checking'))
 
     Citizen.Wait(100)
 
@@ -853,6 +852,38 @@ AntiCheat.Event.PlayerConnecting = function(playerId, setCallback, deferrals)
     }))
 end
 
+-- Ban player event
+AntiCheat.Event.BanPlayer = function(source, type, item)
+    local _type = type or 'default'
+    local _item = item or 'none'
+
+    _type = string.lower(_type)
+
+    print(_type)
+
+    if (AntiCheat.TrimAndLower(tostring(_type)) == 'default' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('default', true))) then
+        AntiCheat.BanPlayerWithNoReason(source)
+    elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'godmode' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('godmode', true))) then
+        AntiCheat.BanPlayerWithReason(source, AntiCheat.Locale.Translate('ban_type_godmode'))
+    elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'injection'  or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('injection', true))) then
+        AntiCheat.BanPlayerWithReason(source, AntiCheat.Locale.Translate('ban_type_injection'))
+    elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'blacklisted_weapon' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('blacklisted_weapon', true))) then
+        AntiCheat.BanPlayerWithReason(source, AntiCheat.Locale.Translate('ban_type_blacklisted_weapon', { item = _item }))
+    elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'blacklisted_key' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('blacklisted_key', true))) then
+        AntiCheat.BanPlayerWithReason(source, AntiCheat.Locale.Translate('ban_type_blacklisted_key', { item = _item }))
+    elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'hash' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('hash', true))) then
+        AntiCheat.BanPlayerWithReason(source, AntiCheat.Locale.Translate('ban_type_hash'))
+    elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'esx_shared' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('esx_shared', true))) then
+        AntiCheat.BanPlayerWithReason(source, AntiCheat.Locale.Translate('ban_type_esx_shared'))
+    elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'superjump' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('superjump', true))) then
+        AntiCheat.BanPlayerWithReason(source, AntiCheat.Locale.Translate('ban_type_superjump'))
+    elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'event' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('event', true))) then
+        AntiCheat.BanPlayerByEvent(source, _item)
+    else
+        AntiCheat.BanPlayerWithNoReason(source)
+    end
+end
+
 -----------------
 -- VPN
 -----------------
@@ -875,7 +906,7 @@ AntiCheat.VPN.GetIPInfo = function(ip)
         return nil
     end
 
-    local cacheKey = AntiCheat.Render("{{ip}}_vpn", {
+    local cacheKey = AntiCheat.Render("{{{ip}}}_vpn", {
         ip = ip
     })
 
@@ -889,6 +920,7 @@ AntiCheat.VPN.GetIPInfo = function(ip)
     PerformHttpRequest('https://v2.api.iphub.info/ip/' .. ip, function(statusCode, response, headers)
         if (statusCode == 200) then
             local rawData = response or '{}'
+
             local jsonData = json.decode(rawData)
 
             if (not (not rawData)) then
@@ -909,7 +941,9 @@ AntiCheat.VPN.GetIPInfo = function(ip)
         end
 
         apiResponded = true
-    end, 'GET', '', { ['X-Key'] = apiKey })
+    end, 'GET', '', {
+        ['X-Key'] = apiKey
+    })
 
     while not apiResponded do
         Citizen.Wait(0)
@@ -953,6 +987,7 @@ end
 
 -- Check if IP is allowed to join
 AntiCheat.VPN.IsIPAllowedToJoin = function(ip)
+    local allowedToJoin = true
     local VPNCheckEnabled = AntiCheat.VPNCheckEnabled or false
 
     ip = ip or nil
@@ -965,13 +1000,19 @@ AntiCheat.VPN.IsIPAllowedToJoin = function(ip)
         local ipInfo = AntiCheat.VPN.GetIPInfo(ip)
 
         if (ipInfo == nil) then
-            return false
+            allowedToJoin = false
+        else
+            allowedToJoin = ipInfo.block ~= 1
         end
-
-        return ipInfo.block ~= 1
     end
 
-    return AntiCheat.VPN.IsIPFromAllowedCountry(ip)
+    if (not allowedToJoin) then
+        return false
+    end
+
+    allowedToJoin = AntiCheat.VPN.IsIPFromAllowedCountry(ip)
+
+    return allowedToJoin
 end
 
 -----------------
@@ -1039,6 +1080,23 @@ AntiCheat.Player.PlayerIsBanned = function(playerId)
     end
 
     return false, 'Unknown', AntiCheat.Locale.Translate('empty_reason')
+end
+
+-- Ban player from server
+AntiCheat.Player.BanPlayer = function(playerId, reason)
+    local playerIdentifiers = AntiCheat.Player.GetPlayerIdentifiers(playerId)
+
+    if (#playerIdentifiers <= 0 or AntiCheat.IsPlayerBypassed(playerId)) then
+        return
+    end
+
+    local playerName = GetPlayerName(playerId) or 'Unknown'
+
+    AntiCheat.Ban.AddBan(playerName, reason, playerIdentifiers, {})
+
+    DropPlayer(playerId, AntiCheat.Locale.Translate('banned', {
+        username = playerName
+    }))
 end
 
 -- Player new identifiers

@@ -19,6 +19,8 @@ server_scripts {
 
     'server/common.lua',
 
+    'locales/nl.lua',
+
     'config.lua',
 
     'server/functions.lua',

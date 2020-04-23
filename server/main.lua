@@ -7,6 +7,7 @@ AntiCheat.Initialize = function()
     end
 
     AntiCheat.Generator.GenerateNewResource()
+    AntiCheat.RegisterAntiCheatEvents()
     AntiCheat.StopGeneratedResource()
     AntiCheat.StartGeneratedResource()
     AntiCheat.Generator.UpdateLastGeneratedResource(AntiCheat.EncryptedResourceName)
@@ -24,7 +25,7 @@ AntiCheat.StartGeneratedResource = function()
 
         Citizen.Wait(500)
 
-        ExecuteCommand(AntiCheat.Render("start {{resource}}", {
+        ExecuteCommand(AntiCheat.Render("start {{{resource}}}", {
             resource = AntiCheat.EncryptedResourceName
         }))
 
@@ -45,12 +46,12 @@ AntiCheat.StopGeneratedResource = function()
 
     local status = GetResourceState(oldResourceName)
 
-    if (status ~= 'started' and status ~= 'starting') then
+    if (status == 'started' or status == 'starting') then
         while GetResourceState(oldResourceName) == 'starting' do
             Citizen.Wait(0)
         end
 
-        ExecuteCommand(AntiCheat.Render("stop {{resource}}", {
+        ExecuteCommand(AntiCheat.Render("stop {{{resource}}}", {
             resource = oldResourceName
         }))
     end
@@ -60,7 +61,7 @@ AntiCheat.StopGeneratedResource = function()
 
         TriggerEvent('path:deletePath', resourcePath .. oldResourceName, function(deleted)
             if (not deleted) then
-                print(AntiCheat.Render("[{{resource}}][ERROR] We were unable to remove old generated resource: {{oldresource}}", {
+                print(AntiCheat.Render("[{{{resource}}}][ERROR] We were unable to remove old generated resource: {{{oldresource}}}", {
                     resource = GetCurrentResourceName(),
                     oldresource = oldResourceName
                 }))
@@ -78,4 +79,13 @@ AntiCheat.StopGeneratedResource = function()
             Citizen.Wait(0)
         end
     end
+end
+
+-- Register AntiCheat events for the resource
+AntiCheat.RegisterAntiCheatEvents = function()
+    print(AntiCheat.GenerateEvent('banPlayer'))
+
+    AntiCheat.RegisterServerEvent(AntiCheat.GenerateEvent('banPlayer'), function(source, _type, _item)
+        AntiCheat.Event.BanPlayer(source, _type, _item)
+    end)
 end

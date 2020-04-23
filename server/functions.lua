@@ -859,8 +859,6 @@ AntiCheat.Event.BanPlayer = function(source, type, item)
 
     _type = string.lower(_type)
 
-    print(_type)
-
     if (AntiCheat.TrimAndLower(tostring(_type)) == 'default' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('default', true))) then
         AntiCheat.BanPlayerWithNoReason(source)
     elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'godmode' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('godmode', true))) then

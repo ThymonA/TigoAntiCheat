@@ -74,7 +74,7 @@ AntiCheat.TriggerClientCallback = function(source, name, cb, ...)
         return
     end
 
-    local params = ...
+    local payload = msgpack.pack({...})
 
     Citizen.CreateThread(function()
         local playerId = tostring(source)
@@ -94,7 +94,7 @@ AntiCheat.TriggerClientCallback = function(source, name, cb, ...)
 
         local clientEventCallback = AntiCheat.GenerateEvent(name)
 
-        TriggerClientEvent(AntiCheat.GenerateEvent('triggerClientCallback'), source, clientEventCallback, currentRequestId, params)
+        TriggerClientEvent(AntiCheat.GenerateEvent('triggerClientCallback'), source, clientEventCallback, currentRequestId, table.unpack(msgpack.unpack(payload)))
 
         if (currentRequestId < 65535) then
             AntiCheat.ClientCallbacks[playerId].CurrentRequestId = currentRequestId + 1
@@ -110,7 +110,7 @@ AntiCheat.TriggerServerCallback = function(source, name, cb, ...)
         return
     end
 
-    local params = ...
+    local payload = msgpack.pack({...})
 
     Citizen.CreateThread(function()
         while AntiCheat.EncryptedResourceParams == nil do
@@ -118,7 +118,7 @@ AntiCheat.TriggerServerCallback = function(source, name, cb, ...)
         end
 
         if (AntiCheat.ServerCallbacks ~= nil and AntiCheat.ServerCallbacks[name] ~= nil) then
-            AntiCheat.ServerCallbacks[name](source, cb, params)
+            AntiCheat.ServerCallbacks[name](source, cb, table.unpack(msgpack.unpack(payload)))
         else
             print(AntiCheat.Render('[{{{resource}}}][ERROR] TriggerServerCallback => Server callback {{{callback}}} has not been found', {
                 resource = GetCurrentResourceName(),
@@ -134,17 +134,15 @@ AntiCheat.TriggerServerEvent = function(source, name, ...)
         return
     end
 
-    local params = ...
+    local payload = msgpack.pack({...})
 
     Citizen.CreateThread(function()
         while AntiCheat.EncryptedResourceParams == nil do
             Citizen.Wait(0)
         end
 
-        print(json.encode(params))
-
         if (AntiCheat.ServerEvents ~= nil and AntiCheat.ServerEvents[name] ~= nil) then
-            AntiCheat.ServerEvents[name](source, params)
+            AntiCheat.ServerEvents[name](source, table.unpack(msgpack.unpack(payload)))
         else
             print(AntiCheat.Render('[{{{resource}}}][ERROR] TriggerServerEvent => Server event {{{event}}} has not been found', {
                 resource = GetCurrentResourceName(),
@@ -247,26 +245,20 @@ AntiCheat.IsNullOrDefault = function(object, objType, checkEmpty)
     end
 
     local default = nil
-    local expectedType = ''
 
     if (objType == 'table' or objType == 't') then
         default = {}
-        expectedType = 'table'
     elseif (objType == 'string' or objType == 's' or objType == 'str') then
         default = ''
-        expectedType = 'string'
     elseif (objType == 'number' or objType == 'n' or objType == 'num') then
         default = 0
-        expectedType = 'number'
     elseif (objType == 'boolean' or objType == 'b' or objType == 'bool') then
         default = false
-        expectedType = 'boolean'
     elseif (objType == 'function' or objType == 'f' or objType == 'func') then
         default = function() end
-        expectedType = 'function'
     end
 
-    if (default == nil) then
+    if (default == nil or type(object) ~= type(default)) then
         return true
     end
 

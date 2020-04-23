@@ -1,0 +1,11 @@
+RegisterNetEvent('{{{resource}}}:{{{triggerClientCallback}}}')
+AddEventHandler('{{{resource}}}:{{{triggerClientCallback}}}', function(name, requestId, ...)
+    {{{module}}}.TriggerClientCallback(name, function(...)
+        TriggerServerEvent('{{{resource}}}:{{{clientCallback}}}', requestId, ...)
+    end, ...)
+end)
+
+RegisterNetEvent('{{{resource}}}:{{{triggerClientEvent}}}')
+AddEventHandler('{{{resource}}}:{{{triggerClientEvent}}}', function(name, ...)
+    {{{module}}}.TriggerClientEvent(name, ...)
+end)

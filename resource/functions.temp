@@ -1,0 +1,76 @@
+{{{module}}}.CurrentRequestId    = 0
+{{{module}}}.ServerCallbacks     = {}
+{{{module}}}.ClientCallbacks     = {}
+{{{module}}}.ClientEvents        = {}
+{{{module}}}.Config              = {}
+{{{module}}}.SecurityTokens      = {}
+
+{{{module}}}.RegisterClientCallback = function(name, cb)
+    {{{module}}}.ClientCallbacks[name] = cb
+end
+
+{{{module}}}.RegisterClientEvent = function(name, cb)
+    {{{module}}}.ClientEvents[name] = cb
+end
+
+{{{module}}}.TriggerServerCallback = function(name, cb, ...)
+    {{{module}}}.ServerCallbacks[{{{module}}}.CurrentRequestId] = cb
+
+    TriggerServerEvent('{{{resource}}}:{{{triggerServerCallback}}}', name, {{{module}}}.CurrentRequestId, ...)
+
+    if ({{{module}}}.CurrentRequestId < 65535) then
+        {{{module}}}.CurrentRequestId = {{{module}}}.CurrentRequestId + 1
+    else
+        {{{module}}}.CurrentRequestId = 0
+    end
+end
+
+{{{module}}}.TriggerServerEvent = function(name, ...)
+    TriggerServerEvent('{{{resource}}}:{{{triggerServerEvent}}}', name, ...)
+end
+
+{{{module}}}.TriggerClientCallback = function(name, cb, ...)
+    if ({{{module}}}.ClientCallbacks ~= nil and {{{module}}}.ClientCallbacks[name] ~= nil) then
+        {{{module}}}.ClientCallbacks[name](cb, ...)
+    end
+end
+
+{{{module}}}.TriggerClientEvent = function(name, ...)
+    if ({{{module}}}.ClientEvents ~= nil and {{{module}}}.ClientEvents[name] ~= nil) then
+        {{{module}}}.ClientEvents[name](...)
+    end
+end
+
+{{{module}}}.ShowNotification = function(msg)
+    AddTextEntry('{{{tacNotification}}}', msg)
+	SetNotificationTextEntry('{{{tacNotification}}}')
+	DrawNotification(false, true)
+end
+
+{{{module}}}.RequestAndDelete = function(object, detach)
+    if (DoesEntityExist(object)) then
+        NetworkRequestControlOfEntity(object)
+
+        while not NetworkHasControlOfEntity(object) do
+            Citizen.Wait(0)
+        end
+
+        if (detach) then
+            DetachEntity(object, 0, false)
+        end
+
+        SetEntityCollision(object, false, false)
+        SetEntityAlpha(object, 0.0, true)
+        SetEntityAsMissionEntity(object, true, true)
+        SetEntityAsNoLongerNeeded(object)
+        DeleteEntity(object)
+    end
+end
+
+RegisterNetEvent('{{{resource}}}:{{{serverCallback}}}')
+AddEventHandler('{{{resource}}}:{{{serverCallback}}}', function(requestId, ...)
+	if ({{{module}}}.ServerCallbacks ~= nil and {{{module}}}.ServerCallbacks[requestId] ~= nil) then
+		{{{module}}}.ServerCallbacks[requestId](...)
+        {{{module}}}.ServerCallbacks[requestId] = nil
+	end
+end)

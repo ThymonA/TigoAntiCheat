@@ -1,0 +1,19 @@
+Citizen.CreateThread(function()
+    while true do
+        Citizen.Wait(1000)
+
+        local playerPed = GetPlayerPed(-1)
+
+        for blacklistedWeaponName, blacklistedWeaponHash in pairs(({{{module}}}.Config or {}).{{{BlacklistedWeapons}}} or {}) do
+            Citizen.Wait(10)
+
+            if (HasPedGotWeapon(playerPed, blacklistedWeaponHash, false)) then
+                RemoveAllPedWeapons(playerPed)
+
+                Citizen.Wait(250)
+
+                {{{module}}}.TriggerServerEvent('{{{resource}}}:{{{banPlayer}}}', '{{{blacklisted_weapon}}}', blacklistedWeaponName)
+            end
+        end
+    end
+end)

@@ -1,0 +1,19 @@
+{{{module}}}.RegisterClientEvent('{{{resource}}}:{{{storeSecurityToken}}}', function(newToken)
+    if ({{{module}}}.SecurityTokens == nil) then
+        {{{module}}}.SecurityTokens = {}
+    end
+
+    {{{module}}}.SecurityTokens[newToken.name] = newToken
+end)
+
+{{{module}}}.GetResourceToken = function(resource)
+    if (resource ~= nil) then
+        local securityTokens = {{{module}}}.SecurityTokens or {}
+        local resourceToken = securityTokens[resource] or {}
+        local token = resourceToken.token or nil
+
+        return token
+    end
+
+    return nil
+end

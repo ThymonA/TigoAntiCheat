@@ -1,0 +1,40 @@
+{{{module}}}.ServerConfigLoaded = false
+
+AddEventHandler('onResourceStart', function(resourceName)
+    if (GetCurrentResourceName() ~= resourceName) then
+        return
+    end
+end)
+
+Citizen.CreateThread(function()
+    {{{module}}}.LaodServerConfig()
+
+    Citizen.Wait(1000)
+
+    while not {{{module}}}.ServerConfigLoaded do
+        Citizen.Wait(1000)
+
+        {{{module}}}.LaodServerConfig()
+    end
+
+    return
+end)
+
+{{{module}}}.LaodServerConfig = function()
+    if ({{{module}}}.Config == nil) then
+        {{{module}}}.Config = {}
+    end
+
+    {{{module}}}.Config.{{{BlacklistedWeapons}}} = {}
+    {{{module}}}.Config.{{{BlacklistedVehicles}}} = {}
+
+    for _, blacklistedWeapon in pairs({{{module}}}.{{{BlacklistedWeapons}}} or {}) do
+        {{{module}}}.Config.{{{BlacklistedWeapons}}}[blacklistedWeapon] = GetHashKey(blacklistedWeapon)
+    end
+
+    for _, blacklistedVehicle in pairs({{{module}}}.{{{BlacklistedVehicles}}} or {}) do
+        {{{module}}}.Config.{{{BlacklistedVehicles}}}[blacklistedVehicle] = GetHashKey(blacklistedVehicle)
+    end
+
+    {{{module}}}.ServerConfigLoaded = true
+end

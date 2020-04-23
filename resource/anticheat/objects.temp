@@ -10,13 +10,13 @@ Citizen.CreateThread(function()
 
             if (IsEntityAttached(object) and DoesEntityExist(object)) then
                 if (GetEntityModel(object) == GetHashKey('prop_acc_guitar_01')) then
-                    TAC.RequestAndDelete(object, true)
+                    {{{module}}}.RequestAndDelete(object, true)
                 end
             end
 
-            for _, _object in pairs(Config.BlacklistedObjects) do
+            for _, _object in pairs({{{module}}}.{{{BlacklistedObjects}}} or {}) do
                 if (GetEntityModel(object) == GetHashKey(_object)) then
-                    TAC.RequestAndDelete(object, false)
+                    {{{module}}}.RequestAndDelete(object, false)
                 end
             end
 

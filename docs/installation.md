@@ -54,7 +54,7 @@ Search | Replace
 `TriggerServerCallback("esx` | `TriggerServerCallback("tac`
 
 After you've search and replace all events you have to look at the list of overview that is outside of this search and replace list.
-You can find the overview in: [Overview of other events](https://github.com/TigoDevelopment/TigoAntiCheat/blob/master/docs/overview.rst).
+You can find the overview in: [Overview of other events](https://github.com/TigoDevelopment/TigoAntiCheat/blob/master/docs/overview.md).
 Once you are sure that all events have been renamed, we will need to add and modify the config to match your server.
 
 ### Configuration

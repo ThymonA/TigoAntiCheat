@@ -1034,6 +1034,41 @@ AntiCheat.IP.IsIPWhitelisted = function(ip)
     return false
 end
 
+-- Load whitelisted IP's
+AntiCheat.IP.LoadList = function()
+    AntiCheat.WhitelistedIPsLoaded = false
+
+    local ipListContent = LoadResourceFile(GetCurrentResourceName(), 'data/ignore-ips.json')
+
+    if (not ipListContent) then
+        ipListContent = '[]'
+
+        SaveResourceFile(GetCurrentResourceName(), 'data/ignore-ips.json', ipListContent, -1)
+    end
+
+    local ipList = json.decode(ipListContent)
+
+    if (not ipList) then
+        print(AntiCheat.Render("[{{{resource}}}][ERROR] Fail to load ignore-ips, invalid json: @{{{resource}}}/data/ignore-ips.json", {
+            resource = GetCurrentResourceName()
+        }))
+
+        AntiCheat.IPWhitelist = {}
+
+        AntiCheat.WhitelistedIPsLoaded = true
+    else
+        for _, ip in pairs(ipList or {}) do
+            table.insert(AntiCheat.IPWhitelist, ip)
+        end
+
+        AntiCheat.WhitelistedIPsLoaded = true
+    end
+
+    while not AntiCheat.WhitelistedIPsLoaded do
+        Citizen.Wait(0)
+    end
+end
+
 -----------------
 -- PLAYER
 -----------------

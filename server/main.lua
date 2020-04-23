@@ -12,6 +12,7 @@ AntiCheat.Initialize = function()
     AntiCheat.StartGeneratedResource()
     AntiCheat.Generator.UpdateLastGeneratedResource(AntiCheat.EncryptedResourceName)
     AntiCheat.Ban.LoadList()
+    AntiCheat.IP.LoadList()
     AntiCheat.RegisterFakeEvents()
 
     AntiCheat.ResourceIsLoaded = true

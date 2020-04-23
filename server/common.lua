@@ -1,6 +1,5 @@
 -- Core
 AntiCheat                           = {}
-AntiCheat.StartedPlayers            = {}
 AntiCheat.ServerEvents              = {}
 AntiCheat.ClientCallbacks           = {}
 AntiCheat.ClientEvents              = {}
@@ -18,6 +17,7 @@ AntiCheat.AlradyEncryptedParams     = {}
 AntiCheat.FileGeneratorsGenerated   = false
 AntiCheat.ResourceIsLoaded          = false
 AntiCheat.BanlistIsLoaded           = false
+AntiCheat.WhitelistedIPsLoaded      = false
 
 -- Functions
 -- Trigger callback when TigoAntiCheat is started

@@ -643,7 +643,7 @@ AntiCheat.Discord.LogBan = function(banInfo)
 
     if (matchingIdentifierString == nil) then
         color = 16750848
-        matchingIdentifierString = _U('none')
+        matchingIdentifierString = AntiCheat.Locale.Translate('none')
     end
 
     AntiCheat.Discord.SendMessage(
@@ -827,6 +827,30 @@ AntiCheat.Event.PlayerConnecting = function(playerId, setCallback, deferrals)
             return
         end
     end
+
+    local isPlayerBanned, accountName, reason = AntiCheat.Player.PlayerIsBanned(playerId)
+
+    if (not isPlayerBanned) then
+        deferrals.done()
+        return
+    end
+
+    local updateNewIdentifiers = AntiCheat.UpdateIdentifiers or false
+
+    if (updateNewIdentifiers) then
+        local newIdentifiers, matchingIdentifiers = AntiCheat.Player.PlayerNewIdentifiers(playerId)
+
+        if (#newIdentifiers > 0) then
+            AntiCheat.Ban.AddBan(GetPlayerName(playerId), AntiCheat.Render("{{{reason}}} - {{{new}}}", {
+                reason = reason,
+                new = AntiCheat.Locale.Translate('new_identifiers')
+            }), newIdentifiers, matchingIdentifiers)
+        end
+    end
+
+    deferrals.done(AntiCheat.Locale.Translate('banned', {
+        username = accountName
+    }))
 end
 
 -----------------
@@ -996,4 +1020,139 @@ AntiCheat.Player.GetIP = function(playerId)
     end
 
     return nil
+end
+
+-- Check if player has banned identifier
+AntiCheat.Player.PlayerIsBanned = function(playerId)
+    local playerIdentifiers = AntiCheat.Player.GetPlayerIdentifiers(playerId)
+
+    if (#playerIdentifiers <= 0) then
+        return false, 'Unknown', AntiCheat.Locale.Translate('empty_reason')
+    end
+
+    for _, ban in pairs(AntiCheat.Bans or {}) do
+        if (ban.identifiers ~= nil and #ban.identifiers > 0) then
+            if (AntiCheat.TableContainsAnyItem(playerIdentifiers, ban.identifiers, true)) then
+                return true, (ban.name or 'Unknown'), (ban.reason or AntiCheat.Locale.Translate('empty_reason'))
+            end
+        end
+    end
+
+    return false, 'Unknown', AntiCheat.Locale.Translate('empty_reason')
+end
+
+-- Player new identifiers
+AntiCheat.Player.PlayerNewIdentifiers = function(playerId)
+    local playerIdentifiers = AntiCheat.Player.GetPlayerIdentifiers(playerId)
+
+    if (#playerIdentifiers <= 0) then
+        return {}, {}
+    end
+
+    local matchedIdentifiers = {}
+    local newIdentifiers = {}
+
+    for _, ban in pairs(AntiCheat.Bans or {}) do
+        if (ban.identifiers ~= nil and #ban.identifiers > 0) then
+            for _, playerIdentifier in pairs(playerIdentifiers or {}) do
+                if (AntiCheat.TableContainsItem(playerIdentifier, ban.identifiers, true) and
+                    not AntiCheat.TableContainsItem(playerIdentifier, matchedIdentifiers, true)) then
+                    table.insert(matchedIdentifiers, playerIdentifier)
+                elseif(not AntiCheat.TableContainsItem(playerIdentifier, newIdentifiers, true)) then
+                    table.insert(newIdentifiers, playerIdentifier)
+                end
+            end
+        end
+    end
+
+    return newIdentifiers, matchedIdentifiers
+end
+
+-- Get all player identifiers whit whitelist filter
+AntiCheat.Player.GetPlayerIdentifiers = function(playerId)
+    playerId = playerId or nil
+
+    if (playerId == nil) then
+        return {}
+    end
+
+    local identifiers, steamIdentifier = GetPlayerIdentifiers(playerId)
+
+    if (identifiers == nil or #identifiers <= 0) then
+        return {}
+    end
+
+    local license = nil
+    local xbl = nil
+    local live = nil
+    local discord = nil
+    local fivem = nil
+    local ip = nil
+
+    for _, identifier in pairs(identifiers) do
+        if (string.match(string.lower(identifier), 'steam:')) then
+            steamIdentifier = identifier
+        elseif (string.match(string.lower(identifier), 'license:')) then
+            license = string.sub(identifier, 9)
+        elseif (string.match(string.lower(identifier), 'xbl:')) then
+            xbl = string.sub(identifier, 5)
+        elseif (string.match(string.lower(identifier), 'live:')) then
+            live = string.sub(identifier, 6)
+        elseif (string.match(string.lower(identifier), 'discord:')) then
+            discord = string.sub(identifier, 9)
+        elseif (string.match(string.lower(identifier), 'fivem:')) then
+            fivem = string.sub(identifier, 7)
+        elseif (string.match(string.lower(identifier), 'ip:')) then
+            ip = string.sub(identifier, 4)
+        end
+    end
+
+    local ipIsWhitelisted = AntiCheat.IP.IsIPWhitelisted(ip)
+    local playerIdentifiers = {}
+
+    if (steamIdentifier ~= nil) then
+        table.insert(playerIdentifiers, steamIdentifier)
+    end
+
+    if (license ~= nil) then
+        table.insert(playerIdentifiers, AntiCheat.Render("license:{{{license}}}", {
+            license = license
+        }))
+    end
+
+    if (xbl ~= nil) then
+        table.insert(playerIdentifiers, AntiCheat.Render("xbl:{{{xbl}}}", {
+            xbl = xbl
+        }))
+    end
+
+    if (live ~= nil) then
+        table.insert(playerIdentifiers, AntiCheat.Render("live:{{{live}}}", {
+            live = live
+        }))
+    end
+
+    if (discord ~= nil) then
+        table.insert(playerIdentifiers, AntiCheat.Render("discord:{{{discord}}}", {
+            discord = discord
+        }))
+    end
+
+    if (fivem ~= nil) then
+        table.insert(playerIdentifiers, AntiCheat.Render("fivem:{{{fivem}}}", {
+            fivem = fivem
+        }))
+    end
+
+    if (ip ~= nil and not ipIsWhitelisted) then
+        table.insert(playerIdentifiers, AntiCheat.Render("ip:{{{ip}}}", {
+            ip = ip
+        }))
+    end
+
+    if (playerIdentifiers == nil or #playerIdentifiers <= 0) then
+        return {}
+    end
+
+    return playerIdentifiers
 end

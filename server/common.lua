@@ -288,6 +288,54 @@ AntiCheat.IsPlayerBypassed = function(playerId)
     return IsPlayerAceAllowed(playerId, ace)
 end
 
+-- Returns if table contains given item
+AntiCheat.TableContainsItem = function(item, table, ignoreCase)
+    return AntiCheat.TableContainsAnyItem({ item }, table, ignoreCase)
+end
+
+-- Returns if table contains any item in items
+AntiCheat.TableContainsAnyItem = function (items, table, ignoreCase)
+    items = items or {}
+    table = table or {}
+    ignoreCase = ignoreCase or false
+
+    if (string.lower(type(items)) ~= 'table' or
+        string.lower(type(table)) ~= 'table') then
+        return false
+    end
+
+    if (#items <= 0 or #table <= 0) then
+        return false
+    end
+
+    if (ignoreCase) then
+        ignoreCase = true
+    else
+        ignoreCase = false
+    end
+
+    for _, tableItem in pairs(table) do
+        for _, item in pairs(items) do
+            if (ignoreCase and AntiCheat.TrimAndLower(tostring(item)) == AntiCheat.TrimAndLower(tostring(tableItem))) then
+                return true
+            elseif (tostring(item) == tostring(tableItem)) then
+                return true
+            end
+        end
+    end
+
+    return false
+end
+
+-- Trim value and lower the string
+AntiCheat.TrimAndLower = function(value)
+    if (value) then
+        return string.lower(string.gsub(value, "^%s*(.-)%s*$", "%1"))
+    end
+
+    return ''
+end
+
 -- Render template with given params
 AntiCheat.Render = function(template, params)
     if (AntiCheat.IsNullOrDefault(template, 'string', true)) then
@@ -325,4 +373,8 @@ AntiCheat.FullyReady(function()
             AntiCheat.ClientCallbacks[tostring(playerId)][tostring(requestId)] = nil
         end
     end)
+end)
+
+AddEventHandler('playerConnecting', function(name, setCallback, deferrals)
+    AntiCheat.Event.PlayerConnecting(source, setCallback, deferrals)
 end)

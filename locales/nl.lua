@@ -5,6 +5,8 @@ AntiCheat.Locales['nl'] = {
     ['unknown_error'] = '🛑 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | U kunt niet joinen door een onbekende fout, probeer het opnieuw',
     ['country_not_allowed'] = '🛑 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Uw land {{country}} is niet toegestaan om deze server te joinen',
     ['blocked_ip'] = '🛑 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | Uw IP staat op een blacklist, dit kan komen omdat u gebruik maakt van een VPN of uw IP betrokken is bij verdachten activiteiten',
+    ['banned'] = '🛑 𝗧𝗶𝗴𝗼𝗔𝗻𝘁𝗶𝗖𝗵𝗲𝗮𝘁 | U bent verbannen van deze server ( 𝗚𝗲𝗯𝗿𝘂𝗶𝗸𝗲𝗿𝘀𝗻𝗮𝗮𝗺: {{username}} )',
+    ['new_identifiers'] = 'Nieuwe identifiers gevonden',
 
     ['none'] = 'Geen',
 

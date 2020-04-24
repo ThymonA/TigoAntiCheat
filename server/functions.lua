@@ -877,8 +877,6 @@ AntiCheat.Event.BanPlayer = function(source, type, item)
         AntiCheat.BanPlayerWithReason(source, AntiCheat.Locale.Translate('ban_type_superjump'))
     elseif (AntiCheat.TrimAndLower(tostring(_type)) == 'event' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('event', true))) then
         AntiCheat.BanPlayerByEvent(source, _item)
-    else
-        AntiCheat.BanPlayerWithNoReason(source)
     end
 end
 

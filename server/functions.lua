@@ -546,7 +546,7 @@ AntiCheat.Ban.LoadList = function()
         for _, ban in pairs(banList or {}) do
             table.insert(bans, {
                 name = ban.name or 'Unknown',
-                reason = AntiCheat.Locale.Translate('empty_reason'),
+                reason = ban.reason or AntiCheat.Locale.Translate('empty_reason'),
                 identifiers = ban.identifiers or {},
                 matchingIdentifiers = ban.matchingIdentifiers or {}
             })

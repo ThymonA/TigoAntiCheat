@@ -866,11 +866,9 @@ AntiCheat.Event.PlayerConnecting = function(playerId, setCallback, deferrals)
 end
 
 -- Ban player event
-AntiCheat.Event.BanPlayer = function(source, type, item)
-    local _type = type or 'default'
-    local _item = item or 'none'
-
-    _type = string.lower(_type)
+AntiCheat.Event.BanPlayer = function(source, _type, _item)
+    _type = string.lower(_type or 'none')
+    _item = _item or 'none'
 
     if (AntiCheat.TrimAndLower(tostring(_type)) == 'default' or AntiCheat.TrimAndLower(tostring(_type)) == AntiCheat.TrimAndLower(AntiCheat.GenerateEvent('default', true))) then
         AntiCheat.BanPlayerWithNoReason(source)

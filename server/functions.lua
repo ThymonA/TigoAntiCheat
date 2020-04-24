@@ -466,7 +466,20 @@ AntiCheat.Path.MakeValid = function(path, operationSystem)
 
     if (operationSystem == 'win') then
         path = string.gsub(path, '/', '\\\\')
-        path = string.gsub(path, '\\\\\\\\', '\\\\')
+        
+        while string.find(path, '\\\\\\\\') do
+            path = string.gsub(path, '\\\\\\\\', '\\\\')
+        end
+
+        while string.find(path, '\\\\\\') do
+            path = string.gsub(path, '\\\\\\', '\\\\')
+        end
+    else
+        path = string.gsub(path, '//', '/')
+
+        while string.find(path, '//') do
+            path = string.gsub(path, '//', '/')
+        end
     end
 
     return path

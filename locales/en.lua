@@ -9,13 +9,13 @@ AntiCheat.Locales['en'] = {
     ['new_identifiers'] = 'New identifiers found',
     ['ban_type_godmode'] = 'Godmode detected on player',
     ['ban_type_injection'] = 'Player has injected commands (Injection)',
-    ['ban_type_blacklisted_weapon'] = 'Player had a blacklisted weapon: {{{item}}',
-    ['ban_type_blacklisted_key'] = 'Player had pressed a key that was blacklisted: {{{item}}',
+    ['ban_type_blacklisted_weapon'] = 'Player had a blacklisted weapon: {{{item}}}',
+    ['ban_type_blacklisted_key'] = 'Player had pressed a key that was blacklisted: {{{item}}}',
     ['ban_type_hash'] = 'Player had modified a hash',
     ['ban_type_esx_shared'] = 'Player has triggered esx:getSharedObject event',
     ['ban_type_superjump'] = 'The player had adjusted his jump height',
     ['ban_type_client_files_blocked'] = 'Player did not respond after asking 5 times if he was still alive (Client Files Blocked)',
-    ['ban_type_event'] = 'The player has tried to call \'{{{event}}\' event',
+    ['ban_type_event'] = 'The player has tried to call \'{{{event}}}\' event',
 
     ['none'] = 'Geen',
 

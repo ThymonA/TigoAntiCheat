@@ -21,6 +21,7 @@ server_scripts {
     'server/fake_events.lua',
 
     'locales/nl.lua',
+    'locales/fi.lua',	
     'locales/en.lua',
 
     'config.lua',
